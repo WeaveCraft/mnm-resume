@@ -7,7 +7,7 @@
     @apply bg-stone-dark text-parchment font-medieval;
     background: linear-gradient(135deg, #1a1614 0%, #2d2823 100%);
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-medieval text-bronze-light;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
@@ -20,23 +20,48 @@
     @apply bg-gradient-to-b from-stone-light to-stone-dark;
     @apply border-4 border-bronze-dark rounded-lg;
     @apply shadow-2xl;
-    box-shadow: 
+    box-shadow:
       0 0 30px rgba(212, 175, 55, 0.3),
       inset 0 0 20px rgba(0, 0, 0, 0.5);
   }
-  
+
+  /* M&M authentic panel style */
+  .mnm-panel {
+    @apply bg-panel-dark border-2 border-mnm-bronze rounded;
+    box-shadow:
+      inset 0 1px 0 rgba(212, 175, 55, 0.1),
+      inset 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Section header styled like M&M */
+  .section-header {
+    @apply text-mnm-gold font-game text-xs uppercase tracking-widest text-center py-1;
+  }
+
+  .section-header::before,
+  .section-header::after {
+    content: ' \2500\2500\2500 ';
+    @apply text-mnm-bronze;
+  }
+
   /* Stat Bar */
   .stat-bar {
     @apply relative h-6 bg-stone-dark border-2 border-bronze-dark rounded;
     @apply overflow-hidden;
   }
-  
+
+  /* Compact stat bar for two-column layout */
+  .stat-bar-compact {
+    @apply relative h-4 bg-panel-dark border border-mnm-bronze rounded;
+    @apply overflow-hidden;
+  }
+
   .stat-bar-fill {
     @apply h-full bg-gradient-to-r from-bronze-dark via-bronze to-bronze-light;
     @apply transition-all duration-1000 ease-out;
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
   }
-  
+
   /* Tooltip */
   .game-tooltip {
     @apply absolute z-50 bg-stone-dark border-2 border-bronze;
@@ -44,7 +69,7 @@
     @apply text-sm text-parchment;
     box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
   }
-  
+
   /* Equipment Slot */
   .equipment-slot {
     @apply w-16 h-16 bg-stone-dark border-2 border-bronze-dark;
@@ -52,23 +77,36 @@
     @apply transition-all hover:border-bronze-light hover:shadow-lg;
     @apply cursor-pointer relative;
   }
-  
+
   .equipment-slot:hover {
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
   }
-  
+
+  /* M&M equipment slot with label */
+  .equipment-slot-mnm {
+    @apply bg-panel-dark border border-mnm-bronze rounded;
+    @apply flex items-center justify-center;
+    @apply transition-all hover:border-mnm-gold hover:shadow-lg;
+    @apply cursor-pointer relative;
+    @apply w-14 h-14;
+  }
+
+  .equipment-slot-mnm:hover {
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+  }
+
   /* Quest Badge */
   .quest-badge {
     @apply inline-block px-3 py-1 bg-bronze-dark text-parchment;
     @apply rounded-full text-xs font-game border border-bronze-light;
   }
-  
+
   /* Parchment Text */
   .parchment-text {
     @apply text-parchment-dark;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   }
-  
+
   /* Stone Button */
   .stone-button {
     @apply px-6 py-3 bg-stone border-2 border-bronze-dark;
@@ -76,14 +114,56 @@
     @apply transition-all cursor-pointer;
     @apply text-parchment font-medieval;
   }
-  
+
   .stone-button:hover {
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
   }
-  
+
   /* Glowing text effect for highlights */
   .glow-text {
     text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+  }
+
+  /* Buff icon container */
+  .buff-icon {
+    @apply w-10 h-10 bg-panel-dark border border-mnm-bronze rounded;
+    @apply flex items-center justify-center text-lg;
+    @apply cursor-pointer transition-all;
+    @apply hover:border-mnm-gold hover:bg-panel-light;
+  }
+
+  .buff-icon:hover {
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+  }
+
+  /* Ability slot */
+  .ability-slot {
+    @apply w-12 h-12 bg-panel-dark border border-mnm-bronze rounded;
+    @apply flex flex-col items-center justify-center;
+    @apply cursor-pointer transition-all text-lg;
+    @apply hover:border-mnm-gold hover:bg-panel-light;
+  }
+
+  .ability-slot:hover {
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+  }
+
+  /* Resistance item */
+  .resistance-item {
+    @apply flex justify-between items-center py-0.5 px-2;
+    @apply text-xs font-game;
+  }
+
+  /* Experience bar */
+  .xp-bar {
+    @apply relative h-3 bg-panel-dark border border-mnm-bronze rounded-full;
+    @apply overflow-hidden;
+  }
+
+  .xp-bar-fill {
+    @apply h-full rounded-full;
+    background: linear-gradient(90deg, #8B6914 0%, #D4AF37 50%, #B8860B 100%);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
   }
 }
 

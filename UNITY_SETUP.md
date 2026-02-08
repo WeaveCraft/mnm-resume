@@ -4,7 +4,7 @@ Guide for building and integrating a Unity project as a WebGL demo in this Next.
 
 ## Prerequisites
 
-- Unity 2020.3 LTS or newer (2021+/2022+ recommended)
+- Unity 2021.3 LTS or newer (2022.3 LTS recommended)
 - A Unity project ready to build
 
 ## Building for WebGL
@@ -23,12 +23,13 @@ Under **Edit > Project Settings > Player > WebGL**:
 
 - **Resolution and Presentation**
   - Default Canvas Width: `960`
-  - Default Canvas Height: `600`
+  - Default Canvas Height: `540`
   - Run In Background: `enabled`
 - **Publishing Settings**
   - Compression Format: `Disabled` (simplest setup; see Compression section below)
   - Decompression Fallback: `enabled` (if using compression)
   - Data Caching: `enabled`
+  - Name Files As Hashes: `disabled` (keep as `Build`)
 - **Other Settings**
   - Color Space: `Gamma` (better WebGL compatibility)
   - Auto Graphics API: `enabled`
@@ -130,6 +131,30 @@ Set **Compression Format** to `Brotli`. Produces smallest files (`.br` extension
 4. The Unity build should load with a progress bar
 
 If the build files are not found, the tab will show a placeholder message listing the expected file paths.
+
+## Deployment Considerations
+
+### Server MIME Types
+
+Ensure your hosting server serves these MIME types:
+
+| Extension | MIME Type |
+|-----------|-----------|
+| `.wasm` | `application/wasm` |
+| `.data` | `application/octet-stream` |
+| `.js` | `application/javascript` |
+| `.br` | `application/x-br` (if using Brotli) |
+| `.gz` | `application/gzip` (if using Gzip) |
+
+### Next.js Static Export
+
+The project uses `output: 'export'` in `next.config.js`, so Unity build files in `public/` will be included in the static export automatically.
+
+### Hosting Platforms
+
+- **Vercel**: Works out of the box with proper MIME types
+- **Netlify**: May need a `_headers` file for WASM MIME type
+- **GitHub Pages**: Works with uncompressed builds; compressed builds may need configuration
 
 ## Troubleshooting
 

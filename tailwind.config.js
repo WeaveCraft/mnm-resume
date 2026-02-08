@@ -28,6 +28,13 @@ module.exports = {
           DEFAULT: '#654321',
           dark: '#3E2723',
         },
+        // M&M authentic panel colors
+        'panel-dark': '#2B2520',
+        'panel-light': '#3D362F',
+        'mnm-gold': '#D4AF37',
+        'mnm-bronze': '#8B6914',
+        'mnm-text-light': '#E8D5B7',
+        'mnm-text-dark': '#9B8B7E',
       },
       fontFamily: {
         medieval: ['Georgia', 'serif'],
