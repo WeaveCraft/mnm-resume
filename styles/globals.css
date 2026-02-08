@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-stone-dark text-parchment font-medieval;
+    background: linear-gradient(135deg, #1a1614 0%, #2d2823 100%);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-medieval text-bronze-light;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  }
+}
+
+@layer components {
+  /* Character Sheet Panel */
+  .character-panel {
+    @apply bg-gradient-to-b from-stone-light to-stone-dark;
+    @apply border-4 border-bronze-dark rounded-lg;
+    @apply shadow-2xl;
+    box-shadow: 
+      0 0 30px rgba(212, 175, 55, 0.3),
+      inset 0 0 20px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Stat Bar */
+  .stat-bar {
+    @apply relative h-6 bg-stone-dark border-2 border-bronze-dark rounded;
+    @apply overflow-hidden;
+  }
+  
+  .stat-bar-fill {
+    @apply h-full bg-gradient-to-r from-bronze-dark via-bronze to-bronze-light;
+    @apply transition-all duration-1000 ease-out;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+  }
+  
+  /* Tooltip */
+  .game-tooltip {
+    @apply absolute z-50 bg-stone-dark border-2 border-bronze;
+    @apply p-3 rounded shadow-xl;
+    @apply text-sm text-parchment;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+  }
+  
+  /* Equipment Slot */
+  .equipment-slot {
+    @apply w-16 h-16 bg-stone-dark border-2 border-bronze-dark;
+    @apply rounded flex items-center justify-center;
+    @apply transition-all hover:border-bronze-light hover:shadow-lg;
+    @apply cursor-pointer relative;
+  }
+  
+  .equipment-slot:hover {
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+  }
+  
+  /* Quest Badge */
+  .quest-badge {
+    @apply inline-block px-3 py-1 bg-bronze-dark text-parchment;
+    @apply rounded-full text-xs font-game border border-bronze-light;
+  }
+  
+  /* Parchment Text */
+  .parchment-text {
+    @apply text-parchment-dark;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Stone Button */
+  .stone-button {
+    @apply px-6 py-3 bg-stone border-2 border-bronze-dark;
+    @apply rounded hover:border-bronze-light hover:bg-stone-light;
+    @apply transition-all cursor-pointer;
+    @apply text-parchment font-medieval;
+  }
+  
+  .stone-button:hover {
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+  }
+  
+  /* Glowing text effect for highlights */
+  .glow-text {
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2d2823;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #654321;
+  border: 2px solid #B8860B;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8B6914;
+}
+
+/* Animations */
+@keyframes statFill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: var(--stat-width);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.7);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
