@@ -16,9 +16,19 @@ const CharacterModel = dynamic(() => import('../components/CharacterModel'), {
   ),
 });
 
+// Dynamic import for Unity WebGL player (client-side only)
+const UnityPlayer = dynamic(() => import('../components/UnityPlayer'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center h-64">
+      <div className="text-parchment-dark animate-pulse font-game">Preparing Unity player...</div>
+    </div>
+  ),
+});
+
 export default function CharacterSheet() {
   const [showIntro, setShowIntro] = useState(true);
-  const [activeTab, setActiveTab] = useState<'stats' | 'equipment' | 'quests'>('stats');
+  const [activeTab, setActiveTab] = useState<'stats' | 'equipment' | 'quests' | 'unity'>('stats');
 
   if (showIntro) {
     return <IntroSplash onComplete={() => setShowIntro(false)} />;
@@ -312,11 +322,17 @@ export default function CharacterSheet() {
                   >
                     ⚔️ Equipment
                   </TabButton>
-                  <TabButton 
-                    active={activeTab === 'quests'} 
+                  <TabButton
+                    active={activeTab === 'quests'}
                     onClick={() => setActiveTab('quests')}
                   >
                     📜 Quests
+                  </TabButton>
+                  <TabButton
+                    active={activeTab === 'unity'}
+                    onClick={() => setActiveTab('unity')}
+                  >
+                    🎮 Unity Demo
                   </TabButton>
                 </div>
 
@@ -365,6 +381,42 @@ export default function CharacterSheet() {
                           The combination of backend power (C#, .NET) and frontend versatility (React, Angular) creates a well-rounded skillset perfect for game development. 
                           Currently grinding Unity skills to reach legendary tier.
                         </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {activeTab === 'unity' && (
+                    <div className="space-y-6">
+                      <h3 className="text-xl font-medieval text-bronze-light mb-4 border-b border-bronze-dark pb-2">
+                        Unity WebGL Demo
+                      </h3>
+                      <p className="text-parchment text-sm mb-4">
+                        An interactive Unity WebGL build running directly in the browser.
+                        This showcases real-time game development skills using the Unity engine.
+                      </p>
+
+                      <UnityPlayer />
+
+                      <div className="mt-6 p-4 bg-stone-dark/50 rounded border border-bronze-dark">
+                        <h4 className="text-bronze text-sm font-medieval mb-3">Controls:</h4>
+                        <div className="grid grid-cols-2 gap-2 text-xs font-game">
+                          <div className="flex items-center gap-2">
+                            <kbd className="px-2 py-1 bg-stone border border-bronze-dark rounded text-parchment">W A S D</kbd>
+                            <span className="text-parchment-dark">Movement</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <kbd className="px-2 py-1 bg-stone border border-bronze-dark rounded text-parchment">Mouse</kbd>
+                            <span className="text-parchment-dark">Look around</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <kbd className="px-2 py-1 bg-stone border border-bronze-dark rounded text-parchment">Space</kbd>
+                            <span className="text-parchment-dark">Jump</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <kbd className="px-2 py-1 bg-stone border border-bronze-dark rounded text-parchment">ESC</kbd>
+                            <span className="text-parchment-dark">Release cursor</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   )}
