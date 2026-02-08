@@ -459,3 +459,65 @@
 .animate-subtle-pulse {
   animation: subtlePulse 3s ease-in-out infinite;
 }
+
+/* ═══════════════════════════════════════ */
+/* CHARACTER PORTRAIT                     */
+/* ═══════════════════════════════════════ */
+.character-portrait-container {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.portrait-frame {
+  position: relative;
+  background: linear-gradient(135deg, #F5E6D3 0%, #E8D5B7 100%);
+  border: 4px solid #8B6914;
+  padding: 1rem;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    inset 0 0 20px rgba(139, 105, 20, 0.1);
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+
+.portrait-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: sepia(0.1) contrast(1.05);
+  image-rendering: crisp-edges;
+}
+
+.portrait-nameplate {
+  text-align: center;
+  padding: 0.75rem;
+  background: rgba(43, 37, 32, 0.8);
+  border: 2px solid #8B6914;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.nameplate-divider {
+  color: #D4AF37;
+  font-size: 0.75rem;
+  margin: 0.25rem 0;
+  letter-spacing: 0.3em;
+  opacity: 0.8;
+}
+
+.nameplate-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.125rem;
+  color: #D4AF37;
+  font-weight: 600;
+  margin: 0.25rem 0;
+  letter-spacing: 0.15em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.nameplate-title {
+  font-size: 0.875rem;
+  color: #C4B5A0;
+  margin: 0;
+  letter-spacing: 0.05em;
+}
