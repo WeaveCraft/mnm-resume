@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import BuffIcon from '../components/BuffIcon';
 import AbilitySlot from '../components/AbilitySlot';
 import IntroSplash from '../components/IntroSplash';
+import DungeonScene from '@/components/DungeonScene';
 
 const TABS = [
   { id: 'inventory', label: 'Inventory' },
@@ -153,6 +154,379 @@ export default function CharacterSheet() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+<<<<<<< HEAD
+      <div style={{ background: '#1a1614', minHeight: '100vh', padding: '1rem' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+
+          {/* HEADER BAR */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="header-bar"
+            style={{ marginBottom: '1rem' }}
+          >
+            <div>
+              <h1>{character.name}</h1>
+              <p className="header-subtitle">
+                Level {character.level} &middot; {character.class}
+              </p>
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <p className="header-subtitle">{character.guild}</p>
+              <p className="header-subtitle">{character.location}</p>
+            </div>
+          </motion.div>
+
+          {/* MAIN LAYOUT: LEFT SIDEBAR + RIGHT CONTENT */}
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+
+            {/* LEFT SIDEBAR */}
+            <motion.div
+              initial={{ opacity: 0, x: -15 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.15 }}
+              style={{ width: '300px', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}
+              className="hidden lg:flex"
+            >
+              {/* 3D Character Model */}
+              <div className="game-panel" style={{ padding: 0, overflow: 'hidden' }}>
+                <div style={{ height: '280px' }}>
+                  <CharacterModel />
+                </div>
+              </div>
+
+              {/* Character Details */}
+              <GamePanel title="Character">
+                <div className="char-info-row">
+                  <span className="char-info-label">Name:</span>
+                  <span className="char-info-value">{character.name}</span>
+                </div>
+                <div className="char-info-row">
+                  <span className="char-info-label">Race:</span>
+                  <span className="char-info-value">{character.race}</span>
+                </div>
+                <div className="char-info-row">
+                  <span className="char-info-label">Class:</span>
+                  <span className="char-info-value">{character.class}</span>
+                </div>
+                <div className="char-info-row">
+                  <span className="char-info-label">Level:</span>
+                  <span className="char-info-value highlight">{character.level}</span>
+                </div>
+                <div className="char-info-row">
+                  <span className="char-info-label">Guild:</span>
+                  <span className="char-info-value highlight">{character.guild}</span>
+                </div>
+              </GamePanel>
+
+              {/* Quick Stats */}
+              <GamePanel title="Quick Stats">
+                {stats.map((s) => (
+                  <div key={s.label} className="char-info-row">
+                    <span className="char-info-label">{s.label}:</span>
+                    <span style={{ color: '#D4AF37', fontFamily: 'Courier New, monospace', fontSize: '0.75rem' }}>{s.value}</span>
+                  </div>
+                ))}
+              </GamePanel>
+
+              {/* Active Buffs */}
+              <GamePanel title="Active Buffs">
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                  {buffs.map((buff) => (
+                    <BuffIcon key={buff.name} {...buff} />
+                  ))}
+                </div>
+              </GamePanel>
+
+              {/* Contact */}
+              <GamePanel title="Contact">
+                <div style={{ textAlign: 'center' }}>
+                  <a
+                    href="https://github.com/WeaveCraft"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'block',
+                      padding: '0.5rem',
+                      border: '1px solid #5A4A2A',
+                      color: '#C4B5A0',
+                      textDecoration: 'none',
+                      fontFamily: 'Courier New, monospace',
+                      fontSize: '0.7rem',
+                      background: 'linear-gradient(135deg, #1E1A17 0%, #151210 100%)',
+                    }}
+                  >
+                    View Quest Log (GitHub)
+                  </a>
+                </div>
+              </GamePanel>
+            </motion.div>
+
+            {/* RIGHT CONTENT - Tabbed Area */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              style={{ flex: 1, minWidth: 0 }}
+            >
+              {/* Tab Navigation */}
+              <TabNavigation
+                tabs={TABS}
+                activeTab={activeTab}
+                onTabChange={setActiveTab}
+              />
+
+              {/* Tab Content */}
+              <div className="game-panel" style={{ borderTop: 'none', minHeight: '600px' }}>
+
+                {/* STATS TAB */}
+                {activeTab === 'stats' && (
+                  <div>
+                    {/* Core Attributes */}
+                    <div style={{ marginBottom: '2rem' }}>
+                      <h3 className="panel-title" style={{ marginBottom: '1rem' }}>
+                        ━━━ CORE ATTRIBUTES ━━━
+                      </h3>
+                      {stats.map((stat, i) => (
+                        <motion.div
+                          key={stat.label}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.05 * i }}
+                        >
+                          <StatBar {...stat} />
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    {/* Resistances */}
+                    <div style={{ marginBottom: '2rem' }}>
+                      <h3 className="panel-title" style={{ marginBottom: '1rem' }}>
+                        ━━━ RESISTANCES ━━━
+                      </h3>
+                      {resistances.map((res) => (
+                        <ResistanceItem key={res.name} {...res} />
+                      ))}
+                    </div>
+
+                    {/* Experience Bar */}
+                    <div style={{ marginBottom: '2rem' }}>
+                      <h3 className="panel-title" style={{ marginBottom: '0.75rem' }}>
+                        ━━━ EXPERIENCE ━━━
+                      </h3>
+                      <div className="xp-bar-track">
+                        <motion.div
+                          className="xp-bar-fill"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${xpPercent}%` }}
+                          transition={{ duration: 2, ease: 'easeOut' }}
+                        />
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.25rem' }}>
+                        <span style={{ color: '#8B7E71', fontSize: '0.65rem', fontFamily: 'Courier New, monospace' }}>
+                          Level {character.level}
+                        </span>
+                        <span style={{ color: '#D4AF37', fontSize: '0.65rem', fontFamily: 'Courier New, monospace' }}>
+                          {xpCurrent.toLocaleString()} / {xpNextLevel.toLocaleString()} XP
+                        </span>
+                        <span style={{ color: '#8B7E71', fontSize: '0.65rem', fontFamily: 'Courier New, monospace' }}>
+                          Level {character.level + 1}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Memorized Abilities */}
+                    <div>
+                      <h3 className="panel-title" style={{ marginBottom: '0.75rem' }}>
+                        ━━━ MEMORIZED ABILITIES ━━━
+                      </h3>
+                      <div style={{ display: 'flex', justifyContent: 'center', gap: '0.35rem', flexWrap: 'wrap' }}>
+                        {abilities.map((ability, index) => (
+                          <AbilitySlot key={ability.name} {...ability} slotNumber={index + 1} />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* EQUIPMENT TAB */}
+                {activeTab === 'equipment' && (
+                  <div>
+                    <h3 className="panel-title" style={{ marginBottom: '1.5rem' }}>
+                      ━━━ EQUIPPED TECHNOLOGIES ━━━
+                    </h3>
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fill, minmax(80px, 1fr))',
+                      gap: '1rem',
+                      justifyItems: 'center',
+                    }}>
+                      {equipmentSlots.map((item, index) => (
+                        <motion.div
+                          key={item.slot}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.05 * index }}
+                        >
+                          <EquipmentSlot {...item} />
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    <div style={{
+                      marginTop: '2rem',
+                      padding: '1rem',
+                      background: 'linear-gradient(135deg, #1E1A17 0%, #151210 100%)',
+                      border: '1px solid #5A4A2A',
+                    }}>
+                      <p style={{ color: '#8B7E71', fontSize: '0.7rem', fontFamily: 'Courier New, monospace', lineHeight: '1.6' }}>
+                        Loadout optimized for full-stack development with C# and Unity focus.
+                        Backend power (C#, .NET) combined with frontend versatility (React, TypeScript)
+                        creates a well-rounded skillset for game development.
+                        Currently grinding Unity skills to reach legendary tier.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* QUESTS TAB */}
+                {activeTab === 'quests' && (
+                  <div>
+                    {/* Main Quest */}
+                    <h3 className="panel-title" style={{ marginBottom: '1rem' }}>
+                      ━━━ MAIN QUEST ━━━
+                    </h3>
+                    <div className="quest-item animate-subtle-pulse" style={{ border: '2px solid #8B6914', marginBottom: '1.5rem' }}>
+                      <h4 style={{ color: '#D4AF37', fontFamily: 'Cinzel, Georgia, serif', fontSize: '0.9rem', margin: '0 0 0.5rem 0' }}>
+                        {quests.mainQuest.title}
+                      </h4>
+                      <p style={{ color: '#C4B5A0', fontSize: '0.7rem', fontStyle: 'italic', fontFamily: 'Courier New, monospace', marginBottom: '0.75rem' }}>
+                        {quests.mainQuest.description}
+                      </p>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                        {quests.mainQuest.objectives.map((obj, i) => (
+                          <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
+                            <span style={{ color: obj.completed ? '#5A8A4A' : '#8B7E71', fontSize: '0.75rem', flexShrink: 0 }}>
+                              {obj.completed ? '\u2713' : '\u25cb'}
+                            </span>
+                            <div style={{ flex: 1 }}>
+                              <span style={{
+                                color: obj.completed ? '#8B7E71' : '#C4B5A0',
+                                fontSize: '0.7rem',
+                                fontFamily: 'Courier New, monospace',
+                                textDecoration: obj.completed ? 'line-through' : 'none',
+                              }}>
+                                {obj.text}
+                              </span>
+                              {obj.progress !== undefined && !obj.completed && (
+                                <div className="quest-progress-track" style={{ marginTop: '0.25rem' }}>
+                                  <div className="quest-progress-fill" style={{ width: `${obj.progress}%` }} />
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      <div style={{ marginTop: '0.75rem', paddingTop: '0.75rem', borderTop: '1px solid #5A4A2A' }}>
+                        <p style={{ color: '#8B7E71', fontSize: '0.65rem', fontFamily: 'Courier New, monospace' }}>
+                          Reward: {quests.mainQuest.reward}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Completed Quests */}
+                    <h3 className="panel-title" style={{ marginBottom: '1rem' }}>
+                      ━━━ COMPLETED QUESTS ━━━
+                    </h3>
+                    <div style={{ marginBottom: '1.5rem' }}>
+                      {quests.completedQuests.map((quest, i) => (
+                        <div key={i} className="quest-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <span style={{ color: '#5A8A4A', fontSize: '0.75rem' }}>{'\u2713'}</span>
+                            <span style={{ color: '#C4B5A0', fontSize: '0.7rem', fontFamily: 'Courier New, monospace' }}>{quest.title}</span>
+                          </div>
+                          <div style={{ textAlign: 'right' }}>
+                            <span style={{ color: '#D4AF37', fontSize: '0.65rem', fontFamily: 'Courier New, monospace' }}>+{quest.xp} XP</span>
+                            <br />
+                            <span style={{ color: '#8B7E71', fontSize: '0.6rem', fontFamily: 'Courier New, monospace' }}>{quest.reward}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Side Quests */}
+                    <h3 className="panel-title" style={{ marginBottom: '1rem' }}>
+                      ━━━ SIDE QUESTS ━━━
+                    </h3>
+                    <div>
+                      {quests.sideQuests.map((quest, i) => (
+                        <div key={i} className="quest-item">
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
+                            <span style={{ color: '#C4B5A0', fontSize: '0.7rem', fontFamily: 'Courier New, monospace' }}>{quest.title}</span>
+                            <span style={{ color: '#D4AF37', fontSize: '0.65rem', fontFamily: 'Courier New, monospace' }}>{quest.progress}%</span>
+                          </div>
+                          <div className="quest-progress-track">
+                            <div className="quest-progress-fill" style={{ width: `${quest.progress}%` }} />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* UNITY TAB */}
+                {activeTab === 'unity' && (
+                  <div>
+                    <h3 className="panel-title" style={{ marginBottom: '1rem' }}>
+                      ━━━ UNITY WEBGL DEMO ━━━
+                    </h3>
+                    <p style={{ color: '#8B7E71', fontSize: '0.7rem', fontFamily: 'Courier New, monospace', marginBottom: '1rem', textAlign: 'center' }}>
+                      Interactive Unity WebGL build running in the browser
+                    </p>
+                    
+
+                    <DungeonScene />
+
+                    <div style={{
+                      marginTop: '1rem',
+                      padding: '0.75rem',
+                      background: 'linear-gradient(135deg, #1E1A17 0%, #151210 100%)',
+                      border: '1px solid #5A4A2A',
+                    }}>
+                      <p style={{ color: '#D4AF37', fontSize: '0.7rem', fontFamily: 'Cinzel, Georgia, serif', marginBottom: '0.5rem' }}>
+                        Controls
+                      </p>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.35rem' }}>
+                        {[
+                          ['W A S D', 'Movement'],
+                          ['Mouse', 'Look around'],
+                          ['Space', 'Jump'],
+                          ['ESC', 'Release cursor'],
+                        ].map(([key, action]) => (
+                          <div key={key} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <span style={{
+                              padding: '0.15rem 0.4rem',
+                              background: '#1a1614',
+                              border: '1px solid #5A4A2A',
+                              color: '#C4B5A0',
+                              fontSize: '0.6rem',
+                              fontFamily: 'Courier New, monospace',
+                            }}>
+                              {key}
+                            </span>
+                            <span style={{ color: '#8B7E71', fontSize: '0.65rem', fontFamily: 'Courier New, monospace' }}>
+                              {action}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+              </div>
+            </motion.div>
+=======
       <div style={{ background: '#1E1E22', minHeight: '100vh', padding: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
@@ -172,6 +546,7 @@ export default function CharacterSheet() {
                 {tab.label}
               </button>
             ))}
+>>>>>>> 2bacebe142168f5c8c4c00ebaade5e7895c7b0a9
           </div>
 
           {/* MAIN CONTENT AREA */}
