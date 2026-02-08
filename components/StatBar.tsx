@@ -8,20 +8,75 @@ interface StatBarProps {
   description: string;
   details: string[];
   color?: string;
+  compact?: boolean;
 }
 
-export default function StatBar({ 
-  label, 
-  value, 
-  icon, 
-  description, 
+export default function StatBar({
+  label,
+  value,
+  icon,
+  description,
   details,
-  color = 'from-bronze-dark via-bronze to-bronze-light'
+  color = 'from-bronze-dark via-bronze to-bronze-light',
+  compact = false,
 }: StatBarProps) {
   const [showTooltip, setShowTooltip] = useState(false);
 
+  if (compact) {
+    return (
+      <div
+        className="relative mb-2"
+        onMouseEnter={() => setShowTooltip(true)}
+        onMouseLeave={() => setShowTooltip(false)}
+      >
+        <div className="flex justify-between items-center mb-0.5">
+          <span className="text-mnm-text-light font-game text-[11px] flex items-center gap-1">
+            <span className="text-sm">{icon}</span>
+            <span className="uppercase tracking-wider">{label}</span>
+          </span>
+          <span className="text-mnm-gold font-game text-[11px]">{value}</span>
+        </div>
+
+        <div className="stat-bar-compact group">
+          <motion.div
+            className={`stat-bar-fill bg-gradient-to-r ${color}`}
+            initial={{ width: 0 }}
+            animate={{ width: `${value}%` }}
+            transition={{
+              duration: 1.5,
+              delay: 0.2,
+              ease: 'easeOut',
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 group-hover:animate-pulse" />
+        </div>
+
+        {showTooltip && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="game-tooltip left-0 top-full mt-2 w-72 z-50"
+          >
+            <h4 className="text-bronze-light font-medieval text-sm mb-2 border-b border-bronze-dark pb-1">
+              {icon} {label} - {value}/100
+            </h4>
+            <p className="text-parchment text-xs mb-2">{description}</p>
+            <ul className="space-y-1">
+              {details.map((detail, i) => (
+                <li key={i} className="text-parchment-dark text-xs flex items-start gap-2">
+                  <span className="text-bronze">&#9656;</span>
+                  <span>{detail}</span>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </div>
+    );
+  }
+
   return (
-    <div 
+    <div
       className="relative mb-4"
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
@@ -41,13 +96,13 @@ export default function StatBar({
           className={`stat-bar-fill bg-gradient-to-r ${color}`}
           initial={{ width: 0 }}
           animate={{ width: `${value}%` }}
-          transition={{ 
-            duration: 1.5, 
+          transition={{
+            duration: 1.5,
             delay: 0.2,
-            ease: "easeOut"
+            ease: 'easeOut',
           }}
         />
-        
+
         {/* Shine effect */}
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 group-hover:animate-pulse" />
       </div>
@@ -69,7 +124,7 @@ export default function StatBar({
           <ul className="space-y-1">
             {details.map((detail, i) => (
               <li key={i} className="text-parchment-dark text-xs flex items-start gap-2">
-                <span className="text-bronze">▸</span>
+                <span className="text-bronze">&#9656;</span>
                 <span>{detail}</span>
               </li>
             ))}
