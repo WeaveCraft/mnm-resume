@@ -7,42 +7,23 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // M&M inspired fantasy palette
-        parchment: {
-          light: '#F5E6D3',
-          DEFAULT: '#E8D5B7',
-          dark: '#D4C4A8',
-        },
-        stone: {
-          light: '#8B8680',
-          DEFAULT: '#5C5850',
-          dark: '#3A3633',
-        },
-        bronze: {
-          light: '#D4AF37',
-          DEFAULT: '#B8860B',
-          dark: '#8B6914',
-        },
-        leather: {
-          light: '#8B7355',
-          DEFAULT: '#654321',
-          dark: '#3E2723',
-        },
-        // M&M authentic panel colors
-        'panel-dark': '#2B2520',
-        'panel-light': '#3D362F',
-        'mnm-gold': '#D4AF37',
-        'mnm-bronze': '#8B6914',
-        'mnm-text-light': '#E8D5B7',
-        'mnm-text-dark': '#9B8B7E',
+        // Strict dark game palette
+        'game-bg': '#1a1614',
+        'game-panel': '#2B2520',
+        'game-panel-light': '#342E28',
+        'game-border': '#8B6914',
+        'game-accent': '#D4AF37',
+        'game-text': '#C4B5A0',
+        'game-text-dim': '#8B7E71',
+        'game-text-bright': '#E8D5B7',
+        // Functional colors
+        'stat-green': '#5A8A4A',
+        'stat-red': '#8A4A4A',
+        'quest-complete': '#5A8A4A',
       },
       fontFamily: {
-        medieval: ['Georgia', 'serif'],
-        game: ['Courier New', 'monospace'],
-      },
-      backgroundImage: {
-        'parchment-texture': "url('/images/parchment-bg.png')",
-        'stone-texture': "url('/images/stone-bg.png')",
+        medieval: ['"Cinzel"', 'Georgia', 'serif'],
+        game: ['"Courier New"', 'monospace'],
       },
     },
   },

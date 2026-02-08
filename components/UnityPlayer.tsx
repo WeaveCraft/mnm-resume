@@ -21,7 +21,6 @@ export default function UnityPlayer({
     codeUrl: `${buildPath}/${buildName}.wasm`,
   });
 
-  // Check if the Unity build files exist before attempting to load
   useEffect(() => {
     fetch(`${buildPath}/${buildName}.loader.js`, { method: 'HEAD' })
       .then((res) => {
@@ -38,7 +37,6 @@ export default function UnityPlayer({
       });
   }, [buildPath, buildName]);
 
-  // Catch global Unity/WebAssembly errors
   useEffect(() => {
     const handler = (event: ErrorEvent) => {
       if (
@@ -56,65 +54,76 @@ export default function UnityPlayer({
 
   const loadingPercentage = Math.round(loadingProgression * 100);
 
-  // Build not found - show helpful placeholder
   if (buildExists === false) {
-    return <BuildNotFoundMessage buildPath={buildPath} buildName={buildName} />;
+    return (
+      <div className="game-panel" style={{ textAlign: 'center' }}>
+        <p style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>&#127959;&#65039;</p>
+        <h4 style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>Unity Build Not Found</h4>
+        <p style={{ color: '#8B7E71', fontSize: '0.7rem', fontFamily: 'Courier New, monospace', fontStyle: 'italic' }}>
+          The demo area awaits a Unity WebGL build
+        </p>
+        <div style={{
+          marginTop: '1rem',
+          padding: '0.75rem',
+          background: '#1a1614',
+          border: '1px solid #5A4A2A',
+          textAlign: 'left',
+        }}>
+          <p style={{ color: '#D4AF37', fontSize: '0.7rem', fontFamily: 'Cinzel, Georgia, serif', marginBottom: '0.5rem' }}>
+            Required files:
+          </p>
+          {[`${buildName}.loader.js`, `${buildName}.data`, `${buildName}.framework.js`, `${buildName}.wasm`].map((file) => (
+            <p key={file} style={{ color: '#8B7E71', fontSize: '0.6rem', fontFamily: 'Courier New, monospace' }}>
+              &#9656; public{buildPath}/{file}
+            </p>
+          ))}
+        </div>
+      </div>
+    );
   }
 
-  // Error during loading
   if (hasError && buildExists !== null) {
     return (
-      <div className="w-full rounded border-4 border-red-900 bg-stone-dark p-8 text-center">
-        <div className="text-4xl mb-4">💀</div>
-        <h4 className="text-red-400 font-medieval text-lg mb-2">
-          Critical Hit! Something went wrong
-        </h4>
-        <p className="text-parchment-dark text-sm mb-4">
+      <div className="game-panel" style={{ textAlign: 'center', borderColor: '#8A4A4A' }}>
+        <p style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>&#128128;</p>
+        <h4 style={{ color: '#8A4A4A', fontSize: '0.9rem' }}>Something went wrong</h4>
+        <p style={{ color: '#8B7E71', fontSize: '0.7rem', fontFamily: 'Courier New, monospace', margin: '0.5rem 0' }}>
           The Unity build encountered an error while loading.
         </p>
         {errorMessage && (
-          <div className="bg-stone/50 border border-red-900 rounded p-3 mt-2">
-            <p className="text-red-300 text-xs font-game break-all">{errorMessage}</p>
-          </div>
+          <p style={{ color: '#8A4A4A', fontSize: '0.6rem', fontFamily: 'Courier New, monospace', wordBreak: 'break-all' }}>
+            {errorMessage}
+          </p>
         )}
         <button
           onClick={() => window.location.reload()}
-          className="stone-button mt-4 text-sm"
+          style={{
+            marginTop: '0.75rem',
+            padding: '0.4rem 1rem',
+            background: 'linear-gradient(135deg, #1E1A17 0%, #151210 100%)',
+            border: '1px solid #5A4A2A',
+            color: '#C4B5A0',
+            fontFamily: 'Courier New, monospace',
+            fontSize: '0.7rem',
+            cursor: 'pointer',
+          }}
         >
-          Retry Loading
+          Retry
         </button>
       </div>
     );
   }
 
   return (
-    <div className="w-full">
-      {/* Loading overlay */}
+    <div>
       {!isLoaded && (
-        <div className="w-full rounded border-4 border-bronze-dark bg-stone-dark p-8">
-          <div className="text-center mb-6">
-            <div className="text-4xl mb-3 animate-bounce">🎮</div>
-            <h4 className="text-bronze-light font-medieval text-lg mb-1">
-              Loading Unity Build...
-            </h4>
-            <p className="text-parchment-dark text-xs font-game">
-              Summoning the game engine from the arcane realm
-            </p>
+        <div className="game-panel" style={{ textAlign: 'center' }}>
+          <p style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>&#127918;</p>
+          <h4 style={{ fontSize: '0.9rem', marginBottom: '0.5rem' }}>Loading Unity Build...</h4>
+          <div className="stat-bar-track" style={{ marginBottom: '0.5rem' }}>
+            <div className="stat-bar-fill" style={{ width: `${loadingPercentage}%` }} />
           </div>
-
-          {/* Progress bar using stat-bar styling */}
-          <div className="stat-bar mb-2">
-            <div
-              className="stat-bar-fill"
-              style={{ width: `${loadingPercentage}%` }}
-            />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-parchment text-xs font-game drop-shadow-lg">
-                {loadingPercentage}%
-              </span>
-            </div>
-          </div>
-          <p className="text-parchment-dark text-xs text-center font-game">
+          <p style={{ color: '#8B7E71', fontSize: '0.65rem', fontFamily: 'Courier New, monospace' }}>
             {loadingPercentage < 30
               ? 'Initializing engine...'
               : loadingPercentage < 60
@@ -126,9 +135,8 @@ export default function UnityPlayer({
         </div>
       )}
 
-      {/* Unity canvas */}
-      <div className={`w-full ${isLoaded ? '' : 'h-0 overflow-hidden'}`}>
-        <div className="rounded border-4 border-bronze-dark overflow-hidden">
+      <div style={{ display: isLoaded ? 'block' : 'none' }}>
+        <div style={{ border: '3px solid #8B6914', overflow: 'hidden' }}>
           <Unity
             unityProvider={unityProvider}
             style={{
@@ -139,54 +147,6 @@ export default function UnityPlayer({
           />
         </div>
       </div>
-    </div>
-  );
-}
-
-// Placeholder when Unity build files are not present
-function BuildNotFoundMessage({
-  buildPath,
-  buildName,
-}: {
-  buildPath: string;
-  buildName: string;
-}) {
-  return (
-    <div className="w-full rounded border-4 border-bronze-dark bg-stone-dark p-8">
-      <div className="text-center mb-6">
-        <div className="text-5xl mb-3">🏗️</div>
-        <h4 className="text-bronze-light font-medieval text-xl mb-2">
-          Unity Build Not Found
-        </h4>
-        <p className="text-parchment text-sm italic">
-          The demo area awaits a Unity WebGL build
-        </p>
-      </div>
-
-      <div className="bg-stone/50 border-2 border-bronze-dark rounded p-4 mb-4">
-        <h5 className="text-bronze font-medieval text-sm mb-3">
-          To deploy a Unity build, place these files:
-        </h5>
-        <div className="space-y-1 font-game text-xs">
-          <FileEntry path={`public${buildPath}/${buildName}.loader.js`} />
-          <FileEntry path={`public${buildPath}/${buildName}.data`} />
-          <FileEntry path={`public${buildPath}/${buildName}.framework.js`} />
-          <FileEntry path={`public${buildPath}/${buildName}.wasm`} />
-        </div>
-      </div>
-
-      <p className="text-parchment-dark text-xs text-center font-game">
-        See <span className="text-bronze">UNITY_SETUP.md</span> for detailed build instructions
-      </p>
-    </div>
-  );
-}
-
-function FileEntry({ path }: { path: string }) {
-  return (
-    <div className="flex items-center gap-2 text-parchment-dark">
-      <span className="text-bronze">▸</span>
-      <code className="bg-stone-dark px-2 py-0.5 rounded text-parchment">{path}</code>
     </div>
   );
 }
