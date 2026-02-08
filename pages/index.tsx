@@ -10,6 +10,7 @@ import ResistanceItem from '../components/ResistanceItem';
 import BuffIcon from '../components/BuffIcon';
 import AbilitySlot from '../components/AbilitySlot';
 import IntroSplash from '../components/IntroSplash';
+import DungeonScene from '@/components/DungeonScene';
 
 const CharacterModel = dynamic(() => import('../components/CharacterModel'), {
   ssr: false,
@@ -476,8 +477,9 @@ export default function CharacterSheet() {
                     <p style={{ color: '#8B7E71', fontSize: '0.7rem', fontFamily: 'Courier New, monospace', marginBottom: '1rem', textAlign: 'center' }}>
                       Interactive Unity WebGL build running in the browser
                     </p>
+                    
 
-                    <UnityPlayer />
+                    <DungeonScene />
 
                     <div style={{
                       marginTop: '1rem',
