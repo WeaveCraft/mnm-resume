@@ -51,7 +51,7 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
             >
               <h2 style={{ fontSize: '1.75rem', marginBottom: '0.5rem' }}>Viktor Hurtig</h2>
               <p style={{ color: '#C4B5A0', fontSize: '0.85rem', fontFamily: 'Courier New, monospace' }}>
-                Level 28 &middot; Unity Programmer (Aspiring)
+                Level 32 &middot; Unity Programmer
               </p>
             </motion.div>
           )}
