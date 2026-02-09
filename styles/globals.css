@@ -1082,9 +1082,15 @@
   /* ═══════════════════════════════════════ */
   /* FAITH CARD - Faiths tab                */
   /* ═══════════════════════════════════════ */
+  .faith-list-panel {
+    background: rgba(0, 0, 0, 0.15);
+    border: 1px solid #2A2520;
+    padding: 4px;
+  }
+
   .faith-card {
     background: linear-gradient(135deg, #1C1A16 0%, #16140E 100%);
-    border: 1px solid #3A3530;
+    border: 1px solid #2A2520;
     padding: 0.6rem;
     cursor: pointer;
     transition: all 0.15s ease;
@@ -1092,25 +1098,13 @@
 
   .faith-card:hover {
     border-color: #605850;
+    background: linear-gradient(135deg, #22201C 0%, #1A1814 100%);
   }
 
   .faith-card-active {
     border-color: #D4AF37;
-    box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
-  }
-
-  .faith-card-name {
-    font-family: 'Cinzel', Georgia, serif;
-    font-size: 0.7rem;
-    color: #D4AF37;
-    margin-bottom: 0.2rem;
-  }
-
-  .faith-card-desc {
-    font-family: 'Courier New', monospace;
-    font-size: 0.55rem;
-    color: #8B7E71;
-    line-height: 1.4;
+    background: linear-gradient(135deg, #252218 0%, #1E1C14 100%);
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.15);
   }
 }
 

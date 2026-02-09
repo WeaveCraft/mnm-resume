@@ -21,6 +21,7 @@ export default function CharacterSheet() {
   const [activeTab, setActiveTab] = useState('inventory');
   const [personaOpen, setPersonaOpen] = useState(true);
   const [openBag, setOpenBag] = useState<string | null>(null);
+  const [selectedFaith, setSelectedFaith] = useState(0);
 
   // Job application hand-in animation state
   const [isDraggingNote, setIsDraggingNote] = useState(false);
@@ -592,71 +593,163 @@ export default function CharacterSheet() {
             {/* ═══════════════════════════════════ */}
             {/* FAITHS TAB - Religion / Devotion    */}
             {/* ═══════════════════════════════════ */}
-            {activeTab === 'faiths' && (
-              <div style={{ maxWidth: '700px', margin: '0 auto' }}>
+            {activeTab === 'faiths' && (() => {
+              const faiths = [
+                { name: 'Agnostic', symbol: '\u2606', domain: 'Independence', devotion: 0, color: '#C4B5A0',
+                  description: 'Agnostics neither accept nor reject the existence of deities. They walk their own path, relying on personal conviction rather than divine guidance.',
+                  blessing: 'Free Will — Not bound by any doctrine or restriction',
+                  philosophy: 'I follow the code, not the doctrine. My devotion is to clean architecture and working software.' },
+                { name: 'Eltindra', symbol: '\u2727', domain: 'Nature & Growth', devotion: 42, color: '#5A8A4A',
+                  description: 'Eltindra is the goddess of the wild, of growth, and of the cycles that govern all living things. Her followers find strength in patience and cultivation.',
+                  blessing: 'Cultivate — Grow stronger through iterative improvement',
+                  philosophy: 'Every codebase is a living garden. Tend it with care, prune what is dead, and let the architecture grow organically.' },
+                { name: 'Haradrel', symbol: '\u2726', domain: 'Wisdom & Knowledge', devotion: 68, color: '#6A8AAA',
+                  description: 'Haradrel, the All-Knowing, hoards wisdom as others hoard gold. His libraries span dimensions, and his followers seek understanding above all else.',
+                  blessing: 'Insight — See through complexity to find the truth',
+                  philosophy: 'Every bug is a lesson. Every refactor is enlightenment. The pursuit of understanding is the highest calling of an engineer.' },
+                { name: 'Kravvin', symbol: '\u2694', domain: 'Strength & Conquest', devotion: 55, color: '#AA4A4A',
+                  description: 'Kravvin demands excellence through struggle. Only through overcoming challenge does one earn the right to call themselves worthy.',
+                  blessing: 'Fortitude — Push through the hardest problems without yielding',
+                  philosophy: 'Performance optimization is combat. Every millisecond saved is a victory. Never accept slow code when fast code is possible.' },
+                { name: 'Krivea', symbol: '\u2625', domain: 'Shadows & Secrets', devotion: 30, color: '#7A6A8A',
+                  description: 'Krivea dwells in the spaces between. She guards secrets, reveals hidden truths, and rewards those clever enough to find what others miss.',
+                  blessing: 'Reveal — Uncover hidden bugs and edge cases',
+                  philosophy: 'Security is not an afterthought. The best code is the code that anticipates what lurks in the shadows.' },
+                { name: 'The Matswar', symbol: '\u2660', domain: 'War & Strategy', devotion: 45, color: '#8A6A4A',
+                  description: 'The Matswar is not a single deity but a council of war spirits. They teach that victory belongs to those who plan, adapt, and execute with precision.',
+                  blessing: 'Tactics — Approach every challenge with a plan',
+                  philosophy: 'Sprint planning is battle strategy. Every standup is a war council. Ship features like a well-coordinated raid group.' },
+                { name: 'Porbor', symbol: '\u2692', domain: 'Craft & Creation', devotion: 82, color: '#D4AF37',
+                  description: 'Porbor is the master smith, the architect of worlds. His followers find divine purpose in the act of creation itself — building things that endure.',
+                  blessing: 'Forge — Create robust systems that stand the test of time',
+                  philosophy: 'There is no greater satisfaction than building something real. Craftsmanship means every line of code is placed with intention.' },
+                { name: 'Relle', symbol: '\u2740', domain: 'Harmony & Balance', devotion: 60, color: '#4A8A7A',
+                  description: 'Relle teaches that all things must exist in balance. Excess is as dangerous as absence. Her followers seek the middle path in all endeavors.',
+                  blessing: 'Equilibrium — Balance speed with quality, ambition with pragmatism',
+                  philosophy: 'Technical debt and over-engineering are two sides of the same coin. The wise developer walks the middle path.' },
+                { name: 'Sorophal', symbol: '\u2604', domain: 'Fire & Transformation', devotion: 38, color: '#AA6A2A',
+                  description: 'Sorophal is the flame that transforms. Destruction and creation are one in his eyes — the old must burn away for the new to rise.',
+                  blessing: 'Ignite — Transform legacy systems into modern solutions',
+                  philosophy: 'Refactoring is sacred fire. Let the old patterns burn away so cleaner, faster architecture can rise from the ashes.' },
+                { name: 'Tilustra', symbol: '\u2600', domain: 'Light & Clarity', devotion: 50, color: '#AAAA4A',
+                  description: 'Tilustra illuminates what is hidden in darkness. Her radiance brings clarity to the confused and hope to the lost.',
+                  blessing: 'Illuminate — Write code so clear it explains itself',
+                  philosophy: 'Readable code is a gift to your future self and your team. If it needs a comment, it might need a rewrite.' },
+                { name: 'Trem', symbol: '\u26A1', domain: 'Storms & Change', devotion: 35, color: '#5A7AAA',
+                  description: 'Trem commands the fury of storms — unpredictable, devastating, yet ultimately renewing. His followers embrace change and thrive in chaos.',
+                  blessing: 'Surge — Thrive under pressure and rapid change',
+                  philosophy: 'New frameworks, shifting requirements, pivoting priorities — the storm never stops. Learn to ride the lightning.' },
+                { name: 'Trimminax', symbol: '\u2696', domain: 'Order & Law', devotion: 72, color: '#7A8A5A',
+                  description: 'Trimminax is the arbiter of order. His laws are absolute, his structures unbreakable. Followers build upon solid foundations that never shift.',
+                  blessing: 'Structure — Enforce clean architecture and solid patterns',
+                  philosophy: 'SOLID principles are not guidelines, they are laws. Type safety is not optional. Structure is the foundation of reliable software.' },
+                { name: 'Vespyra', symbol: '\u2733', domain: 'Stars & Possibility', devotion: 48, color: '#8A7AAA',
+                  description: 'Vespyra weaves fate among the stars. She sees all possible futures and guides her followers toward the brightest outcomes.',
+                  blessing: 'Foresight — Anticipate future requirements and scale gracefully',
+                  philosophy: 'The best architecture accounts for what the codebase will become, not just what it is today. Build for the future you can see.' },
+              ];
+              const faith = faiths[selectedFaith];
+              return (
+              <div style={{ maxWidth: '720px', margin: '0 auto' }}>
                 <div className="section-label" style={{ marginBottom: '0.75rem' }}>Choose Your Faith</div>
-                <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '180px 1fr', gap: '1rem' }}>
                   {/* Faith list */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-                    {[
-                      { name: 'Agnostic', active: true },
-                      { name: 'Eltindra', active: false },
-                      { name: 'Haradrel', active: false },
-                      { name: 'Kravvin', active: false },
-                      { name: 'Krivea', active: false },
-                      { name: 'The Matswar', active: false },
-                      { name: 'Porbor', active: false },
-                      { name: 'Relle', active: false },
-                      { name: 'Sorophal', active: false },
-                      { name: 'Tilustra', active: false },
-                      { name: 'Trem', active: false },
-                      { name: 'Trimminax', active: false },
-                      { name: 'Vespyra', active: false },
-                    ].map((faith) => (
-                      <div
-                        key={faith.name}
-                        className={`faith-card ${faith.active ? 'faith-card-active' : ''}`}
-                        style={{ padding: '0.35rem 0.5rem' }}
+                  <div className="faith-list-panel" style={{ display: 'flex', flexDirection: 'column', gap: '2px', maxHeight: '480px', overflowY: 'auto' }}>
+                    {faiths.map((f, i) => (
+                      <motion.div
+                        key={f.name}
+                        initial={{ opacity: 0, x: -8 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.03 * i }}
+                        className={`faith-card ${i === selectedFaith ? 'faith-card-active' : ''}`}
+                        onClick={() => setSelectedFaith(i)}
+                        style={{ padding: '0.4rem 0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
                       >
+                        <span style={{ fontSize: '0.75rem', flexShrink: 0, color: i === selectedFaith ? faith.color : '#605850' }}>{f.symbol}</span>
                         <span style={{
                           fontFamily: 'Courier New, monospace',
                           fontSize: '0.65rem',
-                          color: faith.active ? '#D4AF37' : '#C4B5A0',
+                          color: i === selectedFaith ? '#D4AF37' : '#C4B5A0',
                         }}>
-                          {faith.name}
+                          {f.name}
                         </span>
-                      </div>
+                      </motion.div>
                     ))}
                   </div>
 
                   {/* Selected faith detail */}
-                  <div className="dark-panel-shallow" style={{ padding: '1rem' }}>
-                    <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
-                      <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>{'\u2606'}</div>
-                      <h3 style={{ fontSize: '1rem', marginBottom: '0.5rem', letterSpacing: '0.15em' }}>AGNOSTIC</h3>
-                    </div>
-                    <div style={{
-                      padding: '0.75rem',
-                      background: 'rgba(0,0,0,0.2)',
-                      border: '1px solid #3A3530',
-                    }}>
-                      <p style={{ fontSize: '0.65rem', color: '#C4B5A0', lineHeight: '1.8', fontFamily: 'Courier New, monospace', textAlign: 'center' }}>
-                        Agnostics neither accept nor reject the existence of deities.
-                      </p>
-                      <div style={{ marginTop: '0.75rem', borderTop: '1px solid #3A3530', paddingTop: '0.75rem' }}>
-                        <p style={{ fontSize: '0.6rem', color: '#8B7E71', fontFamily: 'Courier New, monospace', textAlign: 'center', fontStyle: 'italic' }}>
-                          &quot;I follow the code, not the doctrine. My devotion is to clean architecture and working software.&quot;
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={faith.name}
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.2 }}
+                      className="dark-panel-shallow"
+                      style={{ padding: '1rem' }}
+                    >
+                      <div style={{ textAlign: 'center', marginBottom: '0.75rem' }}>
+                        <div style={{ fontSize: '2.5rem', marginBottom: '0.35rem', color: faith.color }}>{faith.symbol}</div>
+                        <h3 style={{ fontSize: '1rem', marginBottom: '0.2rem', letterSpacing: '0.15em', fontFamily: 'Cinzel, Georgia, serif', color: '#D4AF37' }}>{faith.name.toUpperCase()}</h3>
+                        <div style={{ fontSize: '0.6rem', color: faith.color, fontFamily: 'Courier New, monospace', letterSpacing: '0.1em' }}>{faith.domain}</div>
+                      </div>
+
+                      <div style={{
+                        padding: '0.75rem',
+                        background: 'rgba(0,0,0,0.2)',
+                        border: '1px solid #3A3530',
+                        marginBottom: '0.6rem',
+                      }}>
+                        <p style={{ fontSize: '0.62rem', color: '#C4B5A0', lineHeight: '1.8', fontFamily: 'Courier New, monospace' }}>
+                          {faith.description}
                         </p>
                       </div>
-                    </div>
-                    <div style={{ marginTop: '0.75rem', textAlign: 'center' }}>
-                      <div style={{ fontSize: '0.55rem', color: '#8B7E71', fontFamily: 'Courier New, monospace' }}>Devotion</div>
-                      <div style={{ fontSize: '1rem', color: '#D4AF37', fontFamily: 'Cinzel, Georgia, serif' }}>0</div>
-                    </div>
-                  </div>
+
+                      {/* Blessing */}
+                      <div style={{
+                        padding: '0.5rem 0.75rem',
+                        background: 'rgba(212, 175, 55, 0.05)',
+                        border: '1px solid #3A3530',
+                        marginBottom: '0.6rem',
+                      }}>
+                        <div style={{ fontSize: '0.5rem', color: '#8B7E71', fontFamily: 'Courier New, monospace', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.25rem' }}>Blessing</div>
+                        <p style={{ fontSize: '0.62rem', color: faith.color, fontFamily: 'Courier New, monospace' }}>
+                          {faith.blessing}
+                        </p>
+                      </div>
+
+                      {/* Philosophy quote */}
+                      <div style={{
+                        padding: '0.6rem 0.75rem',
+                        borderTop: '1px solid #3A3530',
+                      }}>
+                        <p style={{ fontSize: '0.58rem', color: '#8B7E71', fontFamily: 'Courier New, monospace', fontStyle: 'italic', lineHeight: '1.7' }}>
+                          &quot;{faith.philosophy}&quot;
+                        </p>
+                      </div>
+
+                      {/* Devotion bar */}
+                      <div style={{ marginTop: '0.5rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.3rem' }}>
+                          <span style={{ fontSize: '0.5rem', color: '#8B7E71', fontFamily: 'Courier New, monospace', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Devotion</span>
+                          <span style={{ fontSize: '0.6rem', color: '#D4AF37', fontFamily: 'Cinzel, Georgia, serif' }}>{faith.devotion}</span>
+                        </div>
+                        <div className="faction-bar-track">
+                          <motion.div
+                            className="faction-bar-fill"
+                            initial={{ width: 0 }}
+                            animate={{ width: `${faith.devotion}%` }}
+                            transition={{ duration: 0.8, ease: 'easeOut' }}
+                            style={{ background: `linear-gradient(90deg, ${faith.color}66 0%, ${faith.color} 100%)` }}
+                          />
+                        </div>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
               </div>
-            )}
+              );
+            })()}
 
             {/* ═══════════════════════════════════ */}
             {/* LEDGER TAB - Quests & Achievements  */}
