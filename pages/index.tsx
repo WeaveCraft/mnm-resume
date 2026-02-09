@@ -156,7 +156,7 @@ export default function CharacterSheet() {
   // Stats as game-style numbers (like the M&M screenshot: 18-29 range)
   const stats = [
     { abbr: 'STR', value: 29, full: 'Strength', description: 'C# mastery & backend power', details: ['Software Development education in Sweden', '6+ months professional development', 'Built complex full-stack applications', 'Deep OOP & Entity Framework proficiency'] },
-    { abbr: 'STA', value: 29, full: 'Stamina', description: 'Work ethic & dedication', details: ['Working full-time as IT Architect while pursuing game dev passion', 'Led enterprise IAM project at Swedish government organization', 'Grafana monitoring saved production from storage crisis', 'Set up entire database infrastructure (Test, UAT, ACC, PROD)', 'Solo developer on complex integration projects', 'Built HolistiQ from scratch while learning new tech stack', 'Never gives up on debugging (even production incidents)', 'Learning Unity Netcode in spare time to be ready for M&M'] },
+    { abbr: 'STA', value: 29, full: 'Stamina', description: 'Work ethic & dedication', details: ['Working full-time as IT Architect while pursuing game dev passion', 'Led enterprise IAM project at Swedish government organization', 'Grafana monitoring saved production from storage crisis', 'Set up entire database infrastructure (Test, UAT, ACC, PROD)', 'Solo developer on complex integration projects', 'Built full-stack health management platform from scratch while learning new tech stack', 'Never gives up on debugging (even production incidents)', 'Learning Unity Netcode in spare time to be ready for M&M'] },
     { abbr: 'AGI', value: 26, full: 'Agility', description: 'Learning speed & adaptability', details: ['Studied software development in Sweden', 'Mastered React, Angular & TypeScript rapidly', 'Currently learning Unity in spare time', 'Quick to adopt new frameworks'] },
     { abbr: 'DEX', value: 29, full: 'Dexterity', description: 'Versatility across tech stacks', details: ['Backend: C#, .NET, ASP.NET Core', 'Frontend: React, Angular, Blazor, TypeScript', 'Databases: SQL Server, PostgreSQL', 'Tools: Docker, Git, VS Code'] },
     { abbr: 'INT', value: 18, full: 'Intelligence', description: 'Problem-solving & system design', details: ['Architected scalable client-server systems', 'Designed RESTful APIs from scratch', 'Database optimization & query tuning', 'Strategic technical decision-making'] },
@@ -205,7 +205,7 @@ export default function CharacterSheet() {
     // Weapons row
     primary:   { name: 'Unity Engine', icon: UnityIcon, type: 'Weapon' as const, description: 'Built: NPC hand-in system (this site!), 2D co-op boss fighter, UI Toolkit dialogs. Learning: Netcode multiplayer', stats: ['+45 Game Development', '+40 UI Toolkit', '+35 Scene Design', '+30 Game Logic', '+25 Netcode (Learning)'] },
     secondary: { name: 'MariaDB',      icon: '\u25C6', type: 'Artifact' as const, description: 'Database expertise', stats: ['+45 Query Optimization', '+35 Data Modeling'] },
-    range:     { name: 'REST API',     icon: '\u279B', type: 'Tool' as const, description: 'Full-stack client-server architecture - Built HolistiQ from scratch (PostgreSQL + React + .NET), enterprise IAM systems', stats: ['+50 Client-Server Architecture', '+45 Multi-User Systems', '+40 Enterprise Integration', '+35 API Design'] },
+    range:     { name: 'REST API',     icon: '\u279B', type: 'Tool' as const, description: 'Full-stack client-server architecture - Built health management platform from scratch (PostgreSQL + React + .NET), enterprise IAM systems', stats: ['+50 Client-Server Architecture', '+45 Multi-User Systems', '+40 Enterprise Integration', '+35 API Design'] },
   };
 
   // Inventory items (smaller tools/skills) - 8 slots like the screenshot
@@ -266,7 +266,7 @@ export default function CharacterSheet() {
       description: 'Prove your worth to lovingrobot (Shawn) and the legendary M&M team. Hand in your credentials, demonstrate your skills, and convince them that a Swedish IT architect who builds enterprise IAM systems by day and Unity games by night is exactly what they need. (No train-pulling or camp-stealing allowed.)',
       objectives: [
         { text: 'Master C# programming (.NET, enterprise-level)', completed: true },
-        { text: 'Build client-server applications (HolistiQ, IAM systems)', completed: true },
+        { text: 'Build client-server applications (health platform, IAM systems)', completed: true },
         { text: 'Lead enterprise infrastructure projects', completed: true },
         { text: 'Develop Unity game projects (2D co-op, NPC systems, UI)', completed: true },
         { text: 'Master Unity UI Toolkit', completed: true },
@@ -279,13 +279,13 @@ export default function CharacterSheet() {
     completedQuests: [
       { title: '.NET Software Developer Training', xp: 5000, reward: 'C# Mastery +50' },
       { title: 'Full-Stack Internship at LearningWell', xp: 3000, reward: 'Professional Experience +40' },
-      { title: 'Build HolistiQ Application from Scratch', xp: 3500, reward: 'Full-Stack Architecture +50, PostgreSQL +35, Google Maps API +25' },
+      { title: 'Build Full-Stack Health Management Platform from Scratch', xp: 3500, reward: 'Full-Stack Architecture +50, PostgreSQL +35, Google Maps API +25' },
       { title: 'Lead Developer - Enterprise IAM System (Sailpoint IIQ)', xp: 4000, reward: 'Identity Management +50, Enterprise Architecture +45' },
       { title: 'Build Server Infrastructure Monitoring System', xp: 2500, reward: 'Grafana Mastery +40, DevOps +35, Saved Production from Storage Crisis!' },
       { title: 'Solo Developer - IT Asset Management Tool', xp: 2000, reward: 'Network Topology +35, Database Design +30' },
       { title: 'Build 2D Co-op Boss Fight Game', xp: 1800, reward: 'Game Development +40, Local Multiplayer +35, Combat Systems +30' },
       { title: 'Create Bar-Hopping Event Demo App', xp: 800, reward: 'Rapid Prototyping +25, Event-Driven Design +20' },
-      { title: 'Build PetPal Application', xp: 1500, reward: 'Full-Stack Skills +30' },
+      { title: 'Build PetPal - Pet-Owner Matching App', xp: 1500, reward: 'Full-Stack Skills +30, Social Platform Design +20' },
       { title: 'Master Blazor Framework', xp: 1200, reward: 'UI Development +25' },
       { title: 'Docker & CI/CD Implementation', xp: 1000, reward: 'DevOps Knowledge +20' },
     ],
