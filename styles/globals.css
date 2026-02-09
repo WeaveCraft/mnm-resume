@@ -4,8 +4,8 @@
 
 @layer base {
   body {
-    background: #1C1A16;
-    color: #C4B5A0;
+    background: #1A1A1E;
+    color: #B8B8C0;
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
     margin: 0;
     padding: 0;
@@ -45,11 +45,11 @@
       ),
       linear-gradient(
         135deg,
-        #48474A 0%, #515053 15%, #4C4B4E 30%,
-        #535255 45%, #48474A 60%, #4F4E51 75%,
+        #42424A 0%, #515053 15%, #4C4B4E 30%,
+        #535255 45%, #42424A 60%, #4F4E51 75%,
         #4C4B4E 90%, #515053 100%
       );
-    border: 4px solid #38373A;
+    border: 4px solid #32323A;
     box-shadow:
       inset 2px 2px 6px rgba(220,220,230,0.06),
       inset -2px -2px 6px rgba(0,0,0,0.4),
@@ -62,16 +62,16 @@
   /* DARK PANEL - Inner sunken panels       */
   /* ═══════════════════════════════════════ */
   .dark-panel {
-    background: linear-gradient(180deg, #1C1A16 0%, #16140E 100%);
-    border: 2px solid #3A3530;
+    background: linear-gradient(180deg, #1A1A1E 0%, #14141A 100%);
+    border: 2px solid #32323A;
     box-shadow:
       inset 0 2px 8px rgba(0,0,0,0.6),
       inset 0 0 20px rgba(0,0,0,0.3);
   }
 
   .dark-panel-shallow {
-    background: linear-gradient(180deg, #201E18 0%, #1A1814 100%);
-    border: 1px solid #3A3530;
+    background: linear-gradient(180deg, #1E1E24 0%, #18181E 100%);
+    border: 1px solid #32323A;
     box-shadow: inset 0 1px 4px rgba(0,0,0,0.5);
   }
 
@@ -86,7 +86,7 @@
     letter-spacing: 0.15em;
     padding: 0.3rem 0;
     text-transform: uppercase;
-    border-bottom: 1px solid #3A3530;
+    border-bottom: 1px solid #32323A;
     margin-bottom: 0.4rem;
     text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
   }
@@ -107,33 +107,33 @@
     cursor: pointer;
     letter-spacing: 0.05em;
     transition: all 0.15s ease;
-    border: 2px solid #38373A;
+    border: 2px solid #32323A;
     border-bottom: none;
     border-radius: 3px 3px 0 0;
   }
 
   .stone-tab-active {
     background:
-      linear-gradient(180deg, #515053 0%, #4C4B4E 50%, #48474A 100%);
-    color: #D8D4CE;
+      linear-gradient(180deg, #515053 0%, #4C4B4E 50%, #42424A 100%);
+    color: #D0D0D8;
     box-shadow:
       inset 1px 1px 3px rgba(220,220,230,0.08),
       0 -2px 6px rgba(0,0,0,0.2);
-    border-color: #5A595C;
+    border-color: #52525C;
     position: relative;
     z-index: 2;
   }
 
   .stone-tab-inactive {
     background:
-      linear-gradient(180deg, #38373A 0%, #302F32 100%);
-    color: #7E7B76;
+      linear-gradient(180deg, #32323A 0%, #302F32 100%);
+    color: #75757E;
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
   }
 
   .stone-tab-inactive:hover {
-    color: #B8B4AE;
-    background: linear-gradient(180deg, #444347 0%, #38373A 100%);
+    color: #B0B0B8;
+    background: linear-gradient(180deg, #444347 0%, #32323A 100%);
   }
 
   /* ═══════════════════════════════════════ */
@@ -143,7 +143,7 @@
     position: relative;
     background:
       linear-gradient(180deg, #3C3B3E 0%, #2C2B2E 100%);
-    border: 3px solid #48474A;
+    border: 3px solid #42424A;
     box-shadow:
       inset 0 0 30px rgba(0,0,0,0.5),
       inset 0 -10px 20px rgba(0,0,0,0.3),
@@ -179,8 +179,8 @@
   .equip-slot {
     width: 48px;
     height: 48px;
-    background: linear-gradient(135deg, #201E18 0%, #1A1816 100%);
-    border: 2px solid #3A3530;
+    background: linear-gradient(135deg, #1E1E24 0%, #1A1816 100%);
+    border: 2px solid #32323A;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -199,14 +199,14 @@
 
   .equip-slot .slot-icon {
     font-size: 1.4rem;
-    color: #B8B4AE;
+    color: #B0B0B8;
     text-shadow: 0 1px 2px rgba(0,0,0,0.5);
   }
 
   .equip-slot-label {
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
     font-size: 0.55rem;
-    color: #8B7E71;
+    color: #7A7A84;
     text-align: center;
     text-transform: capitalize;
     letter-spacing: 0.03em;
@@ -216,7 +216,7 @@
   .equip-slot-name {
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
     font-size: 0.55rem;
-    color: #C4B5A0;
+    color: #B8B8C0;
     text-align: center;
     white-space: nowrap;
   }
@@ -227,8 +227,8 @@
   .inv-slot {
     width: 36px;
     height: 36px;
-    background: linear-gradient(135deg, #1C1A16 0%, #16140E 100%);
-    border: 1px solid #3A3530;
+    background: linear-gradient(135deg, #1A1A1E 0%, #14141A 100%);
+    border: 1px solid #32323A;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -252,7 +252,7 @@
     bottom: 1px;
     right: 2px;
     font-size: 0.5rem;
-    color: #C4B5A0;
+    color: #B8B8C0;
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
   }
 
@@ -269,7 +269,7 @@
   .resource-bar-label {
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
     font-size: 0.7rem;
-    color: #C4B5A0;
+    color: #B8B8C0;
     width: 75px;
     flex-shrink: 0;
   }
@@ -278,7 +278,7 @@
     flex: 1;
     height: 12px;
     background: #0C0A08;
-    border: 1px solid #3A3530;
+    border: 1px solid #32323A;
     overflow: hidden;
     position: relative;
   }
@@ -380,7 +380,7 @@
     flex: 1;
     height: 6px;
     background: #0C0A08;
-    border: 1px solid #3A3530;
+    border: 1px solid #32323A;
     overflow: hidden;
   }
 
@@ -391,7 +391,7 @@
   }
 
   .stat-abbr {
-    color: #C4B5A0;
+    color: #B8B8C0;
     font-weight: bold;
     width: 28px;
     transition: all 0.15s ease;
@@ -435,7 +435,7 @@
   }
 
   .resistance-row-interactive:hover .resistance-name {
-    color: #C4B5A0;
+    color: #B8B8C0;
   }
 
   .resistance-tooltip {
@@ -449,7 +449,7 @@
   }
 
   .resistance-name {
-    color: #8B7E71;
+    color: #7A7A84;
     width: 32px;
     transition: all 0.15s ease;
   }
@@ -466,7 +466,7 @@
   .xp-bar-track {
     height: 10px;
     background: #0C0A08;
-    border: 1px solid #3A3530;
+    border: 1px solid #32323A;
     overflow: hidden;
   }
 
@@ -482,7 +482,7 @@
   .game-tooltip {
     position: absolute;
     z-index: 100;
-    background: linear-gradient(135deg, #2A2620 0%, #1C1A16 100%);
+    background: linear-gradient(135deg, #2A2620 0%, #1A1A1E 100%);
     border: 2px solid #D4AF37;
     padding: 0.6rem;
     box-shadow:
@@ -498,11 +498,11 @@
     font-size: 0.8rem;
     margin: 0 0 0.4rem 0;
     padding-bottom: 0.3rem;
-    border-bottom: 1px solid #3A3530;
+    border-bottom: 1px solid #32323A;
   }
 
   .game-tooltip p {
-    color: #C4B5A0;
+    color: #B8B8C0;
     font-size: 0.7rem;
     margin: 0 0 0.2rem 0;
     line-height: 1.4;
@@ -516,7 +516,7 @@
   }
 
   .game-tooltip .tooltip-type {
-    color: #8B7E71;
+    color: #7A7A84;
     font-size: 0.6rem;
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
   }
@@ -525,21 +525,21 @@
   /* QUEST STYLES                           */
   /* ═══════════════════════════════════════ */
   .quest-item {
-    background: linear-gradient(135deg, #1C1A16 0%, #16140E 100%);
-    border: 1px solid #3A3530;
+    background: linear-gradient(135deg, #1A1A1E 0%, #14141A 100%);
+    border: 1px solid #32323A;
     padding: 0.6rem;
     margin-bottom: 0.4rem;
     transition: border-color 0.15s ease;
   }
 
   .quest-item:hover {
-    border-color: #605850;
+    border-color: #50505A;
   }
 
   .quest-progress-track {
     height: 6px;
     background: #0C0A08;
-    border: 1px solid #3A3530;
+    border: 1px solid #32323A;
     margin-top: 0.4rem;
     overflow: hidden;
   }
@@ -565,7 +565,7 @@
     width: 100%;
     text-align: center;
     text-decoration: none;
-    border: 2px solid #3A3530;
+    border: 2px solid #32323A;
   }
 
   .stone-button-primary {
@@ -597,7 +597,7 @@
     position: fixed;
     inset: 0;
     z-index: 50;
-    background: #1C1A16;
+    background: #1A1A1E;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -609,17 +609,17 @@
     right: 1rem;
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
     font-size: 0.8rem;
-    color: #8B7E71;
+    color: #7A7A84;
     background: none;
-    border: 1px solid #3A3530;
+    border: 1px solid #32323A;
     padding: 0.4rem 0.8rem;
     cursor: pointer;
     transition: all 0.15s ease;
   }
 
   .intro-skip:hover {
-    color: #C4B5A0;
-    border-color: #605850;
+    color: #B8B8C0;
+    border-color: #50505A;
   }
 
   /* ═══════════════════════════════════════ */
@@ -628,8 +628,8 @@
   .buff-icon {
     width: 32px;
     height: 32px;
-    background: linear-gradient(135deg, #201E18 0%, #1A1816 100%);
-    border: 1px solid #3A3530;
+    background: linear-gradient(135deg, #1E1E24 0%, #1A1816 100%);
+    border: 1px solid #32323A;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -678,14 +678,14 @@
     box-shadow:
       inset 0 1px 3px rgba(0,0,0,0.4),
       0 0 8px rgba(212, 175, 55, 0.3);
-    background: linear-gradient(135deg, #2A2620 0%, #201E18 100%);
+    background: linear-gradient(135deg, #2A2620 0%, #1E1E24 100%);
   }
 
   .bag-contents-panel {
     margin-top: 0.4rem;
     padding: 0.4rem;
-    background: linear-gradient(180deg, #1C1A16 0%, #16140E 100%);
-    border: 1px solid #3A3530;
+    background: linear-gradient(180deg, #1A1A1E 0%, #14141A 100%);
+    border: 1px solid #32323A;
     box-shadow: inset 0 1px 4px rgba(0,0,0,0.5);
   }
 
@@ -696,7 +696,7 @@
     text-align: center;
     padding-bottom: 0.3rem;
     margin-bottom: 0.3rem;
-    border-bottom: 1px solid #3A3530;
+    border-bottom: 1px solid #32323A;
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
@@ -711,10 +711,10 @@
   .bag-content-item {
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
     font-size: 0.6rem;
-    color: #C4B5A0;
+    color: #B8B8C0;
     padding: 0.15rem 0.35rem;
-    background: linear-gradient(135deg, #201E18 0%, #1A1816 100%);
-    border: 1px solid #3A3530;
+    background: linear-gradient(135deg, #1E1E24 0%, #1A1816 100%);
+    border: 1px solid #32323A;
     transition: all 0.15s ease;
   }
 
@@ -730,20 +730,20 @@
   .faction-card {
     padding: 0.6rem;
     margin-bottom: 0.5rem;
-    background: linear-gradient(135deg, #1C1A16 0%, #16140E 100%);
-    border: 1px solid #3A3530;
+    background: linear-gradient(135deg, #1A1A1E 0%, #14141A 100%);
+    border: 1px solid #32323A;
     transition: all 0.15s ease;
   }
 
   .faction-card:hover {
-    border-color: #605850;
+    border-color: #50505A;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
   }
 
   .faction-bar-track {
     height: 8px;
     background: #0C0A08;
-    border: 1px solid #3A3530;
+    border: 1px solid #32323A;
     overflow: hidden;
   }
 
@@ -761,8 +761,8 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem;
-    background: linear-gradient(135deg, #201E18 0%, #1A1814 100%);
-    border: 1px solid #3A3530;
+    background: linear-gradient(135deg, #1E1E24 0%, #18181E 100%);
+    border: 1px solid #32323A;
     cursor: pointer;
     transition: all 0.2s ease;
     box-shadow: inset 0 1px 4px rgba(0,0,0,0.5);
@@ -797,7 +797,7 @@
   }
 
   .formal-note-handed .formal-note-label {
-    color: #8B7E71;
+    color: #7A7A84;
     text-shadow: none;
   }
 
@@ -815,9 +815,9 @@
       ),
       linear-gradient(
         180deg,
-        #48474A 0%, #38373A 100%
+        #42424A 0%, #32323A 100%
       );
-    border: 3px solid #5A595C;
+    border: 3px solid #52525C;
     box-shadow:
       inset 1px 1px 4px rgba(220,220,230,0.06),
       inset -1px -1px 4px rgba(0,0,0,0.4),
@@ -829,9 +829,9 @@
     text-align: center;
     font-family: 'Cinzel', Georgia, serif;
     font-size: 0.85rem;
-    color: #D8D4CE;
-    border-bottom: 2px solid #38373A;
-    background: linear-gradient(180deg, #4C4B4E 0%, #48474A 100%);
+    color: #D0D0D8;
+    border-bottom: 2px solid #32323A;
+    background: linear-gradient(180deg, #4C4B4E 0%, #42424A 100%);
     text-shadow: 0 1px 2px rgba(0,0,0,0.5);
   }
 
@@ -841,7 +841,7 @@
     gap: 4px;
     padding: 0.6rem;
     justify-content: center;
-    background: linear-gradient(180deg, #1C1A16 0%, #16140E 100%);
+    background: linear-gradient(180deg, #1A1A1E 0%, #14141A 100%);
     margin: 4px;
     border: 1px solid #2A2620;
     box-shadow: inset 0 2px 8px rgba(0,0,0,0.6);
@@ -850,8 +850,8 @@
   .handin-slot {
     width: 80px;
     height: 40px;
-    background: linear-gradient(135deg, #201E18 0%, #1A1816 100%);
-    border: 1px solid #3A3530;
+    background: linear-gradient(135deg, #1E1E24 0%, #1A1816 100%);
+    border: 1px solid #32323A;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -873,8 +873,8 @@
     padding: 0.5rem;
     display: flex;
     justify-content: center;
-    border-top: 2px solid #38373A;
-    background: linear-gradient(180deg, #48474A 0%, #38373A 100%);
+    border-top: 2px solid #32323A;
+    background: linear-gradient(180deg, #42424A 0%, #32323A 100%);
     min-height: 48px;
     align-items: center;
   }
@@ -917,7 +917,7 @@
   .handin-success-text {
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
     font-size: 0.6rem;
-    color: #C4B5A0;
+    color: #B8B8C0;
     line-height: 1.5;
   }
 
@@ -958,9 +958,9 @@
       ),
       linear-gradient(
         180deg,
-        #48474A 0%, #38373A 100%
+        #42424A 0%, #32323A 100%
       );
-    border: 3px solid #5A595C;
+    border: 3px solid #52525C;
     box-shadow:
       inset 1px 1px 4px rgba(220,220,230,0.06),
       inset -1px -1px 4px rgba(0,0,0,0.4),
@@ -1002,7 +1002,7 @@
     height: 100%;
     padding: 2rem;
     text-align: center;
-    background: linear-gradient(180deg, #1C1A16 0%, #16140E 100%);
+    background: linear-gradient(180deg, #1A1A1E 0%, #14141A 100%);
   }
 
   .unity-progress-track {
@@ -1010,7 +1010,7 @@
     max-width: 300px;
     height: 8px;
     background: #0C0A08;
-    border: 1px solid #3A3530;
+    border: 1px solid #32323A;
     overflow: hidden;
     margin-bottom: 0.75rem;
   }
@@ -1025,7 +1025,7 @@
     padding: 0.4rem 1rem;
     background: linear-gradient(135deg, #1E1A17 0%, #151210 100%);
     border: 1px solid #5A4A2A;
-    color: #C4B5A0;
+    color: #B8B8C0;
     font-family: 'Courier New', monospace;
     font-size: 0.7rem;
     cursor: pointer;
@@ -1041,8 +1041,8 @@
   /* INTERACTIONS BAR (Bottom log area)     */
   /* ═══════════════════════════════════════ */
   .interactions-bar {
-    border-top: 2px solid #3A3530;
-    background: linear-gradient(180deg, #1C1A16 0%, #16140E 100%);
+    border-top: 2px solid #32323A;
+    background: linear-gradient(180deg, #1A1A1E 0%, #14141A 100%);
   }
 
   .interactions-header {
@@ -1060,7 +1060,7 @@
   .interactions-info {
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
     font-size: 0.65rem;
-    color: #8B7E71;
+    color: #7A7A84;
   }
 
   .interactions-log {
@@ -1080,7 +1080,7 @@
   .interactions-message {
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
     font-size: 0.65rem;
-    color: #C4B5A0;
+    color: #B8B8C0;
     padding: 0.1rem 0;
     line-height: 1.5;
   }
@@ -1103,8 +1103,8 @@
   .ability-slot {
     width: 40px;
     height: 40px;
-    background: linear-gradient(135deg, #201E18 0%, #1A1816 100%);
-    border: 1px solid #3A3530;
+    background: linear-gradient(135deg, #1E1E24 0%, #1A1816 100%);
+    border: 1px solid #32323A;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1127,10 +1127,10 @@
   /* ═══════════════════════════════════════ */
   .persona-toggle {
     width: 18px;
-    background: linear-gradient(180deg, #38373A 0%, #2A292C 100%);
-    border: 1px solid #48474A;
+    background: linear-gradient(180deg, #32323A 0%, #2A292C 100%);
+    border: 1px solid #42424A;
     border-right: none;
-    color: #7E7B76;
+    color: #75757E;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1141,7 +1141,7 @@
   }
 
   .persona-toggle:hover {
-    background: linear-gradient(180deg, #48474A 0%, #38373A 100%);
+    background: linear-gradient(180deg, #42424A 0%, #32323A 100%);
     color: #D4AF37;
   }
 
@@ -1153,8 +1153,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.35rem 0.5rem;
-    background: linear-gradient(180deg, #201E18 0%, #1A1814 100%);
-    border: 1px solid #3A3530;
+    background: linear-gradient(180deg, #1E1E24 0%, #18181E 100%);
+    border: 1px solid #32323A;
     box-shadow: inset 0 1px 4px rgba(0,0,0,0.5);
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
     font-size: 0.65rem;
@@ -1167,7 +1167,7 @@
   }
 
   .currency-label {
-    color: #8B7E71;
+    color: #7A7A84;
     font-size: 0.6rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -1187,7 +1187,7 @@
   }
 
   .weight-label {
-    color: #8B7E71;
+    color: #7A7A84;
     font-size: 0.6rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -1203,21 +1203,21 @@
   /* ═══════════════════════════════════════ */
   .faith-list-panel {
     background: rgba(0, 0, 0, 0.15);
-    border: 1px solid #2A2520;
+    border: 1px solid #26262E;
     padding: 4px;
   }
 
   .faith-card {
-    background: linear-gradient(135deg, #1C1A16 0%, #16140E 100%);
-    border: 1px solid #2A2520;
+    background: linear-gradient(135deg, #1A1A1E 0%, #14141A 100%);
+    border: 1px solid #26262E;
     padding: 0.6rem;
     cursor: pointer;
     transition: all 0.15s ease;
   }
 
   .faith-card:hover {
-    border-color: #605850;
-    background: linear-gradient(135deg, #22201C 0%, #1A1814 100%);
+    border-color: #50505A;
+    background: linear-gradient(135deg, #22201C 0%, #18181E 100%);
   }
 
   .faith-card-active {
@@ -1235,16 +1235,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #1C1A16;
+  background: #1A1A1E;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #38373A;
-  border: 1px solid #48474A;
+  background: #32323A;
+  border: 1px solid #42424A;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #48474A;
+  background: #42424A;
 }
 
 /* ═══════════════════════════════════════ */
@@ -1271,7 +1271,7 @@
 @keyframes notePulse {
   0%, 100% {
     box-shadow: inset 0 1px 4px rgba(0,0,0,0.5), 0 0 4px rgba(212, 175, 55, 0.1);
-    border-color: #3A3530;
+    border-color: #32323A;
   }
   50% {
     box-shadow: inset 0 1px 4px rgba(0,0,0,0.5), 0 0 12px rgba(212, 175, 55, 0.3);

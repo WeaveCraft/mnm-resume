@@ -50,7 +50,7 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
               transition={{ duration: 0.6 }}
             >
               <h2 style={{ fontSize: '1.75rem', marginBottom: '0.5rem' }}>Viktor Hurtig</h2>
-              <p style={{ color: '#C4B5A0', fontSize: '0.85rem', fontFamily: 'Courier New, monospace' }}>
+              <p style={{ color: '#B8B8C0', fontSize: '0.85rem', fontFamily: 'Courier New, monospace' }}>
                 Level 32 &middot; Unity Programmer
               </p>
             </motion.div>
@@ -64,7 +64,7 @@ export default function IntroSplash({ onComplete }: IntroSplashProps) {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <p style={{ color: '#8B7E71', fontSize: '0.8rem', fontFamily: 'Courier New, monospace' }}>
+              <p style={{ color: '#7A7A84', fontSize: '0.8rem', fontFamily: 'Courier New, monospace' }}>
                 Inspecting character...
               </p>
             </motion.div>
