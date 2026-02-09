@@ -7,6 +7,12 @@ import IntroSplash from '../components/IntroSplash';
 import UnityOverlay from '../components/UnityPlayer';
 import DungeonScene from '@/components/DungeonScene';
 
+const UnityIcon = (
+  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+    <path d="m12.9288 4.2939 3.7997 2.1929c.1366.077.1415.2905 0 .3675l-4.515 2.6076a.4192.4192 0 0 1-.4246 0L7.274 6.8543c-.139-.0745-.1415-.293 0-.3675l3.7972-2.193V0L1.3758 5.5977V16.793l3.7177-2.1456v-4.3858c-.0025-.1565.1813-.2682.318-.1838l4.5148 2.6076a.4252.4252 0 0 1 .2136.3676v5.2127c.0025.1565-.1813.2682-.3179.1838l-3.7996-2.1929-3.7178 2.1457L12 24l9.6954-5.5977-3.7178-2.1457-3.7996 2.1929c-.1341.082-.3229-.0248-.3179-.1838V13.053c0-.1565.087-.2956.2136-.3676l4.5149-2.6076c.134-.082.3228.0224.3179.1838v4.3858l3.7177 2.1456V5.5977L12.9288 0Z" />
+  </svg>
+);
+
 const TABS = [
   { id: 'inventory', label: 'Inventory' },
   { id: 'factions', label: 'Factions' },
@@ -153,7 +159,7 @@ export default function CharacterSheet() {
     finger2:   { name: 'React',        icon: '\u25C7', type: 'Tool' as const, description: 'Frontend framework', stats: ['+40 UI Development', '+30 Component Design'] },
     boots:     { name: 'Bash',         icon: '\u25B3', type: 'Tool' as const, description: 'Shell scripting & CLI tools', stats: ['+35 Automation', '+30 Scripting'] },
     // Weapons row
-    primary:   { name: 'Unity',        icon: '\u2694', type: 'Weapon' as const, description: 'Game engine - currently leveling', stats: ['+35 Game Dev', '+25 Scene Design'] },
+    primary:   { name: 'Unity',        icon: UnityIcon, type: 'Weapon' as const, description: 'Game engine - currently leveling', stats: ['+35 Game Dev', '+25 Scene Design'] },
     secondary: { name: 'MariaDB',      icon: '\u25C6', type: 'Artifact' as const, description: 'Database expertise', stats: ['+45 Query Optimization', '+35 Data Modeling'] },
     range:     { name: 'REST API',     icon: '\u279B', type: 'Tool' as const, description: 'API design & implementation', stats: ['+40 Endpoint Design', '+30 Integration'] },
   };
@@ -321,7 +327,11 @@ export default function CharacterSheet() {
                         {/* Class Icon Area */}
                         <div className="dark-panel-shallow" style={{ padding: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '80px', background: 'linear-gradient(180deg, #1A1A1E 0%, #14141A 100%)' }}>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '2.5rem', lineHeight: 1 }}>{'\u2694'}</div>
+                            <div style={{ fontSize: '2.5rem', lineHeight: 1 }}>
+                              <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">
+                                <path d="m12.9288 4.2939 3.7997 2.1929c.1366.077.1415.2905 0 .3675l-4.515 2.6076a.4192.4192 0 0 1-.4246 0L7.274 6.8543c-.139-.0745-.1415-.293 0-.3675l3.7972-2.193V0L1.3758 5.5977V16.793l3.7177-2.1456v-4.3858c-.0025-.1565.1813-.2682.318-.1838l4.5148 2.6076a.4252.4252 0 0 1 .2136.3676v5.2127c.0025.1565-.1813.2682-.3179.1838l-3.7996-2.1929-3.7178 2.1457L12 24l9.6954-5.5977-3.7178-2.1457-3.7996 2.1929c-.1341.082-.3229-.0248-.3179-.1838V13.053c0-.1565.087-.2956.2136-.3676l4.5149-2.6076c.134-.082.3228.0224.3179.1838v4.3858l3.7177 2.1456V5.5977L12.9288 0Z" />
+                              </svg>
+                            </div>
                           </div>
                         </div>
 
@@ -1164,7 +1174,7 @@ function EquipSlotMini({
 }: {
   slot: string;
   name: string;
-  icon: string;
+  icon: React.ReactNode;
   type: 'Weapon' | 'Armor' | 'Tool' | 'Artifact';
   description: string;
   stats?: string[];
