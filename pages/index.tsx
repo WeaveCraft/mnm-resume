@@ -96,9 +96,9 @@ export default function CharacterSheet() {
 
   // Stats as game-style numbers (like the M&M screenshot: 18-29 range)
   const stats = [
-    { abbr: 'STR', value: 29, full: 'Strength', description: 'C# mastery & backend power', details: ['2 years intensive .NET education', '6+ months professional development', 'Built complex full-stack applications', 'Deep OOP & Entity Framework proficiency'] },
-    { abbr: 'STA', value: 29, full: 'Stamina', description: 'Work ethic & dedication', details: ['Worked full-time while studying programming', 'Completed 2-year intensive program', 'Dedicated spare time to Unity learning', 'Never gives up on challenging problems'] },
-    { abbr: 'AGI', value: 26, full: 'Agility', description: 'Learning speed & adaptability', details: ['Self-taught programming from scratch', 'Mastered React, Angular & TypeScript rapidly', 'Currently learning Unity in spare time', 'Quick to adopt new frameworks'] },
+    { abbr: 'STR', value: 29, full: 'Strength', description: 'C# mastery & backend power', details: ['Software Development education in Sweden', '6+ months professional development', 'Built complex full-stack applications', 'Deep OOP & Entity Framework proficiency'] },
+    { abbr: 'STA', value: 29, full: 'Stamina', description: 'Work ethic & dedication', details: ['Worked full-time while studying software development', 'Graduated from Swedish software development program', 'Dedicated spare time to Unity learning', 'Never gives up on challenging problems'] },
+    { abbr: 'AGI', value: 26, full: 'Agility', description: 'Learning speed & adaptability', details: ['Studied software development in Sweden', 'Mastered React, Angular & TypeScript rapidly', 'Currently learning Unity in spare time', 'Quick to adopt new frameworks'] },
     { abbr: 'DEX', value: 29, full: 'Dexterity', description: 'Versatility across tech stacks', details: ['Backend: C#, .NET, ASP.NET Core', 'Frontend: React, Angular, Blazor, TypeScript', 'Databases: SQL Server, PostgreSQL', 'Tools: Docker, Git, VS Code'] },
     { abbr: 'INT', value: 18, full: 'Intelligence', description: 'Problem-solving & system design', details: ['Architected scalable client-server systems', 'Designed RESTful APIs from scratch', 'Database optimization & query tuning', 'Strategic technical decision-making'] },
     { abbr: 'WIS', value: 26, full: 'Wisdom', description: 'Best practices & code quality', details: ['Professional Git workflows', 'CI/CD pipeline implementation', 'Test-driven development (xUnit)', 'SOLID design patterns'] },
@@ -165,10 +165,11 @@ export default function CharacterSheet() {
 
   // Bag categories with contents
   const bags = [
-    { icon: '\u25A3', name: 'Backend', contents: ['C#', '.NET', 'ASP.NET', 'Entity FW', 'SQL', 'PostgreSQL', 'REST API', 'LINQ'] },
-    { icon: '\u25A3', name: 'Frontend', contents: ['React', 'Angular', 'TypeScript', 'Blazor', 'HTML5', 'CSS3', 'JavaScript'] },
-    { icon: '\u25A3', name: 'DevOps', contents: ['Docker', 'Git', 'CI/CD', 'Linux', 'Bash', 'npm', 'VS Code'] },
-    { icon: '\u25A3', name: 'GameDev', contents: ['Unity', 'C#', 'Scene Design', 'Game Logic', 'Debugging'] },
+    { icon: '\u25A3', name: 'Backend', contents: ['C#', '.NET', 'ASP.NET', 'Entity FW', 'SQL', 'PostgreSQL', 'REST API', 'LINQ', 'SQL Server', 'JSON', 'XML', 'Middleware'] },
+    { icon: '\u25A3', name: 'Frontend', contents: ['React', 'Angular', 'TypeScript', 'Blazor', 'HTML5', 'CSS3', 'JavaScript', 'Tailwind', 'SASS', 'Responsive Design', 'Accessibility'] },
+    { icon: '\u25A3', name: 'DevOps', contents: ['Docker', 'Git', 'CI/CD', 'Linux', 'Bash', 'npm', 'VS Code', 'Azure', 'GitHub Actions', 'Networking', 'SSH'] },
+    { icon: '\u25A3', name: 'GameDev', contents: ['Unity', 'C#', 'Scene Design', 'Game Logic', 'Debugging', '3D Math', 'Physics', 'Shaders'] },
+    { icon: '\u25A3', name: 'IT & Ops', contents: ['Windows Server', 'Active Directory', 'Troubleshooting', 'Hardware', 'Virtualization', 'DNS', 'TCP/IP', 'Firewalls'] },
   ];
 
   const buffs = [
@@ -206,7 +207,7 @@ export default function CharacterSheet() {
       reward: 'Career advancement, passion project involvement',
     },
     completedQuests: [
-      { title: '.NET Software Developer Training', xp: 5000, reward: 'C# Mastery +50' },
+      { title: 'Software Development Program (Sweden)', xp: 5000, reward: 'C# Mastery +50' },
       { title: 'Full-Stack Internship at LearningWell', xp: 3000, reward: 'Professional Experience +40' },
       { title: 'Build PetPal Application', xp: 1500, reward: 'Full-Stack Skills +30' },
       { title: 'Master Blazor Framework', xp: 1200, reward: 'UI Development +25' },
