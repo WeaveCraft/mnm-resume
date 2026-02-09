@@ -263,7 +263,7 @@ export default function CharacterSheet() {
   const quests = {
     mainQuest: {
       title: 'Join the Monsters & Memories Guild',
-      description: 'Prove your worth to lovingrobot (Shawn) and the legendary M&M team. Hand in your credentials, demonstrate your skills, and convince them that a Swedish IT architect who builds enterprise IAM systems by day and Unity games by night is exactly what they need. (No train-pulling or camp-stealing allowed.)',
+      description: 'Prove your worth to aLovingRobot (Shawn) and the legendary M&M team. Hand in your credentials, demonstrate your skills, and convince them that a Swedish IT architect who builds enterprise IAM systems by day and Unity games by night is exactly what they need. (No train-pulling or camp-stealing allowed.)',
       objectives: [
         { text: 'Master C# programming (.NET, enterprise-level)', completed: true },
         { text: 'Build client-server applications (health platform, IAM systems)', completed: true },
@@ -272,7 +272,7 @@ export default function CharacterSheet() {
         { text: 'Master Unity UI Toolkit', completed: true },
         { text: 'Learn Unity Netcode for multiplayer', completed: false, progress: 15 },
         { text: 'Build impressive M&M-themed portfolio', completed: true },
-        { text: 'Prove dedication to lovingrobot & the M&M guild', completed: false },
+        { text: 'Prove dedication to aLovingRobot & the M&M guild', completed: false },
       ],
       reward: 'Epic quest: Career advancement, work on dream MMORPG, learn from masters, raid bosses (in code)',
     },
