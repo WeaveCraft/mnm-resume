@@ -473,7 +473,7 @@ export default function CharacterSheet() {
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0' }}>
 
                     {/* Top equipment row: Ear, Neck, Head, Face, Ear */}
-                    <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', alignItems: 'flex-end', marginBottom: '2px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2px', width: '260px' }}>
                       <EquipSlotMini slot="Ear" {...equipment.ear1} />
                       <EquipSlotMini slot="Neck" {...equipment.neck} />
                       <EquipSlotMini slot="Head" {...equipment.head} />
@@ -484,7 +484,7 @@ export default function CharacterSheet() {
                     {/* Middle row: Left slots | Portrait | Right slots */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', width: '100%', justifyContent: 'center' }}>
                       {/* Left side slots: Chest, Arms, Wrist, Belt, Finger, Legs */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', alignItems: 'center' }}>
+                      <div className="equip-side-column">
                         <EquipSlotMini slot="Chest" {...equipment.chest} />
                         <EquipSlotMini slot="Arms" {...equipment.arms} />
                         <EquipSlotMini slot="Wrist" {...equipment.wrist1} />
@@ -502,7 +502,7 @@ export default function CharacterSheet() {
                       </div>
 
                       {/* Right side slots: Cape, Shoulders, Wrist, Hands, Finger, Boots */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', alignItems: 'center' }}>
+                      <div className="equip-side-column">
                         <EquipSlotMini slot="Cape" {...equipment.cape} />
                         <EquipSlotMini slot="Shoulders" {...equipment.shoulders} />
                         <EquipSlotMini slot="Wrist" {...equipment.wrist2} />
@@ -513,7 +513,7 @@ export default function CharacterSheet() {
                     </div>
 
                     {/* Weapon slots row: Primary, Secondary, Range, Ammo */}
-                    <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', alignItems: 'flex-start', marginTop: '2px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: '2px', width: '260px' }}>
                       <EquipSlotMini slot="Primary" {...equipment.primary} />
                       <EquipSlotMini slot="Secondary" {...equipment.secondary} />
                       <EquipSlotMini slot="Range" {...equipment.range} />

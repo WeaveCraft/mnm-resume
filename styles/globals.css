@@ -223,6 +223,30 @@
     line-height: 1.2;
   }
 
+  /* Side column slots - compact to fit portrait height */
+  .equip-side-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 340px;
+  }
+
+  .equip-side-column .equip-slot {
+    width: 36px;
+    height: 36px;
+  }
+
+  .equip-side-column .slot-icon {
+    font-size: 1.1rem;
+  }
+
+  .equip-side-column .equip-slot-label,
+  .equip-side-column .equip-slot-name {
+    font-size: 0.45rem;
+    line-height: 1.1;
+  }
+
   /* ═══════════════════════════════════════ */
   /* INVENTORY GRID - Bottom right items    */
   /* ═══════════════════════════════════════ */
@@ -1346,6 +1370,15 @@
 
   .equip-slot .slot-icon {
     font-size: 1.1rem;
+  }
+
+  .equip-side-column .equip-slot {
+    width: 32px;
+    height: 32px;
+  }
+
+  .equip-side-column .slot-icon {
+    font-size: 0.9rem;
   }
 
   .inv-slot {
