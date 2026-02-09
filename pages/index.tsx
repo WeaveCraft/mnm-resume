@@ -86,9 +86,9 @@ export default function CharacterSheet() {
 
   const character = {
     name: 'Encrypted',
-    race: 'Gnome Rogue',
+    race: 'Scandinavian Unity Enchanter',
     class: 'Unity Programmer',
-    level: 60,
+    level: 32,
     alignment: 'Agnostic',
   };
 
