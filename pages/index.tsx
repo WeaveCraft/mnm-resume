@@ -20,6 +20,7 @@ export default function CharacterSheet() {
   const [showIntro, setShowIntro] = useState(true);
   const [activeTab, setActiveTab] = useState('inventory');
   const [personaOpen, setPersonaOpen] = useState(true);
+  const [openBag, setOpenBag] = useState<string | null>(null);
 
   // Job application hand-in animation state
   const [isDraggingNote, setIsDraggingNote] = useState(false);
@@ -160,12 +161,12 @@ export default function CharacterSheet() {
     { icon: '\u2699', name: 'ASP.NET', count: undefined },
   ];
 
-  // Bag categories
+  // Bag categories with contents
   const bags = [
-    { icon: '\u25A3', name: 'Backend' },
-    { icon: '\u25A3', name: 'Frontend' },
-    { icon: '\u25A3', name: 'DevOps' },
-    { icon: '\u25A3', name: 'GameDev' },
+    { icon: '\u25A3', name: 'Backend', contents: ['C#', '.NET', 'ASP.NET', 'Entity FW', 'SQL', 'PostgreSQL', 'REST API', 'LINQ'] },
+    { icon: '\u25A3', name: 'Frontend', contents: ['React', 'Angular', 'TypeScript', 'Blazor', 'HTML5', 'CSS3', 'JavaScript'] },
+    { icon: '\u25A3', name: 'DevOps', contents: ['Docker', 'Git', 'CI/CD', 'Linux', 'Bash', 'npm', 'VS Code'] },
+    { icon: '\u25A3', name: 'GameDev', contents: ['Unity', 'C#', 'Scene Design', 'Game Logic', 'Debugging'] },
   ];
 
   const buffs = [
@@ -340,40 +341,31 @@ export default function CharacterSheet() {
                           </div>
                         </div>
 
-                        {/* STATISTICS */}
+                        {/* STATISTICS - Interactive with hover tooltips */}
                         <div className="dark-panel-shallow" style={{ padding: '0.5rem' }}>
                           <div className="section-label">Statistics</div>
                           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 0.5rem' }}>
                             {/* Left column: STR, STA, AGI, DEX */}
                             <div>
                               {stats.filter(s => ['STR','STA','AGI','DEX'].includes(s.abbr)).map((stat) => (
-                                <div key={stat.abbr} className="stat-row-compact" title={`${stat.full}: ${stat.description}`}>
-                                  <span className="stat-abbr">{stat.abbr}</span>
-                                  <span className="stat-num">{stat.value}</span>
-                                </div>
+                                <StatRowInteractive key={stat.abbr} stat={stat} />
                               ))}
                             </div>
                             {/* Right column: INT, WIS, CHA */}
                             <div>
                               {stats.filter(s => ['INT','WIS','CHA'].includes(s.abbr)).map((stat) => (
-                                <div key={stat.abbr} className="stat-row-compact" title={`${stat.full}: ${stat.description}`}>
-                                  <span className="stat-abbr">{stat.abbr}</span>
-                                  <span className="stat-num">{stat.value}</span>
-                                </div>
+                                <StatRowInteractive key={stat.abbr} stat={stat} />
                               ))}
                             </div>
                           </div>
                         </div>
 
-                        {/* RESISTANCES */}
+                        {/* RESISTANCES - Interactive */}
                         <div className="dark-panel-shallow" style={{ padding: '0.5rem' }}>
                           <div className="section-label">Resistances</div>
                           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 0.5rem' }}>
                             {resistances.map((res) => (
-                              <div key={res.abbr} className="resistance-row" title={res.full}>
-                                <span className="resistance-name">{res.abbr}</span>
-                                <span className="resistance-value">{res.value}</span>
-                              </div>
+                              <ResistanceRowInteractive key={res.abbr} res={res} />
                             ))}
                           </div>
                         </div>
@@ -458,12 +450,7 @@ export default function CharacterSheet() {
                       justifyContent: 'center',
                     }}>
                       {inventoryItems.map((item, i) => (
-                        <div key={i} className="inv-slot" title={item.name}>
-                          <span>{item.icon}</span>
-                          {item.count !== undefined && (
-                            <span className="inv-count">{item.count}</span>
-                          )}
-                        </div>
+                        <InvSlotInteractive key={i} item={item} />
                       ))}
                       {/* Formal Note special item */}
                       <div
@@ -489,11 +476,45 @@ export default function CharacterSheet() {
                         justifyContent: 'center',
                       }}>
                         {bags.map((bag, i) => (
-                          <div key={i} className="inv-slot" title={bag.name}>
-                            <span>{bag.icon}</span>
-                          </div>
+                          <BagSlotInteractive
+                            key={i}
+                            bag={bag}
+                            isOpen={openBag === bag.name}
+                            onToggle={() => setOpenBag(openBag === bag.name ? null : bag.name)}
+                          />
                         ))}
                       </div>
+                      {/* Expanded bag contents */}
+                      <AnimatePresence>
+                        {openBag && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            style={{ overflow: 'hidden' }}
+                          >
+                            <div className="bag-contents-panel">
+                              <div className="bag-contents-header">
+                                {openBag}
+                              </div>
+                              <div className="bag-contents-grid">
+                                {bags.find(b => b.name === openBag)?.contents.map((item, j) => (
+                                  <motion.div
+                                    key={item}
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: 0.03 * j }}
+                                    className="bag-content-item"
+                                  >
+                                    {item}
+                                  </motion.div>
+                                ))}
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                     {/* Drop & Destroy buttons */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', minWidth: '80px' }}>
@@ -525,58 +546,46 @@ export default function CharacterSheet() {
             )}
 
             {/* ═══════════════════════════════════ */}
-            {/* FACTIONS TAB - Detailed Stats       */}
+            {/* FACTIONS TAB - Reputation Standings */}
             {/* ═══════════════════════════════════ */}
             {activeTab === 'factions' && (
               <div style={{ maxWidth: '700px', margin: '0 auto' }}>
-                <div className="section-label" style={{ marginBottom: '1rem' }}>Core Attributes</div>
-                {stats.map((stat, i) => (
+                <div className="section-label" style={{ marginBottom: '1rem' }}>Faction Standings</div>
+                {[
+                  { name: 'The .NET Guild', standing: 'Ally', value: 95, description: 'Core allegiance to the C# and .NET ecosystem', color: '#5A8A4A' },
+                  { name: 'React Coalition', standing: 'Warmly', value: 78, description: 'Strong bonds through frontend development', color: '#4A8A7A' },
+                  { name: 'Unity Artisans', standing: 'Amiably', value: 65, description: 'Growing reputation through game development studies', color: '#6A7A8A' },
+                  { name: 'DevOps Order', standing: 'Kindly', value: 58, description: 'Respected for Docker & CI/CD contributions', color: '#7A7A5A' },
+                  { name: 'Database Keepers', standing: 'Warmly', value: 75, description: 'Trusted with PostgreSQL & SQL Server knowledge', color: '#4A8A7A' },
+                  { name: 'Agile Brotherhood', standing: 'Ally', value: 90, description: 'Veteran of sprint ceremonies and Scrum rituals', color: '#5A8A4A' },
+                  { name: 'Open Source Collective', standing: 'Amiably', value: 60, description: 'Contributing to community projects on GitHub', color: '#6A7A8A' },
+                  { name: 'M&M Development Team', standing: 'Apprehensive', value: 35, description: 'Seeking acceptance into the legendary guild', color: '#8A8A4A' },
+                ].map((faction, i) => (
                   <motion.div
-                    key={stat.abbr}
+                    key={faction.name}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.05 * i }}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '0.75rem',
-                      padding: '0.5rem',
-                      marginBottom: '0.5rem',
-                      background: 'linear-gradient(135deg, #1C1A16 0%, #16140E 100%)',
-                      border: '1px solid #3A3530',
-                    }}
+                    className="faction-card"
                   >
-                    <div style={{ width: '50px', textAlign: 'center', flexShrink: 0 }}>
-                      <div style={{ fontSize: '0.8rem', color: '#D4AF37', fontFamily: 'Cinzel, Georgia, serif', fontWeight: 'bold' }}>{stat.abbr}</div>
-                      <div style={{ fontSize: '1.1rem', color: '#E8D5B7', fontFamily: 'Courier New, monospace', fontWeight: 'bold' }}>{stat.value}</div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.3rem' }}>
+                      <span style={{ fontSize: '0.75rem', color: '#D4AF37', fontFamily: 'Cinzel, Georgia, serif' }}>{faction.name}</span>
+                      <span style={{ fontSize: '0.6rem', color: faction.color, fontFamily: 'Courier New, monospace', fontWeight: 'bold' }}>{faction.standing}</span>
                     </div>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: '0.75rem', color: '#D4AF37', fontFamily: 'Cinzel, Georgia, serif', marginBottom: '0.2rem' }}>{stat.full}</div>
-                      <div style={{ fontSize: '0.65rem', color: '#8B7E71', fontStyle: 'italic', marginBottom: '0.3rem' }}>{stat.description}</div>
-                      {stat.details.map((detail, j) => (
-                        <div key={j} style={{ fontSize: '0.6rem', color: '#5A8A4A', fontFamily: 'Courier New, monospace' }}>
-                          &#9656; {detail}
-                        </div>
-                      ))}
+                    <div style={{ fontSize: '0.6rem', color: '#8B7E71', fontStyle: 'italic', marginBottom: '0.4rem', fontFamily: 'Courier New, monospace' }}>
+                      {faction.description}
+                    </div>
+                    <div className="faction-bar-track">
+                      <motion.div
+                        className="faction-bar-fill"
+                        initial={{ width: 0 }}
+                        animate={{ width: `${faction.value}%` }}
+                        transition={{ duration: 1, delay: 0.1 * i, ease: 'easeOut' }}
+                        style={{ background: `linear-gradient(90deg, ${faction.color}88 0%, ${faction.color} 100%)` }}
+                      />
                     </div>
                   </motion.div>
                 ))}
-
-                <div className="section-label" style={{ marginTop: '1.5rem', marginBottom: '1rem' }}>Resistances</div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.5rem' }}>
-                  {resistances.map((res) => (
-                    <div key={res.abbr} style={{
-                      textAlign: 'center',
-                      padding: '0.5rem',
-                      background: 'linear-gradient(135deg, #1C1A16 0%, #16140E 100%)',
-                      border: '1px solid #3A3530',
-                    }}>
-                      <div style={{ fontSize: '0.6rem', color: '#8B7E71' }}>{res.abbr}</div>
-                      <div style={{ fontSize: '1rem', color: res.value > 0 ? '#E8D5B7' : '#8A4A4A', fontWeight: 'bold' }}>{res.value}</div>
-                      <div style={{ fontSize: '0.5rem', color: '#8B7E71', marginTop: '0.15rem' }}>{res.full}</div>
-                    </div>
-                  ))}
-                </div>
               </div>
             )}
 
@@ -880,6 +889,163 @@ export default function CharacterSheet() {
         )}
       </AnimatePresence>
     </>
+  );
+}
+
+/* ═══════════════════════════════════════ */
+/* INTERACTIVE STAT ROW COMPONENT         */
+/* ═══════════════════════════════════════ */
+function StatRowInteractive({ stat }: { stat: { abbr: string; value: number; full: string; description: string; details: string[] } }) {
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  return (
+    <div
+      className="stat-row-interactive"
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+    >
+      <span className="stat-abbr">{stat.abbr}</span>
+      <span className="stat-num">{stat.value}</span>
+      <AnimatePresence>
+        {showTooltip && (
+          <motion.div
+            initial={{ opacity: 0, y: 5, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 5, scale: 0.95 }}
+            transition={{ duration: 0.15 }}
+            className="game-tooltip stat-tooltip"
+          >
+            <h4>{stat.abbr} &middot; {stat.full}</h4>
+            <div className="stat-tooltip-value">
+              <span className="stat-tooltip-number">{stat.value}</span>
+              <div className="stat-tooltip-bar-track">
+                <motion.div
+                  className="stat-tooltip-bar-fill"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${(stat.value / 30) * 100}%` }}
+                  transition={{ duration: 0.4, ease: 'easeOut' }}
+                />
+              </div>
+            </div>
+            <p style={{ fontStyle: 'italic' }}>{stat.description}</p>
+            <div style={{ marginTop: '0.3rem', borderTop: '1px solid #3A3530', paddingTop: '0.3rem' }}>
+              {stat.details.map((detail, j) => (
+                <p key={j} className="tooltip-stat">&#9656; {detail}</p>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════ */
+/* INTERACTIVE RESISTANCE ROW COMPONENT   */
+/* ═══════════════════════════════════════ */
+function ResistanceRowInteractive({ res }: { res: { abbr: string; value: number; full: string } }) {
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  return (
+    <div
+      className="resistance-row-interactive"
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+    >
+      <span className="resistance-name">{res.abbr}</span>
+      <span className="resistance-value" style={{ color: res.value > 0 ? '#E8D5B7' : '#8A4A4A' }}>{res.value}</span>
+      <AnimatePresence>
+        {showTooltip && (
+          <motion.div
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 5 }}
+            className="game-tooltip resistance-tooltip"
+          >
+            <h4>{res.abbr}</h4>
+            <p>{res.full}</p>
+            <div className="stat-tooltip-bar-track" style={{ marginTop: '0.3rem' }}>
+              <motion.div
+                className="stat-tooltip-bar-fill"
+                initial={{ width: 0 }}
+                animate={{ width: `${res.value}%` }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+                style={{ background: res.value > 0 ? undefined : 'linear-gradient(90deg, #8A4A4A 0%, #6A2A2A 100%)' }}
+              />
+            </div>
+            <p className="tooltip-stat" style={{ marginTop: '0.2rem' }}>{res.value}%</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════ */
+/* INTERACTIVE INVENTORY SLOT COMPONENT   */
+/* ═══════════════════════════════════════ */
+function InvSlotInteractive({ item }: { item: { icon: string; name: string; count?: number } }) {
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  return (
+    <div
+      className="inv-slot"
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+    >
+      <span>{item.icon}</span>
+      {item.count !== undefined && (
+        <span className="inv-count">{item.count}</span>
+      )}
+      <AnimatePresence>
+        {showTooltip && (
+          <motion.div
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 5 }}
+            className="game-tooltip inv-tooltip"
+          >
+            <h4>{item.icon} {item.name}</h4>
+            <p className="tooltip-type">Skill</p>
+            {item.count !== undefined && (
+              <p className="tooltip-stat">Quantity: {item.count}</p>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════ */
+/* INTERACTIVE BAG SLOT COMPONENT         */
+/* ═══════════════════════════════════════ */
+function BagSlotInteractive({ bag, isOpen, onToggle }: { bag: { icon: string; name: string; contents: string[] }; isOpen: boolean; onToggle: () => void }) {
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  return (
+    <div
+      className={`inv-slot bag-slot ${isOpen ? 'bag-slot-open' : ''}`}
+      onClick={onToggle}
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+    >
+      <span>{bag.icon}</span>
+      <AnimatePresence>
+        {showTooltip && !isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 5 }}
+            className="game-tooltip inv-tooltip"
+          >
+            <h4>{bag.name}</h4>
+            <p className="tooltip-type">Bag &middot; {bag.contents.length} items</p>
+            <p style={{ fontStyle: 'italic', fontSize: '0.55rem' }}>Click to open</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
 
