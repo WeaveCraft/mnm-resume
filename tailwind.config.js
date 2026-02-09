@@ -7,15 +7,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Stone UI frame palette (M&M inventory screen)
-        'stone-dark': '#3A3A3E',
-        'stone-mid': '#4E4E52',
-        'stone-light': '#5E5E62',
-        'stone-highlight': '#6E6E72',
-        // Dark inner panels
-        'panel-bg': '#1A1A1E',
-        'panel-dark': '#141418',
-        'panel-border': '#2E2E32',
+        // Warm brown-gray UI frame palette (M&M in-game inventory)
+        'stone-dark': '#3A3530',
+        'stone-mid': '#524A42',
+        'stone-light': '#605850',
+        'stone-highlight': '#6E645A',
+        // Dark inner panels (warm dark brown-black)
+        'panel-bg': '#1A1816',
+        'panel-dark': '#141210',
+        'panel-border': '#2E2A24',
         // Game accent colors
         'game-gold': '#D4AF37',
         'game-gold-dim': '#8B6914',

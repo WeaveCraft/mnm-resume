@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    background: #1E1E22;
+    background: #1C1A16;
     color: #C4B5A0;
     font-family: 'Courier New', monospace;
     margin: 0;
@@ -24,6 +24,7 @@
 @layer components {
   /* ═══════════════════════════════════════ */
   /* STONE FRAME - Outer container          */
+  /* Warm brown-gray aged metal look        */
   /* ═══════════════════════════════════════ */
   .stone-frame {
     background:
@@ -41,13 +42,13 @@
       ),
       linear-gradient(
         135deg,
-        #4A4A4E 0%, #555558 15%, #4E4E52 30%,
-        #585860 45%, #4A4A4E 60%, #525256 75%,
-        #4E4E52 90%, #555558 100%
+        #4E4840 0%, #585048 15%, #524A42 30%,
+        #5A5248 45%, #4E4840 60%, #564E46 75%,
+        #524A42 90%, #585048 100%
       );
-    border: 4px solid #3A3A3E;
+    border: 4px solid #3A3530;
     box-shadow:
-      inset 2px 2px 6px rgba(255,255,255,0.06),
+      inset 2px 2px 6px rgba(255,240,220,0.06),
       inset -2px -2px 6px rgba(0,0,0,0.4),
       4px 4px 12px rgba(0,0,0,0.7),
       0 0 40px rgba(0,0,0,0.3);
@@ -58,16 +59,16 @@
   /* DARK PANEL - Inner sunken panels       */
   /* ═══════════════════════════════════════ */
   .dark-panel {
-    background: linear-gradient(180deg, #1E1E22 0%, #18181C 100%);
-    border: 2px solid #3A3A3E;
+    background: linear-gradient(180deg, #1C1A16 0%, #16140E 100%);
+    border: 2px solid #3A3530;
     box-shadow:
       inset 0 2px 8px rgba(0,0,0,0.6),
       inset 0 0 20px rgba(0,0,0,0.3);
   }
 
   .dark-panel-shallow {
-    background: linear-gradient(180deg, #222226 0%, #1C1C20 100%);
-    border: 1px solid #3A3A3E;
+    background: linear-gradient(180deg, #201E18 0%, #1A1814 100%);
+    border: 1px solid #3A3530;
     box-shadow: inset 0 1px 4px rgba(0,0,0,0.5);
   }
 
@@ -82,7 +83,7 @@
     letter-spacing: 0.15em;
     padding: 0.3rem 0;
     text-transform: uppercase;
-    border-bottom: 1px solid #3A3A3E;
+    border-bottom: 1px solid #3A3530;
     margin-bottom: 0.4rem;
     text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
   }
@@ -103,33 +104,33 @@
     cursor: pointer;
     letter-spacing: 0.05em;
     transition: all 0.15s ease;
-    border: 2px solid #3A3A3E;
+    border: 2px solid #3A3530;
     border-bottom: none;
     border-radius: 3px 3px 0 0;
   }
 
   .stone-tab-active {
     background:
-      linear-gradient(180deg, #555558 0%, #4E4E52 50%, #4A4A4E 100%);
+      linear-gradient(180deg, #585048 0%, #524A42 50%, #4E4840 100%);
     color: #E8D5B7;
     box-shadow:
-      inset 1px 1px 3px rgba(255,255,255,0.08),
+      inset 1px 1px 3px rgba(255,240,220,0.08),
       0 -2px 6px rgba(0,0,0,0.2);
-    border-color: #5A5A5E;
+    border-color: #5E5650;
     position: relative;
     z-index: 2;
   }
 
   .stone-tab-inactive {
     background:
-      linear-gradient(180deg, #3A3A3E 0%, #333336 100%);
+      linear-gradient(180deg, #3A3530 0%, #342F28 100%);
     color: #8B7E71;
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
   }
 
   .stone-tab-inactive:hover {
     color: #C4B5A0;
-    background: linear-gradient(180deg, #444448 0%, #3A3A3E 100%);
+    background: linear-gradient(180deg, #46403A 0%, #3A3530 100%);
   }
 
   /* ═══════════════════════════════════════ */
@@ -138,8 +139,8 @@
   .portrait-archway {
     position: relative;
     background:
-      linear-gradient(180deg, #3E3E42 0%, #2E2E32 100%);
-    border: 3px solid #4A4A4E;
+      linear-gradient(180deg, #403A34 0%, #302A24 100%);
+    border: 3px solid #4E4840;
     box-shadow:
       inset 0 0 30px rgba(0,0,0,0.5),
       inset 0 -10px 20px rgba(0,0,0,0.3),
@@ -158,7 +159,7 @@
     right: 0;
     height: 40%;
     background:
-      radial-gradient(ellipse at 50% 0%, rgba(80,80,84,0.5) 0%, transparent 70%);
+      radial-gradient(ellipse at 50% 0%, rgba(80,74,66,0.5) 0%, transparent 70%);
     pointer-events: none;
   }
 
@@ -175,8 +176,8 @@
   .equip-slot {
     width: 48px;
     height: 48px;
-    background: linear-gradient(135deg, #222226 0%, #1A1A1E 100%);
-    border: 2px solid #3A3A3E;
+    background: linear-gradient(135deg, #201E18 0%, #1A1816 100%);
+    border: 2px solid #3A3530;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -221,8 +222,8 @@
   .inv-slot {
     width: 36px;
     height: 36px;
-    background: linear-gradient(135deg, #1E1E22 0%, #18181C 100%);
-    border: 1px solid #3A3A3E;
+    background: linear-gradient(135deg, #1C1A16 0%, #16140E 100%);
+    border: 1px solid #3A3530;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -270,8 +271,8 @@
   .resource-bar-track {
     flex: 1;
     height: 12px;
-    background: #0A0A0E;
-    border: 1px solid #3A3A3E;
+    background: #0C0A08;
+    border: 1px solid #3A3530;
     overflow: hidden;
     position: relative;
   }
@@ -357,8 +358,8 @@
   /* ═══════════════════════════════════════ */
   .xp-bar-track {
     height: 10px;
-    background: #0A0A0E;
-    border: 1px solid #3A3A3E;
+    background: #0C0A08;
+    border: 1px solid #3A3530;
     overflow: hidden;
   }
 
@@ -374,7 +375,7 @@
   .game-tooltip {
     position: absolute;
     z-index: 100;
-    background: linear-gradient(135deg, #2A2A2E 0%, #1E1E22 100%);
+    background: linear-gradient(135deg, #2A2620 0%, #1C1A16 100%);
     border: 2px solid #D4AF37;
     padding: 0.6rem;
     box-shadow:
@@ -390,7 +391,7 @@
     font-size: 0.75rem;
     margin: 0 0 0.4rem 0;
     padding-bottom: 0.3rem;
-    border-bottom: 1px solid #3A3A3E;
+    border-bottom: 1px solid #3A3530;
   }
 
   .game-tooltip p {
@@ -416,21 +417,21 @@
   /* QUEST STYLES                           */
   /* ═══════════════════════════════════════ */
   .quest-item {
-    background: linear-gradient(135deg, #1E1E22 0%, #18181C 100%);
-    border: 1px solid #3A3A3E;
+    background: linear-gradient(135deg, #1C1A16 0%, #16140E 100%);
+    border: 1px solid #3A3530;
     padding: 0.6rem;
     margin-bottom: 0.4rem;
     transition: border-color 0.15s ease;
   }
 
   .quest-item:hover {
-    border-color: #5E5E62;
+    border-color: #605850;
   }
 
   .quest-progress-track {
     height: 6px;
-    background: #0A0A0E;
-    border: 1px solid #3A3A3E;
+    background: #0C0A08;
+    border: 1px solid #3A3530;
     margin-top: 0.4rem;
     overflow: hidden;
   }
@@ -456,7 +457,7 @@
     width: 100%;
     text-align: center;
     text-decoration: none;
-    border: 2px solid #3A3A3E;
+    border: 2px solid #3A3530;
   }
 
   .stone-button-primary {
@@ -488,7 +489,7 @@
     position: fixed;
     inset: 0;
     z-index: 50;
-    background: #1E1E22;
+    background: #1C1A16;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -502,7 +503,7 @@
     font-size: 0.75rem;
     color: #8B7E71;
     background: none;
-    border: 1px solid #3A3A3E;
+    border: 1px solid #3A3530;
     padding: 0.4rem 0.8rem;
     cursor: pointer;
     transition: all 0.15s ease;
@@ -510,7 +511,7 @@
 
   .intro-skip:hover {
     color: #C4B5A0;
-    border-color: #5E5E62;
+    border-color: #605850;
   }
 
   /* ═══════════════════════════════════════ */
@@ -519,8 +520,8 @@
   .buff-icon {
     width: 32px;
     height: 32px;
-    background: linear-gradient(135deg, #222226 0%, #1A1A1E 100%);
-    border: 1px solid #3A3A3E;
+    background: linear-gradient(135deg, #201E18 0%, #1A1816 100%);
+    border: 1px solid #3A3530;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -543,8 +544,8 @@
   .ability-slot {
     width: 40px;
     height: 40px;
-    background: linear-gradient(135deg, #222226 0%, #1A1A1E 100%);
-    border: 1px solid #3A3A3E;
+    background: linear-gradient(135deg, #201E18 0%, #1A1816 100%);
+    border: 1px solid #3A3530;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -571,16 +572,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #1E1E22;
+  background: #1C1A16;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #3A3A3E;
-  border: 1px solid #4E4E52;
+  background: #3A3530;
+  border: 1px solid #4E4840;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #4E4E52;
+  background: #4E4840;
 }
 
 /* ═══════════════════════════════════════ */
