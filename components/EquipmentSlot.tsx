@@ -53,7 +53,7 @@ export default function EquipmentSlot({
             style={{ transform: 'translateX(-50%)' }}
           >
             <h4>{icon} {name}</h4>
-            <p style={{ color: '#8B7E71', fontSize: '0.6rem', marginBottom: '0.4rem' }}>
+            <p style={{ color: '#7A7A84', fontSize: '0.6rem', marginBottom: '0.4rem' }}>
               {type} &middot; Slot: {slot}
             </p>
             <p style={{ fontStyle: 'italic' }}>{description}</p>

@@ -133,7 +133,7 @@ export default function UnityOverlay({ itemName, onComplete, onClose }: UnityOve
               Something Went Wrong
             </h4>
             <p style={{
-              color: '#8B7E71', fontSize: '0.65rem', fontFamily: 'Courier New, monospace',
+              color: '#7A7A84', fontSize: '0.65rem', fontFamily: 'Courier New, monospace',
               margin: '0 0 0.5rem', lineHeight: 1.6,
             }}>
               The Unity interaction could not be loaded.
@@ -170,7 +170,7 @@ export default function UnityOverlay({ itemName, onComplete, onClose }: UnityOve
                   />
                 </div>
                 <p style={{
-                  color: '#8B7E71', fontSize: '0.65rem', fontFamily: 'Courier New, monospace',
+                  color: '#7A7A84', fontSize: '0.65rem', fontFamily: 'Courier New, monospace',
                   margin: 0,
                 }}>
                   {loadingPercentage < 30

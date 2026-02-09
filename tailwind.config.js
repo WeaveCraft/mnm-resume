@@ -8,9 +8,9 @@ module.exports = {
     extend: {
       colors: {
         // Warm brown-gray UI frame palette (M&M in-game inventory)
-        'stone-dark': '#3A3530',
+        'stone-dark': '#32323A',
         'stone-mid': '#524A42',
-        'stone-light': '#605850',
+        'stone-light': '#50505A',
         'stone-highlight': '#6E645A',
         // Dark inner panels (warm dark brown-black)
         'panel-bg': '#1A1816',
@@ -19,8 +19,8 @@ module.exports = {
         // Game accent colors
         'game-gold': '#D4AF37',
         'game-gold-dim': '#8B6914',
-        'game-text': '#C4B5A0',
-        'game-text-dim': '#8B7E71',
+        'game-text': '#B8B8C0',
+        'game-text-dim': '#7A7A84',
         'game-text-bright': '#E8D5B7',
         // Status bar colors
         'hp-red': '#C44040',

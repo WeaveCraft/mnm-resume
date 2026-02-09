@@ -19,7 +19,7 @@ export default function AbilitySlot({ name, icon, slotNumber, description }: Abi
     >
       <div className="ability-slot">
         <span>{icon}</span>
-        <span style={{ fontSize: '0.5rem', color: '#8B7E71', marginTop: '1px' }}>{slotNumber}</span>
+        <span style={{ fontSize: '0.5rem', color: '#7A7A84', marginTop: '1px' }}>{slotNumber}</span>
       </div>
 
       <AnimatePresence>
@@ -33,7 +33,7 @@ export default function AbilitySlot({ name, icon, slotNumber, description }: Abi
           >
             <h4>{icon} {name}</h4>
             {description && <p>{description}</p>}
-            <p style={{ color: '#8B7E71', fontSize: '0.6rem', marginTop: '0.25rem' }}>
+            <p style={{ color: '#7A7A84', fontSize: '0.6rem', marginTop: '0.25rem' }}>
               Hotkey: {slotNumber}
             </p>
           </motion.div>
