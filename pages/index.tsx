@@ -473,7 +473,7 @@ export default function CharacterSheet() {
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0' }}>
 
                     {/* Top equipment row: Ear, Neck, Head, Face, Ear */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2px', width: '260px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2px', width: '300px' }}>
                       <EquipSlotMini slot="Ear" {...equipment.ear1} />
                       <EquipSlotMini slot="Neck" {...equipment.neck} />
                       <EquipSlotMini slot="Head" {...equipment.head} />
@@ -494,7 +494,7 @@ export default function CharacterSheet() {
                       </div>
 
                       {/* PORTRAIT */}
-                      <div ref={portraitRef} className="portrait-archway" style={{ width: '260px', height: '340px', flexShrink: 0 }}>
+                      <div ref={portraitRef} className="portrait-archway" style={{ width: '300px', height: '400px', flexShrink: 0 }}>
                         <img
                           src="/images/viktor-portrait.png"
                           alt="Viktor Hurtig"
@@ -513,7 +513,7 @@ export default function CharacterSheet() {
                     </div>
 
                     {/* Weapon slots row: Primary, Secondary, Range, Ammo */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: '2px', width: '260px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginTop: '2px', width: '300px' }}>
                       <EquipSlotMini slot="Primary" {...equipment.primary} />
                       <EquipSlotMini slot="Secondary" {...equipment.secondary} />
                       <EquipSlotMini slot="Range" {...equipment.range} />
