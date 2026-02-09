@@ -34,7 +34,15 @@ export default function CharacterSheet() {
   const [noteAnimPos, setNoteAnimPos] = useState<{ x: number; y: number } | null>(null);
 
   const handleNoteClick = useCallback(() => {
-    if (noteHandedIn || isDraggingNote) return;
+    if (noteHandedIn) {
+      setInteractionLog(prev => {
+        if (prev.length > 0 && prev[prev.length - 1] === 'You have already handed in the Formal Note.') return prev;
+        return [...prev, 'You have already handed in the Formal Note.'];
+      });
+      return;
+    }
+
+    if (isDraggingNote || showHandInDialog) return;
 
     // Get positions for animation
     const noteEl = noteRef.current;
@@ -47,14 +55,15 @@ export default function CharacterSheet() {
     const noteRect = noteEl.getBoundingClientRect();
     const portraitRect = portraitEl.getBoundingClientRect();
 
+    // Clear previous messages and start fresh
+    setInteractionLog(['You pick up the Formal Note...']);
+
     // Start position (note location)
     setNoteAnimPos({
       x: noteRect.left + noteRect.width / 2,
       y: noteRect.top + noteRect.height / 2,
     });
     setIsDraggingNote(true);
-
-    setInteractionLog(prev => [...prev, 'You pick up the Formal Note...']);
 
     // Animate note flying to portrait, then open dialog
     setTimeout(() => {
@@ -70,7 +79,7 @@ export default function CharacterSheet() {
       setShowHandInDialog(true);
       setInteractionLog(prev => [...prev, 'You approach Shawn and offer the note...']);
     }, 700);
-  }, [noteHandedIn, isDraggingNote]);
+  }, [noteHandedIn, isDraggingNote, showHandInDialog]);
 
   const handleHandInComplete = useCallback((experience?: number, npcMessage?: string) => {
     setShowHandInDialog(false);
@@ -376,7 +385,7 @@ export default function CharacterSheet() {
 
                         {/* DEVOTION */}
                         <div className="dark-panel-shallow" style={{ padding: '0.5rem', textAlign: 'center' }}>
-                          <div style={{ fontSize: '0.65rem', color: '#7A7A84', fontFamily: 'Courier New, monospace' }}>Devotion</div>
+                          <div style={{ fontSize: '0.65rem', color: '#9494A0', fontFamily: 'Courier New, monospace' }}>Devotion</div>
                           <div className="animate-glow" style={{ fontSize: '1rem', color: '#D4AF37', fontFamily: 'Cinzel, Georgia, serif' }}>0</div>
                         </div>
                       </motion.div>
@@ -388,10 +397,10 @@ export default function CharacterSheet() {
                 <div className="center-character-col" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', flex: 1 }}>
 
                   {/* Equipment around portrait */}
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0' }}>
 
                     {/* Top equipment row: Ear, Neck, Head, Face, Ear */}
-                    <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', alignItems: 'flex-end' }}>
+                    <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', alignItems: 'flex-end', marginBottom: '2px' }}>
                       <EquipSlotMini slot="Ear" {...equipment.ear1} />
                       <EquipSlotMini slot="Neck" {...equipment.neck} />
                       <EquipSlotMini slot="Head" {...equipment.head} />
@@ -400,9 +409,9 @@ export default function CharacterSheet() {
                     </div>
 
                     {/* Middle row: Left slots | Portrait | Right slots */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', width: '100%', justifyContent: 'center' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', width: '100%', justifyContent: 'center' }}>
                       {/* Left side slots: Chest, Arms, Wrist, Belt, Finger, Legs */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', alignItems: 'center' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', alignItems: 'center' }}>
                         <EquipSlotMini slot="Chest" {...equipment.chest} />
                         <EquipSlotMini slot="Arms" {...equipment.arms} />
                         <EquipSlotMini slot="Wrist" {...equipment.wrist1} />
@@ -420,7 +429,7 @@ export default function CharacterSheet() {
                       </div>
 
                       {/* Right side slots: Cape, Shoulders, Wrist, Hands, Finger, Boots */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', alignItems: 'center' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', alignItems: 'center' }}>
                         <EquipSlotMini slot="Cape" {...equipment.cape} />
                         <EquipSlotMini slot="Shoulders" {...equipment.shoulders} />
                         <EquipSlotMini slot="Wrist" {...equipment.wrist2} />
@@ -431,7 +440,7 @@ export default function CharacterSheet() {
                     </div>
 
                     {/* Weapon slots row: Primary, Secondary, Range, Ammo */}
-                    <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', alignItems: 'flex-start' }}>
+                    <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', alignItems: 'flex-start', marginTop: '2px' }}>
                       <EquipSlotMini slot="Primary" {...equipment.primary} />
                       <EquipSlotMini slot="Secondary" {...equipment.secondary} />
                       <EquipSlotMini slot="Range" {...equipment.range} />
@@ -469,76 +478,65 @@ export default function CharacterSheet() {
                     </div>
                   </div>
 
-                  {/* Bags row with Drop/Destroy buttons */}
-                  <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
-                    <div className="dark-panel-shallow" style={{ padding: '0.5rem', flex: 1 }}>
-                      <div className="section-label">Bags</div>
-                      <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(4, 36px)',
-                        gap: '2px',
-                        justifyContent: 'center',
-                      }}>
-                        {bags.map((bag, i) => (
-                          <BagSlotInteractive
-                            key={i}
-                            bag={bag}
-                            isOpen={openBag === bag.name}
-                            onToggle={() => setOpenBag(openBag === bag.name ? null : bag.name)}
-                          />
-                        ))}
-                      </div>
-                      {/* Expanded bag contents */}
-                      <AnimatePresence>
-                        {openBag && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                            style={{ overflow: 'hidden' }}
-                          >
-                            <div className="bag-contents-panel">
-                              <div className="bag-contents-header">
-                                {openBag}
-                              </div>
-                              <div className="bag-contents-grid">
-                                {bags.find(b => b.name === openBag)?.contents.map((item, j) => (
-                                  <motion.div
-                                    key={item}
-                                    initial={{ opacity: 0, scale: 0.8 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ delay: 0.03 * j }}
-                                    className="bag-content-item"
-                                  >
-                                    {item}
-                                  </motion.div>
-                                ))}
-                              </div>
+                  {/* Bags */}
+                  <div className="dark-panel-shallow" style={{ padding: '0.5rem' }}>
+                    <div className="section-label">Bags</div>
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(5, 36px)',
+                      gap: '2px',
+                      justifyContent: 'center',
+                    }}>
+                      {bags.map((bag, i) => (
+                        <BagSlotInteractive
+                          key={i}
+                          bag={bag}
+                          isOpen={openBag === bag.name}
+                          onToggle={() => setOpenBag(openBag === bag.name ? null : bag.name)}
+                        />
+                      ))}
+                    </div>
+                    {/* Expanded bag contents */}
+                    <AnimatePresence>
+                      {openBag && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.2 }}
+                          style={{ overflow: 'hidden' }}
+                        >
+                          <div className="bag-contents-panel">
+                            <div className="bag-contents-header">
+                              {openBag}
                             </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                    {/* Drop & Destroy buttons */}
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', minWidth: '80px' }}>
-                      <button className="stone-button stone-button-primary" style={{ fontSize: '0.55rem', padding: '0.3rem 0.4rem' }}>
-                        Drop
-                      </button>
-                      <button className="stone-button stone-button-danger" style={{ fontSize: '0.55rem', padding: '0.3rem 0.4rem' }}>
-                        Destroy
-                      </button>
-                    </div>
+                            <div className="bag-contents-grid">
+                              {bags.find(b => b.name === openBag)?.contents.map((item, j) => (
+                                <motion.div
+                                  key={item}
+                                  initial={{ opacity: 0, scale: 0.8 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  transition={{ delay: 0.03 * j }}
+                                  className="bag-content-item"
+                                >
+                                  {item}
+                                </motion.div>
+                              ))}
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
 
                   {/* Currency and Weight bar */}
                   <div className="currency-weight-bar">
                     <div className="currency-section">
                       <span className="currency-label">Currency</span>
-                      <span className="currency-values">0</span>
-                      <span className="currency-values">19</span>
-                      <span className="currency-values">236</span>
-                      <span className="currency-values">792</span>
+                      <span className="currency-coin currency-platinum" title="Platinum">&#9670; 0</span>
+                      <span className="currency-coin currency-gold" title="Gold">&#9670; 19</span>
+                      <span className="currency-coin currency-silver" title="Silver">&#9670; 236</span>
+                      <span className="currency-coin currency-copper" title="Copper">&#9670; 792</span>
                     </div>
                     <div className="weight-section">
                       <span className="weight-label">Weight</span>
@@ -576,7 +574,7 @@ export default function CharacterSheet() {
                       <span style={{ fontSize: '0.75rem', color: '#D4AF37', fontFamily: 'Cinzel, Georgia, serif' }}>{faction.name}</span>
                       <span style={{ fontSize: '0.6rem', color: faction.color, fontFamily: 'Courier New, monospace', fontWeight: 'bold' }}>{faction.standing}</span>
                     </div>
-                    <div style={{ fontSize: '0.6rem', color: '#7A7A84', fontStyle: 'italic', marginBottom: '0.4rem', fontFamily: 'Courier New, monospace' }}>
+                    <div style={{ fontSize: '0.6rem', color: '#9494A0', fontStyle: 'italic', marginBottom: '0.4rem', fontFamily: 'Courier New, monospace', textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}>
                       {faction.description}
                     </div>
                     <div className="faction-bar-track">
@@ -703,7 +701,7 @@ export default function CharacterSheet() {
                         border: '1px solid #32323A',
                         marginBottom: '0.6rem',
                       }}>
-                        <p style={{ fontSize: '0.62rem', color: '#B8B8C0', lineHeight: '1.8', fontFamily: 'Courier New, monospace' }}>
+                        <p style={{ fontSize: '0.64rem', color: '#CDCDD4', lineHeight: '1.8', fontFamily: 'Courier New, monospace', textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}>
                           {faith.description}
                         </p>
                       </div>
@@ -715,8 +713,8 @@ export default function CharacterSheet() {
                         border: '1px solid #32323A',
                         marginBottom: '0.6rem',
                       }}>
-                        <div style={{ fontSize: '0.5rem', color: '#7A7A84', fontFamily: 'Courier New, monospace', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.25rem' }}>Blessing</div>
-                        <p style={{ fontSize: '0.62rem', color: faith.color, fontFamily: 'Courier New, monospace' }}>
+                        <div style={{ fontSize: '0.5rem', color: '#9494A0', fontFamily: 'Courier New, monospace', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.25rem' }}>Blessing</div>
+                        <p style={{ fontSize: '0.64rem', color: faith.color, fontFamily: 'Courier New, monospace', textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}>
                           {faith.blessing}
                         </p>
                       </div>
@@ -726,7 +724,7 @@ export default function CharacterSheet() {
                         padding: '0.6rem 0.75rem',
                         borderTop: '1px solid #32323A',
                       }}>
-                        <p style={{ fontSize: '0.58rem', color: '#7A7A84', fontFamily: 'Courier New, monospace', fontStyle: 'italic', lineHeight: '1.7' }}>
+                        <p style={{ fontSize: '0.6rem', color: '#9E9EAA', fontFamily: 'Courier New, monospace', fontStyle: 'italic', lineHeight: '1.7', textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}>
                           &quot;{faith.philosophy}&quot;
                         </p>
                       </div>
@@ -764,7 +762,7 @@ export default function CharacterSheet() {
                   <h4 style={{ color: '#D4AF37', fontFamily: 'Cinzel, Georgia, serif', fontSize: '0.85rem', margin: '0 0 0.4rem 0' }}>
                     {quests.mainQuest.title}
                   </h4>
-                  <p style={{ color: '#B8B8C0', fontSize: '0.65rem', fontStyle: 'italic', fontFamily: 'Courier New, monospace', marginBottom: '0.6rem' }}>
+                  <p style={{ color: '#CDCDD4', fontSize: '0.65rem', fontStyle: 'italic', fontFamily: 'Courier New, monospace', marginBottom: '0.6rem', textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}>
                     {quests.mainQuest.description}
                   </p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
@@ -792,7 +790,7 @@ export default function CharacterSheet() {
                     ))}
                   </div>
                   <div style={{ marginTop: '0.6rem', paddingTop: '0.6rem', borderTop: '1px solid #32323A' }}>
-                    <p style={{ color: '#7A7A84', fontSize: '0.6rem', fontFamily: 'Courier New, monospace' }}>
+                    <p style={{ color: '#9494A0', fontSize: '0.6rem', fontFamily: 'Courier New, monospace', textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}>
                       Reward: {quests.mainQuest.reward}
                     </p>
                   </div>
@@ -809,7 +807,7 @@ export default function CharacterSheet() {
                       <div style={{ textAlign: 'right' }}>
                         <span style={{ color: '#D4AF37', fontSize: '0.6rem', fontFamily: 'Courier New, monospace' }}>+{quest.xp} XP</span>
                         <br />
-                        <span style={{ color: '#7A7A84', fontSize: '0.55rem', fontFamily: 'Courier New, monospace' }}>{quest.reward}</span>
+                        <span style={{ color: '#9494A0', fontSize: '0.55rem', fontFamily: 'Courier New, monospace' }}>{quest.reward}</span>
                       </div>
                     </div>
                   ))}
@@ -840,7 +838,7 @@ export default function CharacterSheet() {
                   <h3 className="animate-glow" style={{ fontSize: '1.1rem', marginBottom: '0.75rem', letterSpacing: '0.1em' }}>
                     Monsters &amp; Memories
                   </h3>
-                  <p style={{ fontSize: '0.7rem', color: '#B8B8C0', lineHeight: '1.8', fontFamily: 'Courier New, monospace' }}>
+                  <p style={{ fontSize: '0.7rem', color: '#CDCDD4', lineHeight: '1.8', fontFamily: 'Courier New, monospace', textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}>
                     I&apos;m a passionate gamer and developer who grew up on
                     classic MMORPGs. Building this character sheet wasn&apos;t
                     just a resume exercise &mdash; it&apos;s a love letter to the
@@ -850,7 +848,7 @@ export default function CharacterSheet() {
                     <p style={{ fontSize: '0.65rem', color: '#D4AF37', fontFamily: 'Cinzel, Georgia, serif', marginBottom: '0.3rem' }}>
                       Why M&amp;M?
                     </p>
-                    <p style={{ fontSize: '0.6rem', color: '#B8B8C0', lineHeight: '1.7', fontFamily: 'Courier New, monospace' }}>
+                    <p style={{ fontSize: '0.6rem', color: '#CDCDD4', lineHeight: '1.7', fontFamily: 'Courier New, monospace', textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}>
                       Because the best code comes from people who
                       genuinely love what they&apos;re building. I bring
                       strong C#/.NET fundamentals, a growing Unity

@@ -5,7 +5,7 @@
 @layer base {
   body {
     background: #1A1A1E;
-    color: #B8B8C0;
+    color: #C8C8D0;
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
     margin: 0;
     padding: 0;
@@ -205,20 +205,22 @@
 
   .equip-slot-label {
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
-    font-size: 0.55rem;
-    color: #7A7A84;
+    font-size: 0.5rem;
+    color: #8A8A94;
     text-align: center;
     text-transform: capitalize;
     letter-spacing: 0.03em;
     white-space: nowrap;
+    line-height: 1.2;
   }
 
   .equip-slot-name {
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
-    font-size: 0.55rem;
-    color: #B8B8C0;
+    font-size: 0.5rem;
+    color: #C0C0C8;
     text-align: center;
     white-space: nowrap;
+    line-height: 1.2;
   }
 
   /* ═══════════════════════════════════════ */
@@ -449,7 +451,7 @@
   }
 
   .resistance-name {
-    color: #7A7A84;
+    color: #9494A0;
     width: 32px;
     transition: all 0.15s ease;
   }
@@ -502,21 +504,23 @@
   }
 
   .game-tooltip p {
-    color: #B8B8C0;
+    color: #CDCDD4;
     font-size: 0.7rem;
     margin: 0 0 0.2rem 0;
     line-height: 1.4;
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.6);
   }
 
   .game-tooltip .tooltip-stat {
-    color: #5A8A4A;
+    color: #6A9A5A;
     font-size: 0.65rem;
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.6);
   }
 
   .game-tooltip .tooltip-type {
-    color: #7A7A84;
+    color: #9494A0;
     font-size: 0.6rem;
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
   }
@@ -711,11 +715,12 @@
   .bag-content-item {
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
     font-size: 0.6rem;
-    color: #B8B8C0;
+    color: #CDCDD4;
     padding: 0.15rem 0.35rem;
     background: linear-gradient(135deg, #1E1E24 0%, #1A1816 100%);
     border: 1px solid #32323A;
     transition: all 0.15s ease;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
   }
 
   .bag-content-item:hover {
@@ -1073,20 +1078,22 @@
   .interactions-hint {
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
     font-size: 0.65rem;
-    color: #5A5248;
+    color: #7A7068;
     font-style: italic;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
   }
 
   .interactions-message {
     font-family: 'IBM Plex Mono', 'Courier New', monospace;
     font-size: 0.65rem;
-    color: #B8B8C0;
+    color: #CDCDD4;
     padding: 0.1rem 0;
     line-height: 1.5;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
   }
 
   .interactions-message:nth-child(odd) {
-    color: #8B9E7A;
+    color: #9AB08A;
   }
 
   /* ═══════════════════════════════════════ */
@@ -1178,6 +1185,33 @@
     font-size: 0.65rem;
     min-width: 20px;
     text-align: center;
+  }
+
+  .currency-coin {
+    font-size: 0.6rem;
+    min-width: 20px;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+
+  .currency-platinum {
+    color: #B0C4DE;
+    text-shadow: 0 0 4px rgba(176, 196, 222, 0.3);
+  }
+
+  .currency-gold {
+    color: #D4AF37;
+    text-shadow: 0 0 4px rgba(212, 175, 55, 0.3);
+  }
+
+  .currency-silver {
+    color: #C0C0C0;
+    text-shadow: 0 0 4px rgba(192, 192, 192, 0.2);
+  }
+
+  .currency-copper {
+    color: #B87333;
+    text-shadow: 0 0 4px rgba(184, 115, 51, 0.2);
   }
 
   .weight-section {
