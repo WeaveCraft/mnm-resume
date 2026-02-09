@@ -155,7 +155,7 @@ export default function CharacterSheet() {
 
   // Stats as game-style numbers (like the M&M screenshot: 18-29 range)
   const stats = [
-    { abbr: 'STR', value: 29, full: 'Strength', description: 'C# mastery & backend power', details: ['Software Development education in Sweden', '6+ months professional development', 'Built complex full-stack applications', 'Deep OOP & Entity Framework proficiency'] },
+    { abbr: 'STR', value: 29, full: 'Strength', description: 'C# mastery & backend power', details: ['Software Development education in Sweden', '3+ years professional development', 'Built complex full-stack applications', 'Deep OOP & Entity Framework proficiency'] },
     { abbr: 'STA', value: 29, full: 'Stamina', description: 'Work ethic & dedication', details: ['Working full-time as IT Architect while pursuing game dev passion', 'Led enterprise IAM project at Swedish government organization', 'Grafana monitoring saved production from storage crisis', 'Set up entire database infrastructure (Test, UAT, ACC, PROD)', 'Solo developer on complex integration projects', 'Built full-stack health management platform from scratch while learning new tech stack', 'Never gives up on debugging (even production incidents)', 'Learning Unity Netcode in spare time to be ready for M&M'] },
     { abbr: 'AGI', value: 26, full: 'Agility', description: 'Learning speed & adaptability', details: ['Studied software development in Sweden', 'Mastered React, Angular & TypeScript rapidly', 'Currently learning Unity in spare time', 'Quick to adopt new frameworks'] },
     { abbr: 'DEX', value: 29, full: 'Dexterity', description: 'Versatility across tech stacks', details: ['Backend: C#, .NET, ASP.NET Core', 'Frontend: React, Angular, Blazor, TypeScript', 'Databases: SQL Server, PostgreSQL', 'Tools: Docker, Git, VS Code'] },
@@ -961,12 +961,24 @@ export default function CharacterSheet() {
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '1.5rem' }}>
                     <a
-                      href="https://github.com/WeaveCraft"
+                      href="mailto:viktor.hurtig@outlook.com"
+                      className="stone-button stone-button-primary"
+                    >
+                      Email - viktor.hurtig@outlook.com
+                    </a>
+                    <a
+                      href="tel:+14156245632"
+                      className="stone-button stone-button-primary"
+                    >
+                      Phone - (1) 415-624-5632
+                    </a>
+                    <a
+                      href="https://discord.com/users/268044753096933386"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="stone-button stone-button-primary"
                     >
-                      GitHub - WeaveCraft
+                      Discord - kunen133
                     </a>
                   </div>
                 </div>
