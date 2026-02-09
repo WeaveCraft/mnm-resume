@@ -271,7 +271,6 @@ export default function CharacterSheet() {
         { text: 'Develop Unity game projects (2D co-op, NPC systems, UI)', completed: true },
         { text: 'Master Unity UI Toolkit', completed: true },
         { text: 'Learn Unity Netcode for multiplayer', completed: false, progress: 15 },
-        { text: 'Build impressive M&M-themed portfolio', completed: true },
         { text: 'Prove dedication to aLovingRobot & the M&M guild', completed: false },
       ],
       reward: 'Epic quest: Career advancement, work on dream MMORPG, learn from masters, raid bosses (in code)',
