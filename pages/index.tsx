@@ -957,7 +957,7 @@ export default function CharacterSheet() {
                   </div>
                   <div style={{ marginBottom: '1rem' }}>
                     <div style={{ fontSize: '0.7rem', color: '#7A7A84', marginBottom: '0.2rem' }}>Location</div>
-                    <div style={{ fontSize: '0.8rem', color: '#B8B8C0' }}>Södermanland, Sweden</div>
+                    <div style={{ fontSize: '0.8rem', color: '#B8B8C0' }}>San Francisco, California</div>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '1.5rem' }}>
                     <a
