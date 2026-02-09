@@ -31,7 +31,7 @@ module.exports = {
       },
       fontFamily: {
         medieval: ['"Cinzel"', 'Georgia', 'serif'],
-        game: ['"Courier New"', 'monospace'],
+        game: ['"IBM Plex Mono"', '"Courier New"', 'monospace'],
       },
     },
   },
