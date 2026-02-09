@@ -9,8 +9,9 @@ import DungeonScene from '@/components/DungeonScene';
 
 const TABS = [
   { id: 'inventory', label: 'Inventory' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'quests', label: 'Quests' },
+  { id: 'factions', label: 'Factions' },
+  { id: 'faiths', label: 'Faiths' },
+  { id: 'ledger', label: 'Ledger' },
   { id: 'guild', label: 'Guild' },
   { id: 'social', label: 'Social' },
 ];
@@ -18,6 +19,7 @@ const TABS = [
 export default function CharacterSheet() {
   const [showIntro, setShowIntro] = useState(true);
   const [activeTab, setActiveTab] = useState('inventory');
+  const [personaOpen, setPersonaOpen] = useState(true);
 
   // Job application hand-in animation state
   const [isDraggingNote, setIsDraggingNote] = useState(false);
@@ -83,11 +85,11 @@ export default function CharacterSheet() {
   }
 
   const character = {
-    name: 'Viktor Hurtig',
-    race: 'Full-Stack Developer',
+    name: 'Encrypted',
+    race: 'Gnome Rogue',
     class: 'Unity Programmer',
-    level: 32,
-    alignment: 'Passionate',
+    level: 60,
+    alignment: 'Agnostic',
   };
 
   // Stats as game-style numbers (like the M&M screenshot: 18-29 range)
@@ -113,39 +115,50 @@ export default function CharacterSheet() {
     { abbr: 'Poi',  value: 100, full: 'Technical Debt Resistance' },
   ];
 
-  // Equipment positioned around character (matching game slots)
+  // Equipment positioned around character (matching M&M game slots)
+  // Top: Ear(L), Neck, Head, Face, Ear(R)
+  // Left: Chest, Arms, Wrist(L), Belt, Finger(L), Legs
+  // Right: Cape, Shoulders, Wrist(R), Hands, Finger(R), Boots
+  // Bottom: Primary, Secondary, Range, Ammo
   const equipment = {
-    ear1:      { name: 'Agile',      icon: '\uD83D\uDC42', type: 'Artifact' as const, description: 'Sprint methodology mastery', stats: ['+35 Team Velocity', '+30 Adaptability'] },
-    neck:      { name: 'CI/CD',      icon: '\uD83D\uDD17', type: 'Tool' as const, description: 'Continuous integration pipeline', stats: ['+40 Automation', '+30 Deployment'] },
-    face:      { name: 'Git',        icon: '\u26D1\uFE0F', type: 'Tool' as const, description: 'Version control mastery', stats: ['+50 Version Control', '+40 Branching'] },
-    ear2:      { name: 'Docker',     icon: '\uD83D\uDCE6', type: 'Tool' as const, description: 'Containerization specialist', stats: ['+45 Environment Consistency', '+35 Deployment'] },
-    wrist:     { name: 'TypeScript', icon: '\uD83D\uDCA0', type: 'Weapon' as const, description: 'Typed JavaScript mastery', stats: ['+40 Type Safety', '+35 Frontend Power'] },
-    finger1:   { name: 'VS Code',    icon: '\uD83D\uDCBB', type: 'Tool' as const, description: 'Primary IDE', stats: ['+40 Productivity', '+30 Extension Mastery'] },
-    chest:     { name: 'C#',         icon: '\uD83D\uDEE1\uFE0F', type: 'Weapon' as const, description: 'Primary programming language', stats: ['+50 Code Clarity', '+40 Type Safety', '+30 Performance'] },
-    finger2:   { name: 'React',      icon: '\u269B\uFE0F', type: 'Tool' as const, description: 'Frontend framework', stats: ['+40 UI Development', '+30 Component Design'] },
-    shoulders: { name: '.NET',       icon: '\uD83D\uDD27', type: 'Weapon' as const, description: 'Framework expertise', stats: ['+45 Backend Power', '+35 API Design'] },
-    primary:   { name: 'Unity',      icon: '\uD83C\uDFAE', type: 'Armor' as const, description: 'Game engine - currently leveling', stats: ['+35 Game Dev', '+25 Scene Design'] },
-    secondary: { name: 'PostgreSQL', icon: '\uD83D\uDCBE', type: 'Artifact' as const, description: 'Database expertise', stats: ['+45 Query Optimization', '+35 Data Modeling'] },
-    range:     { name: 'REST API',   icon: '\uD83D\uDD0C', type: 'Tool' as const, description: 'API design & implementation', stats: ['+40 Endpoint Design', '+30 Integration'] },
+    // Top row
+    ear1:      { name: 'Agile',        icon: '\uD83D\uDC42', type: 'Artifact' as const, description: 'Sprint methodology mastery', stats: ['+35 Team Velocity', '+30 Adaptability'] },
+    neck:      { name: 'CI/CD',        icon: '\uD83D\uDD17', type: 'Tool' as const, description: 'Continuous integration pipeline', stats: ['+40 Automation', '+30 Deployment'] },
+    head:      { name: 'Architecture', icon: '\uD83E\uDDE0', type: 'Armor' as const, description: 'System design & architecture thinking', stats: ['+45 Design Patterns', '+35 Scalability'] },
+    face:      { name: 'Git',          icon: '\u26D1\uFE0F', type: 'Tool' as const, description: 'Version control mastery', stats: ['+50 Version Control', '+40 Branching'] },
+    ear2:      { name: 'Docker',       icon: '\uD83D\uDCE6', type: 'Tool' as const, description: 'Containerization specialist', stats: ['+45 Environment Consistency', '+35 Deployment'] },
+    // Left side
+    chest:     { name: 'C#',           icon: '\uD83D\uDEE1\uFE0F', type: 'Armor' as const, description: 'Primary programming language', stats: ['+50 Code Clarity', '+40 Type Safety', '+30 Performance'] },
+    arms:      { name: 'Entity FW',    icon: '\uD83D\uDCCA', type: 'Weapon' as const, description: 'ORM & data access layer', stats: ['+40 Data Modeling', '+35 Query Building'] },
+    wrist1:    { name: 'TypeScript',   icon: '\uD83D\uDCA0', type: 'Weapon' as const, description: 'Typed JavaScript mastery', stats: ['+40 Type Safety', '+35 Frontend Power'] },
+    belt:      { name: 'SOLID',        icon: '\uD83C\uDF1F', type: 'Artifact' as const, description: 'Design principles mastery', stats: ['+40 Code Quality', '+35 Maintainability'] },
+    finger1:   { name: 'VS Code',      icon: '\uD83D\uDCBB', type: 'Tool' as const, description: 'Primary IDE', stats: ['+40 Productivity', '+30 Extension Mastery'] },
+    legs:      { name: 'Linux',        icon: '\uD83D\uDC27', type: 'Armor' as const, description: 'Server & OS proficiency', stats: ['+35 DevOps', '+30 Shell Scripting'] },
+    // Right side
+    cape:      { name: 'Portfolio',    icon: '\uD83C\uDF93', type: 'Artifact' as const, description: 'Project portfolio & open source', stats: ['+40 Credibility', '+35 Showcase'] },
+    shoulders: { name: '.NET',         icon: '\uD83D\uDD27', type: 'Weapon' as const, description: 'Framework expertise', stats: ['+45 Backend Power', '+35 API Design'] },
+    wrist2:    { name: 'Blazor',       icon: '\uD83D\uDD25', type: 'Weapon' as const, description: 'Full-stack .NET UI framework', stats: ['+35 UI Development', '+30 Component Design'] },
+    hands:     { name: 'Debugging',    icon: '\uD83D\uDC1B', type: 'Tool' as const, description: 'Tracking down & fixing issues', stats: ['+45 Bug Detection', '+35 Root Cause Analysis'] },
+    finger2:   { name: 'React',        icon: '\u269B\uFE0F', type: 'Tool' as const, description: 'Frontend framework', stats: ['+40 UI Development', '+30 Component Design'] },
+    boots:     { name: 'Bash',         icon: '\uD83D\uDDA5\uFE0F', type: 'Tool' as const, description: 'Shell scripting & CLI tools', stats: ['+35 Automation', '+30 Scripting'] },
+    // Weapons row
+    primary:   { name: 'Unity',        icon: '\uD83C\uDFAE', type: 'Weapon' as const, description: 'Game engine - currently leveling', stats: ['+35 Game Dev', '+25 Scene Design'] },
+    secondary: { name: 'PostgreSQL',   icon: '\uD83D\uDCBE', type: 'Artifact' as const, description: 'Database expertise', stats: ['+45 Query Optimization', '+35 Data Modeling'] },
+    range:     { name: 'REST API',     icon: '\uD83D\uDD0C', type: 'Tool' as const, description: 'API design & implementation', stats: ['+40 Endpoint Design', '+30 Integration'] },
   };
 
-  // Inventory items (smaller tools/skills)
+  // Inventory items (smaller tools/skills) - 8 slots like the screenshot
   const inventoryItems = [
     { icon: '\uD83C\uDF10', name: 'HTML5', count: undefined },
     { icon: '\uD83C\uDFA8', name: 'CSS3', count: undefined },
-    { icon: '\u26A1', name: 'JavaScript', count: undefined },
-    { icon: '\uD83D\uDDC4\uFE0F', name: 'SQL', count: undefined },
-    { icon: '\uD83D\uDCCA', name: 'Entity Framework', count: 1 },
-    { icon: '\uD83D\uDD25', name: 'Blazor', count: undefined },
+    { icon: '\u26A1', name: 'JavaScript', count: 1 },
+    { icon: '\uD83D\uDDC4\uFE0F', name: 'SQL', count: 1 },
     { icon: '\uD83C\uDFAF', name: 'Angular', count: undefined },
     { icon: '\uD83D\uDCE6', name: 'npm', count: 12 },
     { icon: '\uD83D\uDD0D', name: 'xUnit', count: 1 },
     { icon: '\uD83D\uDCC4', name: 'JSON', count: undefined },
     { icon: '\uD83D\uDEE0\uFE0F', name: 'LINQ', count: undefined },
     { icon: '\u2699\uFE0F', name: 'ASP.NET', count: undefined },
-    { icon: '\uD83D\uDDA5\uFE0F', name: 'Bash', count: undefined },
-    { icon: '\uD83D\uDC27', name: 'Linux', count: undefined },
-    { icon: '\uD83C\uDF1F', name: 'SOLID', count: undefined },
   ];
 
   // Bag categories
@@ -242,147 +255,189 @@ export default function CharacterSheet() {
             {/* INVENTORY TAB - Character Sheet    */}
             {/* ═══════════════════════════════════ */}
             {activeTab === 'inventory' && (
-              <div
-                className="inventory-grid-layout"
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '200px 1fr 200px',
-                  gap: '0.75rem',
-                  minHeight: '600px',
-                }}
-              >
-                {/* ══════ LEFT COLUMN - Stats ══════ */}
-                <div className="left-stats-col" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <div className="inventory-main-layout" style={{ display: 'flex', gap: '0', minHeight: '600px' }}>
 
-                  {/* PERSONA */}
-                  <div className="dark-panel-shallow" style={{ padding: '0.5rem' }}>
-                    <div className="section-label">Persona</div>
-                    <div style={{ fontFamily: 'Cinzel, Georgia, serif', fontSize: '0.85rem', color: '#D4AF37', textAlign: 'center', marginBottom: '0.2rem', textShadow: '0 0 10px rgba(212,175,55,0.4)' }}>
-                      {character.name}
-                    </div>
-                    <div style={{ fontSize: '0.65rem', color: '#C4B5A0', lineHeight: '1.5' }}>
-                      <div>Level {character.level}</div>
-                      <div>{character.race}</div>
-                      <div>{character.class}</div>
-                      <div>{character.alignment}</div>
-                    </div>
-                  </div>
+                {/* ══════ COLLAPSIBLE LEFT PERSONA SIDEBAR ══════ */}
+                <div style={{ display: 'flex', flexShrink: 0 }}>
+                  {/* Toggle Arrow Button */}
+                  <button
+                    className="persona-toggle"
+                    onClick={() => setPersonaOpen(!personaOpen)}
+                    title={personaOpen ? 'Collapse Persona' : 'Expand Persona'}
+                  >
+                    <span style={{ fontSize: '0.8rem' }}>{personaOpen ? '\u25C0' : '\u25B6'}</span>
+                  </button>
 
-                  {/* EXPERIENCE */}
-                  <div className="dark-panel-shallow" style={{ padding: '0.5rem' }}>
-                    <div className="section-label">Experience</div>
-                    <div className="xp-bar-track" style={{ marginBottom: '0.2rem' }}>
+                  {/* Persona Panel */}
+                  <AnimatePresence initial={false}>
+                    {personaOpen && (
                       <motion.div
-                        className="xp-bar-fill"
-                        initial={{ width: 0 }}
-                        animate={{ width: `${xpPercent}%` }}
-                        transition={{ duration: 2, ease: 'easeOut' }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* RESOURCE BARS */}
-                  <div className="dark-panel-shallow" style={{ padding: '0.5rem' }}>
-                    <div className="resource-bar">
-                      <span className="resource-bar-label">Health</span>
-                      <div className="resource-bar-track">
-                        <motion.div className="resource-bar-fill hp" initial={{ width: 0 }} animate={{ width: '100%' }} transition={{ duration: 1.5 }} />
-                      </div>
-                      <span className="resource-bar-value">1823/1823</span>
-                    </div>
-                    <div className="resource-bar">
-                      <span className="resource-bar-label">Mana</span>
-                      <div className="resource-bar-track">
-                        <motion.div className="resource-bar-fill mana" initial={{ width: 0 }} animate={{ width: '100%' }} transition={{ duration: 1.5, delay: 0.2 }} />
-                      </div>
-                      <span className="resource-bar-value">37/37</span>
-                    </div>
-                    <div className="resource-bar">
-                      <span className="resource-bar-label">Endurance</span>
-                      <div className="resource-bar-track">
-                        <motion.div className="resource-bar-fill endurance" initial={{ width: 0 }} animate={{ width: '100%' }} transition={{ duration: 1.5, delay: 0.4 }} />
-                      </div>
-                      <span className="resource-bar-value">100/75</span>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.2rem 0.3rem', fontFamily: 'Courier New, monospace', fontSize: '0.65rem' }}>
-                      <span style={{ color: '#C4B5A0' }}>Armor Class</span>
-                      <span style={{ color: '#E8D5B7' }}>69</span>
-                    </div>
-                  </div>
-
-                  {/* STATISTICS */}
-                  <div className="dark-panel-shallow" style={{ padding: '0.5rem' }}>
-                    <div className="section-label">Statistics</div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 0.5rem' }}>
-                      {stats.map((stat) => (
-                        <div key={stat.abbr} className="stat-row-compact" title={`${stat.full}: ${stat.description}`}>
-                          <span className="stat-abbr">{stat.abbr}</span>
-                          <span className="stat-num">{stat.value}</span>
+                        className="left-stats-col"
+                        initial={{ width: 0, opacity: 0 }}
+                        animate={{ width: 200, opacity: 1 }}
+                        exit={{ width: 0, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', overflow: 'hidden', flexShrink: 0 }}
+                      >
+                        {/* PERSONA */}
+                        <div className="dark-panel-shallow" style={{ padding: '0.5rem' }}>
+                          <div className="section-label">Persona</div>
+                          <div style={{ fontFamily: 'Cinzel, Georgia, serif', fontSize: '0.85rem', color: '#D4AF37', textAlign: 'center', marginBottom: '0.2rem', textShadow: '0 0 10px rgba(212,175,55,0.4)' }}>
+                            {character.name}
+                          </div>
+                          <div style={{ fontSize: '0.65rem', color: '#C4B5A0', lineHeight: '1.5' }}>
+                            <div>Level {character.level}</div>
+                            <div>{character.race}</div>
+                            <div>{character.class}</div>
+                            <div>{character.alignment}</div>
+                          </div>
                         </div>
-                      ))}
-                    </div>
-                  </div>
 
-                  {/* RESISTANCES */}
-                  <div className="dark-panel-shallow" style={{ padding: '0.5rem' }}>
-                    <div className="section-label">Resistances</div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 0.5rem' }}>
-                      {resistances.map((res) => (
-                        <div key={res.abbr} className="resistance-row" title={res.full}>
-                          <span className="resistance-name">{res.abbr}</span>
-                          <span className="resistance-value">{res.value}</span>
+                        {/* EXPERIENCE */}
+                        <div className="dark-panel-shallow" style={{ padding: '0.5rem' }}>
+                          <div className="section-label">Experience</div>
+                          <div className="xp-bar-track" style={{ marginBottom: '0.2rem' }}>
+                            <motion.div
+                              className="xp-bar-fill"
+                              initial={{ width: 0 }}
+                              animate={{ width: `${xpPercent}%` }}
+                              transition={{ duration: 2, ease: 'easeOut' }}
+                            />
+                          </div>
                         </div>
-                      ))}
-                    </div>
-                  </div>
 
-                  {/* DEVOTION */}
-                  <div className="dark-panel-shallow" style={{ padding: '0.5rem', textAlign: 'center' }}>
-                    <div style={{ fontSize: '0.65rem', color: '#8B7E71', fontFamily: 'Courier New, monospace' }}>Devotion</div>
-                    <div className="animate-glow" style={{ fontSize: '1rem', color: '#D4AF37', fontFamily: 'Cinzel, Georgia, serif' }}>100</div>
-                  </div>
+                        {/* Class Icon Area */}
+                        <div className="dark-panel-shallow" style={{ padding: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '80px', background: 'linear-gradient(180deg, #1C1A16 0%, #16140E 100%)' }}>
+                          <div style={{ textAlign: 'center' }}>
+                            <div style={{ fontSize: '2.5rem', lineHeight: 1 }}>{'\uD83D\uDDE1\uFE0F'}</div>
+                          </div>
+                        </div>
+
+                        {/* RESOURCE BARS */}
+                        <div className="dark-panel-shallow" style={{ padding: '0.5rem' }}>
+                          <div className="resource-bar">
+                            <span className="resource-bar-label">Health</span>
+                            <div className="resource-bar-track">
+                              <motion.div className="resource-bar-fill hp" initial={{ width: 0 }} animate={{ width: '100%' }} transition={{ duration: 1.5 }} />
+                            </div>
+                            <span className="resource-bar-value">1823/1823</span>
+                          </div>
+                          <div className="resource-bar">
+                            <span className="resource-bar-label">Mana</span>
+                            <div className="resource-bar-track">
+                              <motion.div className="resource-bar-fill mana" initial={{ width: 0 }} animate={{ width: '100%' }} transition={{ duration: 1.5, delay: 0.2 }} />
+                            </div>
+                            <span className="resource-bar-value">37/37</span>
+                          </div>
+                          <div className="resource-bar">
+                            <span className="resource-bar-label">Endurance</span>
+                            <div className="resource-bar-track">
+                              <motion.div className="resource-bar-fill endurance" initial={{ width: 0 }} animate={{ width: '100%' }} transition={{ duration: 1.5, delay: 0.4 }} />
+                            </div>
+                            <span className="resource-bar-value">100/75</span>
+                          </div>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.2rem 0.3rem', fontFamily: 'Courier New, monospace', fontSize: '0.65rem' }}>
+                            <span style={{ color: '#C4B5A0' }}>Armor Class</span>
+                            <span style={{ color: '#E8D5B7' }}>69</span>
+                          </div>
+                        </div>
+
+                        {/* STATISTICS */}
+                        <div className="dark-panel-shallow" style={{ padding: '0.5rem' }}>
+                          <div className="section-label">Statistics</div>
+                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 0.5rem' }}>
+                            {/* Left column: STR, STA, AGI, DEX */}
+                            <div>
+                              {stats.filter(s => ['STR','STA','AGI','DEX'].includes(s.abbr)).map((stat) => (
+                                <div key={stat.abbr} className="stat-row-compact" title={`${stat.full}: ${stat.description}`}>
+                                  <span className="stat-abbr">{stat.abbr}</span>
+                                  <span className="stat-num">{stat.value}</span>
+                                </div>
+                              ))}
+                            </div>
+                            {/* Right column: INT, WIS, CHA */}
+                            <div>
+                              {stats.filter(s => ['INT','WIS','CHA'].includes(s.abbr)).map((stat) => (
+                                <div key={stat.abbr} className="stat-row-compact" title={`${stat.full}: ${stat.description}`}>
+                                  <span className="stat-abbr">{stat.abbr}</span>
+                                  <span className="stat-num">{stat.value}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* RESISTANCES */}
+                        <div className="dark-panel-shallow" style={{ padding: '0.5rem' }}>
+                          <div className="section-label">Resistances</div>
+                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 0.5rem' }}>
+                            {resistances.map((res) => (
+                              <div key={res.abbr} className="resistance-row" title={res.full}>
+                                <span className="resistance-name">{res.abbr}</span>
+                                <span className="resistance-value">{res.value}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* DEVOTION */}
+                        <div className="dark-panel-shallow" style={{ padding: '0.5rem', textAlign: 'center' }}>
+                          <div style={{ fontSize: '0.65rem', color: '#8B7E71', fontFamily: 'Courier New, monospace' }}>Devotion</div>
+                          <div className="animate-glow" style={{ fontSize: '1rem', color: '#D4AF37', fontFamily: 'Cinzel, Georgia, serif' }}>0</div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
 
-                {/* ══════ CENTER COLUMN - Character + Equipment ══════ */}
-                <div className="center-character-col" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                {/* ══════ MAIN CENTER AREA - Equipment + Inventory ══════ */}
+                <div className="center-character-col" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', flex: 1 }}>
 
                   {/* Equipment around portrait */}
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.25rem' }}>
 
-                    {/* Top equipment row: Ear, Neck, Face, Ear */}
+                    {/* Top equipment row: Ear, Neck, Head, Face, Ear */}
                     <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', alignItems: 'flex-end' }}>
                       <EquipSlotMini slot="Ear" {...equipment.ear1} />
                       <EquipSlotMini slot="Neck" {...equipment.neck} />
+                      <EquipSlotMini slot="Head" {...equipment.head} />
                       <EquipSlotMini slot="Face" {...equipment.face} />
                       <EquipSlotMini slot="Ear" {...equipment.ear2} />
                     </div>
 
-                    {/* Middle row: Wrist | Portrait | Finger */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', width: '100%', justifyContent: 'center' }}>
-                      {/* Left side slots */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center' }}>
-                        <EquipSlotMini slot="Wrist" {...equipment.wrist} />
-                        <EquipSlotMini slot="Shoulders" {...equipment.shoulders} />
+                    {/* Middle row: Left slots | Portrait | Right slots */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', width: '100%', justifyContent: 'center' }}>
+                      {/* Left side slots: Chest, Arms, Wrist, Belt, Finger, Legs */}
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', alignItems: 'center' }}>
+                        <EquipSlotMini slot="Chest" {...equipment.chest} />
+                        <EquipSlotMini slot="Arms" {...equipment.arms} />
+                        <EquipSlotMini slot="Wrist" {...equipment.wrist1} />
+                        <EquipSlotMini slot="Belt" {...equipment.belt} />
+                        <EquipSlotMini slot="Finger" {...equipment.finger1} />
+                        <EquipSlotMini slot="Legs" {...equipment.legs} />
                       </div>
 
                       {/* PORTRAIT */}
-                      <div ref={portraitRef} className="portrait-archway" style={{ width: '260px', height: '320px', flexShrink: 0 }}>
+                      <div ref={portraitRef} className="portrait-archway" style={{ width: '260px', height: '340px', flexShrink: 0 }}>
                         <img
                           src="/images/viktor-portrait.png"
                           alt="Viktor Hurtig"
                         />
                       </div>
 
-                      {/* Right side slots */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'center' }}>
-                        <EquipSlotMini slot="Finger" {...equipment.finger1} />
+                      {/* Right side slots: Cape, Shoulders, Wrist, Hands, Finger, Boots */}
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', alignItems: 'center' }}>
+                        <EquipSlotMini slot="Cape" {...equipment.cape} />
+                        <EquipSlotMini slot="Shoulders" {...equipment.shoulders} />
+                        <EquipSlotMini slot="Wrist" {...equipment.wrist2} />
+                        <EquipSlotMini slot="Hands" {...equipment.hands} />
                         <EquipSlotMini slot="Finger" {...equipment.finger2} />
+                        <EquipSlotMini slot="Boots" {...equipment.boots} />
                       </div>
                     </div>
 
-                    {/* Bottom equipment row: Chest, Primary, Secondary, Range, Ammo */}
+                    {/* Weapon slots row: Primary, Secondary, Range, Ammo */}
                     <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', alignItems: 'flex-start' }}>
-                      <EquipSlotMini slot="Chest" {...equipment.chest} />
                       <EquipSlotMini slot="Primary" {...equipment.primary} />
                       <EquipSlotMini slot="Secondary" {...equipment.secondary} />
                       <EquipSlotMini slot="Range" {...equipment.range} />
@@ -395,34 +450,12 @@ export default function CharacterSheet() {
                     </div>
                   </div>
 
-                  {/* Active Buffs */}
-                  <div className="dark-panel-shallow" style={{ padding: '0.4rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'center', gap: '0.35rem', flexWrap: 'wrap' }}>
-                      {buffs.map((buff) => (
-                        <BuffIcon key={buff.name} {...buff} />
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Memorized Abilities */}
-                  <div className="dark-panel-shallow" style={{ padding: '0.4rem' }}>
-                    <div style={{ display: 'flex', justifyContent: 'center', gap: '0.25rem', flexWrap: 'wrap' }}>
-                      {abilities.map((ability, index) => (
-                        <AbilitySlot key={ability.name} {...ability} slotNumber={index + 1} />
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* ══════ RIGHT COLUMN - Inventory ══════ */}
-                <div className="right-inventory-col" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-
-                  {/* Inventory Grid */}
-                  <div className="dark-panel-shallow" style={{ padding: '0.5rem', flex: 1 }}>
+                  {/* Inventory Grid - below weapons */}
+                  <div className="dark-panel-shallow" style={{ padding: '0.5rem' }}>
                     <div className="section-label">Inventory</div>
                     <div style={{
                       display: 'grid',
-                      gridTemplateColumns: 'repeat(5, 36px)',
+                      gridTemplateColumns: 'repeat(8, 36px)',
                       gap: '2px',
                       justifyContent: 'center',
                     }}>
@@ -434,64 +467,69 @@ export default function CharacterSheet() {
                           )}
                         </div>
                       ))}
+                      {/* Formal Note special item */}
+                      <div
+                        ref={noteRef}
+                        className={`inv-slot ${noteHandedIn ? 'formal-note-handed' : 'formal-note-glow'}`}
+                        onClick={handleNoteClick}
+                        title={noteHandedIn ? 'Already handed in' : 'Click to hand in to Shawn'}
+                        style={{ cursor: noteHandedIn ? 'default' : 'pointer' }}
+                      >
+                        <span>&#128220;</span>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Formal Note - Special Quest Item */}
-                  <div
-                    ref={noteRef}
-                    className={`formal-note-slot ${noteHandedIn ? 'formal-note-handed' : 'formal-note-glow'}`}
-                    onClick={handleNoteClick}
-                    title={noteHandedIn ? 'Already handed in' : 'Click to hand in to Shawn'}
-                  >
-                    <div className="formal-note-icon">&#128220;</div>
-                    <div className="formal-note-label">
-                      {noteHandedIn ? 'Handed In' : 'Formal Note'}
+                  {/* Bags row with Drop/Destroy buttons */}
+                  <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
+                    <div className="dark-panel-shallow" style={{ padding: '0.5rem', flex: 1 }}>
+                      <div className="section-label">Bags</div>
+                      <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(4, 36px)',
+                        gap: '2px',
+                        justifyContent: 'center',
+                      }}>
+                        {bags.map((bag, i) => (
+                          <div key={i} className="inv-slot" title={bag.name}>
+                            <span>{bag.icon}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    {/* Drop & Destroy buttons */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', minWidth: '80px' }}>
+                      <button className="stone-button stone-button-primary" style={{ fontSize: '0.55rem', padding: '0.3rem 0.4rem' }}>
+                        Drop
+                      </button>
+                      <button className="stone-button stone-button-danger" style={{ fontSize: '0.55rem', padding: '0.3rem 0.4rem' }}>
+                        Destroy
+                      </button>
                     </div>
                   </div>
 
-                  {/* Bags */}
-                  <div className="dark-panel-shallow" style={{ padding: '0.5rem' }}>
-                    <div className="section-label">Bags</div>
-                    <div style={{
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(4, 36px)',
-                      gap: '2px',
-                      justifyContent: 'center',
-                    }}>
-                      {bags.map((bag, i) => (
-                        <div key={i} className="inv-slot" title={bag.name}>
-                          <span>{bag.icon}</span>
-                        </div>
-                      ))}
+                  {/* Currency and Weight bar */}
+                  <div className="currency-weight-bar">
+                    <div className="currency-section">
+                      <span className="currency-label">Currency</span>
+                      <span className="currency-values">0</span>
+                      <span className="currency-values">19</span>
+                      <span className="currency-values">236</span>
+                      <span className="currency-values">792</span>
                     </div>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
-                    <a
-                      href="https://github.com/WeaveCraft"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="stone-button stone-button-primary"
-                    >
-                      View GitHub
-                    </a>
-                    <button
-                      className="stone-button stone-button-danger"
-                      onClick={() => setActiveTab('social')}
-                    >
-                      Contact
-                    </button>
+                    <div className="weight-section">
+                      <span className="weight-label">Weight</span>
+                      <span className="weight-value">69 / 129</span>
+                    </div>
                   </div>
                 </div>
               </div>
             )}
 
             {/* ═══════════════════════════════════ */}
-            {/* SKILLS TAB - Detailed Stats        */}
+            {/* FACTIONS TAB - Detailed Stats       */}
             {/* ═══════════════════════════════════ */}
-            {activeTab === 'skills' && (
+            {activeTab === 'factions' && (
               <div style={{ maxWidth: '700px', margin: '0 auto' }}>
                 <div className="section-label" style={{ marginBottom: '1rem' }}>Core Attributes</div>
                 {stats.map((stat, i) => (
@@ -545,9 +583,78 @@ export default function CharacterSheet() {
             )}
 
             {/* ═══════════════════════════════════ */}
-            {/* QUESTS TAB                          */}
+            {/* FAITHS TAB - Religion / Devotion    */}
             {/* ═══════════════════════════════════ */}
-            {activeTab === 'quests' && (
+            {activeTab === 'faiths' && (
+              <div style={{ maxWidth: '700px', margin: '0 auto' }}>
+                <div className="section-label" style={{ marginBottom: '0.75rem' }}>Choose Your Faith</div>
+                <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: '1rem' }}>
+                  {/* Faith list */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                    {[
+                      { name: 'Agnostic', active: true },
+                      { name: 'Eltindra', active: false },
+                      { name: 'Haradrel', active: false },
+                      { name: 'Kravvin', active: false },
+                      { name: 'Krivea', active: false },
+                      { name: 'The Matswar', active: false },
+                      { name: 'Porbor', active: false },
+                      { name: 'Relle', active: false },
+                      { name: 'Sorophal', active: false },
+                      { name: 'Tilustra', active: false },
+                      { name: 'Trem', active: false },
+                      { name: 'Trimminax', active: false },
+                      { name: 'Vespyra', active: false },
+                    ].map((faith) => (
+                      <div
+                        key={faith.name}
+                        className={`faith-card ${faith.active ? 'faith-card-active' : ''}`}
+                        style={{ padding: '0.35rem 0.5rem' }}
+                      >
+                        <span style={{
+                          fontFamily: 'Courier New, monospace',
+                          fontSize: '0.65rem',
+                          color: faith.active ? '#D4AF37' : '#C4B5A0',
+                        }}>
+                          {faith.name}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Selected faith detail */}
+                  <div className="dark-panel-shallow" style={{ padding: '1rem' }}>
+                    <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+                      <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>{'\uD83D\uDC31'}</div>
+                      <h3 style={{ fontSize: '1rem', marginBottom: '0.5rem', letterSpacing: '0.15em' }}>AGNOSTIC</h3>
+                    </div>
+                    <div style={{
+                      padding: '0.75rem',
+                      background: 'rgba(0,0,0,0.2)',
+                      border: '1px solid #3A3530',
+                    }}>
+                      <p style={{ fontSize: '0.65rem', color: '#C4B5A0', lineHeight: '1.8', fontFamily: 'Courier New, monospace', textAlign: 'center' }}>
+                        Agnostics neither accept nor reject the existence of deities.
+                      </p>
+                      <div style={{ marginTop: '0.75rem', borderTop: '1px solid #3A3530', paddingTop: '0.75rem' }}>
+                        <p style={{ fontSize: '0.6rem', color: '#8B7E71', fontFamily: 'Courier New, monospace', textAlign: 'center', fontStyle: 'italic' }}>
+                          &quot;I follow the code, not the doctrine. My devotion is to clean architecture and working software.&quot;
+                        </p>
+                      </div>
+                    </div>
+                    <div style={{ marginTop: '0.75rem', textAlign: 'center' }}>
+                      <div style={{ fontSize: '0.55rem', color: '#8B7E71', fontFamily: 'Courier New, monospace' }}>Devotion</div>
+                      <div style={{ fontSize: '1rem', color: '#D4AF37', fontFamily: 'Cinzel, Georgia, serif' }}>0</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* ═══════════════════════════════════ */}
+            {/* LEDGER TAB - Quests & Achievements  */}
+            {/* ═══════════════════════════════════ */}
+            {activeTab === 'ledger' && (
               <div style={{ maxWidth: '700px', margin: '0 auto' }}>
                 <div className="section-label" style={{ marginBottom: '0.75rem' }}>Main Quest</div>
                 <div className="quest-item animate-subtle-pulse" style={{ border: '2px solid #8B6914', marginBottom: '1.5rem' }}>
