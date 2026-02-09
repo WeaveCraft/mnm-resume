@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface EquipmentSlotProps {
@@ -19,11 +19,22 @@ export default function EquipmentSlot({
   slot,
 }: EquipmentSlotProps) {
   const [showTooltip, setShowTooltip] = useState(false);
+  const [flipBelow, setFlipBelow] = useState(false);
+  const slotRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseEnter = () => {
+    if (slotRef.current) {
+      const rect = slotRef.current.getBoundingClientRect();
+      setFlipBelow(rect.top < 160);
+    }
+    setShowTooltip(true);
+  };
 
   return (
     <div
+      ref={slotRef}
       className="relative flex flex-col items-center"
-      onMouseEnter={() => setShowTooltip(true)}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={() => setShowTooltip(false)}
     >
       {slot && <span className="equip-slot-label">{slot}</span>}
@@ -35,10 +46,10 @@ export default function EquipmentSlot({
       <AnimatePresence>
         {showTooltip && (
           <motion.div
-            initial={{ opacity: 0, y: 5 }}
+            initial={{ opacity: 0, y: flipBelow ? -5 : 5 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 5 }}
-            className="game-tooltip left-1/2 bottom-full mb-2 w-56 z-50"
+            exit={{ opacity: 0, y: flipBelow ? -5 : 5 }}
+            className={`game-tooltip left-1/2 w-56 z-50 ${flipBelow ? 'top-full mt-2' : 'bottom-full mb-2'}`}
             style={{ transform: 'translateX(-50%)' }}
           >
             <h4>{icon} {name}</h4>
