@@ -16,10 +16,10 @@ const UnityIcon = (
 const PLAYER_CHATTER = [
   { name: 'Thundrik', msg: 'Does anyone know where the fighter trainer is?' },
   { name: 'Lyranis', msg: 'Looking for the inquisitor trainer, can anyone point me the right way?' },
-  { name: 'Grimbold', msg: 'Where do I find the fighter trainer around here?' },
-  { name: 'Selphina', msg: 'Has anyone seen the inquisitor trainer? Been searching for ages.' },
-  { name: 'Arxius', msg: 'Anyone know where the fighter trainer is? Just rolled into town.' },
-  { name: 'Veylith', msg: "Where's the inquisitor trainer at?" },
+  { name: 'Grimbold', msg: 'Anyone want to group up for the Abyss dungeon?' },
+  { name: 'Selphina', msg: 'Selling Runed Mithril Bracelet, send tell with offer.' },
+  { name: 'Arxius', msg: 'How do I get to the Deadlands from here?' },
+  { name: 'Veylith', msg: 'Our guild is recruiting healers, PST if interested!' },
 ];
 
 const TABS = [
@@ -182,16 +182,16 @@ export default function CharacterSheet() {
     // Top row
     ear1:      { name: 'Agile',        icon: '\u25C8', type: 'Artifact' as const, description: 'Sprint methodology mastery', stats: ['+35 Team Velocity', '+30 Adaptability'] },
     neck:      { name: 'CI/CD',        icon: '\u2662', type: 'Tool' as const, description: 'Continuous integration pipeline', stats: ['+40 Automation', '+30 Deployment'] },
-    head:      { name: 'Architecture', icon: '\u2656', type: 'Armor' as const, description: 'System design & architecture thinking', stats: ['+45 Design Patterns', '+35 Scalability'] },
+    head:      { name: 'Architecture', icon: '\u2655', type: 'Armor' as const, description: 'System design & architecture thinking', stats: ['+45 Design Patterns', '+35 Scalability'] },
     face:      { name: 'Git',          icon: '\u2318', type: 'Tool' as const, description: 'Version control mastery', stats: ['+50 Version Control', '+40 Branching'] },
     ear2:      { name: 'Docker',       icon: '\u25C8', type: 'Tool' as const, description: 'Containerization specialist', stats: ['+45 Environment Consistency', '+35 Deployment'] },
     // Left side
-    chest:     { name: 'C#',           icon: '\u2616', type: 'Armor' as const, description: 'Primary programming language', stats: ['+50 Code Clarity', '+40 Type Safety', '+30 Performance'] },
+    chest:     { name: 'C#',           icon: '\u269C', type: 'Armor' as const, description: 'Primary programming language', stats: ['+50 Code Clarity', '+40 Type Safety', '+30 Performance'] },
     arms:      { name: 'Entity FW',    icon: '\u2720', type: 'Weapon' as const, description: 'ORM & data access layer', stats: ['+40 Data Modeling', '+35 Query Building'] },
     wrist1:    { name: 'TypeScript',   icon: '\u25CE', type: 'Weapon' as const, description: 'Typed JavaScript mastery', stats: ['+40 Type Safety', '+35 Frontend Power'] },
     belt:      { name: 'SOLID',        icon: '\u2726', type: 'Artifact' as const, description: 'Design principles mastery', stats: ['+40 Code Quality', '+35 Maintainability'] },
     finger1:   { name: 'VS Code',      icon: '\u25C7', type: 'Tool' as const, description: 'Primary IDE', stats: ['+40 Productivity', '+30 Extension Mastery'] },
-    legs:      { name: 'Linux',        icon: '\u25BD', type: 'Armor' as const, description: 'Server & OS proficiency', stats: ['+35 DevOps', '+30 Shell Scripting'] },
+    legs:      { name: 'Linux',        icon: '\u2638', type: 'Armor' as const, description: 'Server & OS proficiency', stats: ['+35 DevOps', '+30 Shell Scripting'] },
     // Right side
     cape:      { name: 'Portfolio',    icon: '\u2742', type: 'Artifact' as const, description: 'Project portfolio & open source', stats: ['+40 Credibility', '+35 Showcase'] },
     shoulders: { name: '.NET',         icon: '\u2694', type: 'Weapon' as const, description: 'Framework expertise', stats: ['+45 Backend Power', '+35 API Design'] },
@@ -207,25 +207,25 @@ export default function CharacterSheet() {
 
   // Inventory items (smaller tools/skills) - 8 slots like the screenshot
   const inventoryItems = [
-    { icon: '\u25CE', name: 'HTML5', count: undefined },
-    { icon: '\u25C6', name: 'CSS3', count: undefined },
-    { icon: '\u2726', name: 'JavaScript', count: 1 },
-    { icon: '\u25A3', name: 'SQL', count: 1 },
-    { icon: '\u25C8', name: 'Angular', count: undefined },
-    { icon: '\u25A1', name: 'npm', count: 12 },
-    { icon: '\u2736', name: 'xUnit', count: 1 },
-    { icon: '\u25C7', name: 'JSON', count: undefined },
-    { icon: '\u25CE', name: 'LINQ', count: undefined },
-    { icon: '\u2699', name: 'ASP.NET', count: undefined },
+    { icon: '\u2630', name: 'HTML5', count: undefined },
+    { icon: '\u273F', name: 'CSS3', count: undefined },
+    { icon: '\u2604', name: 'JavaScript', count: 1 },
+    { icon: '\u2637', name: 'SQL', count: 1 },
+    { icon: '\u25C9', name: 'Angular', count: undefined },
+    { icon: '\u229E', name: 'npm', count: 12 },
+    { icon: '\u2713', name: 'xUnit', count: 1 },
+    { icon: '\u25CA', name: 'JSON', count: undefined },
+    { icon: '\u21DB', name: 'LINQ', count: undefined },
+    { icon: '\u2609', name: 'ASP.NET', count: undefined },
   ];
 
   // Bag categories with contents
   const bags = [
-    { icon: '\u25A3', name: 'Backend', contents: ['C#', '.NET', 'ASP.NET', 'Entity FW', 'SQL', 'PostgreSQL', 'REST API', 'LINQ', 'SQL Server', 'JSON', 'XML', 'Middleware'] },
-    { icon: '\u25A3', name: 'Frontend', contents: ['React', 'Angular', 'TypeScript', 'Blazor', 'HTML5', 'CSS3', 'JavaScript', 'Tailwind', 'SASS', 'Responsive Design', 'Accessibility'] },
-    { icon: '\u25A3', name: 'DevOps', contents: ['Docker', 'Git', 'CI/CD', 'Linux', 'Bash', 'npm', 'VS Code', 'Azure', 'GitHub Actions', 'Networking', 'SSH'] },
-    { icon: '\u25A3', name: 'GameDev', contents: ['Unity', 'C#', 'Scene Design', 'Game Logic', 'Debugging', '3D Math', 'Physics', 'Shaders'] },
-    { icon: '\u25A3', name: 'IT & Ops', contents: ['Windows Server', 'Active Directory', 'Troubleshooting', 'Hardware', 'Virtualization', 'DNS', 'TCP/IP', 'Firewalls'] },
+    { icon: '\u2692', name: 'Backend', contents: ['C#', '.NET', 'ASP.NET', 'Entity FW', 'SQL', 'PostgreSQL', 'REST API', 'LINQ', 'SQL Server', 'JSON', 'XML', 'Middleware'] },
+    { icon: '\u270E', name: 'Frontend', contents: ['React', 'Angular', 'TypeScript', 'Blazor', 'HTML5', 'CSS3', 'JavaScript', 'Tailwind', 'SASS', 'Responsive Design', 'Accessibility'] },
+    { icon: '\u2699', name: 'DevOps', contents: ['Docker', 'Git', 'CI/CD', 'Linux', 'Bash', 'npm', 'VS Code', 'Azure', 'GitHub Actions', 'Networking', 'SSH'] },
+    { icon: '\u265F', name: 'GameDev', contents: ['Unity', 'C#', 'Scene Design', 'Game Logic', 'Debugging', '3D Math', 'Physics', 'Shaders'] },
+    { icon: '\u26A1', name: 'IT & Ops', contents: ['Windows Server', 'Active Directory', 'Troubleshooting', 'Hardware', 'Virtualization', 'DNS', 'TCP/IP', 'Firewalls'] },
   ];
 
   const buffs = [
