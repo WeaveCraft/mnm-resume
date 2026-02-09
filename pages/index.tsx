@@ -278,7 +278,7 @@ export default function CharacterSheet() {
     },
     completedQuests: [
       { title: '.NET Software Developer Training', xp: 5000, reward: 'C# Mastery +50' },
-      { title: 'Full-Stack Internship at LearningWell', xp: 3000, reward: 'Professional Experience +40' },
+      { title: 'Full-Stack Developer at LearningWell', xp: 3000, reward: 'Professional Experience +40' },
       { title: 'Build Full-Stack Health Management Platform from Scratch', xp: 3500, reward: 'Full-Stack Architecture +50, PostgreSQL +35, Google Maps API +25' },
       { title: 'Lead Developer - Enterprise IAM System (Sailpoint IIQ)', xp: 4000, reward: 'Identity Management +50, Enterprise Architecture +45' },
       { title: 'Build Server Infrastructure Monitoring System', xp: 2500, reward: 'Grafana Mastery +40, DevOps +35, Saved Production from Storage Crisis!' },
