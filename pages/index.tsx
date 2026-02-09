@@ -87,7 +87,6 @@ export default function CharacterSheet() {
   const character = {
     name: 'Encrypted',
     race: 'Scandinavian Unity Enchanter',
-    class: 'Unity Programmer',
     level: 32,
     alignment: 'Agnostic',
   };
@@ -288,7 +287,6 @@ export default function CharacterSheet() {
                           <div style={{ fontSize: '0.65rem', color: '#C4B5A0', lineHeight: '1.5' }}>
                             <div>Level {character.level}</div>
                             <div>{character.race}</div>
-                            <div>{character.class}</div>
                             <div>{character.alignment}</div>
                           </div>
                         </div>
