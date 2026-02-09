@@ -146,14 +146,17 @@ export default function CharacterSheet() {
   const character = {
     name: 'Encrypted',
     race: 'Scandinavian Unity Enchanter',
+    class: 'IT Architect | Unity Programmer (Aspiring)',
     level: 32,
     alignment: 'Agnostic',
+    title: 'The Infrastructure Keeper & Game Dev Apprentice',
+    guild: 'ID North (Current) | Seeking: Monsters & Memories Guild',
   };
 
   // Stats as game-style numbers (like the M&M screenshot: 18-29 range)
   const stats = [
     { abbr: 'STR', value: 29, full: 'Strength', description: 'C# mastery & backend power', details: ['Software Development education in Sweden', '6+ months professional development', 'Built complex full-stack applications', 'Deep OOP & Entity Framework proficiency'] },
-    { abbr: 'STA', value: 29, full: 'Stamina', description: 'Work ethic & dedication', details: ['Worked full-time while studying software development', 'Graduated from Swedish software development program', 'Dedicated spare time to Unity learning', 'Never gives up on challenging problems'] },
+    { abbr: 'STA', value: 29, full: 'Stamina', description: 'Work ethic & dedication', details: ['Working full-time as IT Architect while pursuing game dev passion', 'Led enterprise IAM project at Swedish government organization', 'Grafana monitoring saved production from storage crisis', 'Set up entire database infrastructure (Test, UAT, ACC, PROD)', 'Solo developer on complex integration projects', 'Built HolistiQ from scratch while learning new tech stack', 'Never gives up on debugging (even production incidents)', 'Learning Unity Netcode in spare time to be ready for M&M'] },
     { abbr: 'AGI', value: 26, full: 'Agility', description: 'Learning speed & adaptability', details: ['Studied software development in Sweden', 'Mastered React, Angular & TypeScript rapidly', 'Currently learning Unity in spare time', 'Quick to adopt new frameworks'] },
     { abbr: 'DEX', value: 29, full: 'Dexterity', description: 'Versatility across tech stacks', details: ['Backend: C#, .NET, ASP.NET Core', 'Frontend: React, Angular, Blazor, TypeScript', 'Databases: SQL Server, PostgreSQL', 'Tools: Docker, Git, VS Code'] },
     { abbr: 'INT', value: 18, full: 'Intelligence', description: 'Problem-solving & system design', details: ['Architected scalable client-server systems', 'Designed RESTful APIs from scratch', 'Database optimization & query tuning', 'Strategic technical decision-making'] },
@@ -193,16 +196,16 @@ export default function CharacterSheet() {
     finger1:   { name: 'VS Code',      icon: '\u25C7', type: 'Tool' as const, description: 'Primary IDE', stats: ['+40 Productivity', '+30 Extension Mastery'] },
     legs:      { name: 'Linux',        icon: '\u2638', type: 'Armor' as const, description: 'Server & OS proficiency', stats: ['+35 DevOps', '+30 Shell Scripting'] },
     // Right side
-    cape:      { name: 'Portfolio',    icon: '\u2742', type: 'Artifact' as const, description: 'Project portfolio & open source', stats: ['+40 Credibility', '+35 Showcase'] },
+    cape:      { name: 'Azure DevOps', icon: '\u2601', type: 'Artifact' as const, description: 'Enterprise infrastructure - Grafana monitoring, database servers, CI/CD pipelines, server health management', stats: ['+50 Infrastructure', '+45 Monitoring & Alerting', '+40 Server Administration', '+35 DevOps Principles'] },
     shoulders: { name: '.NET',         icon: '\u2694', type: 'Weapon' as const, description: 'Framework expertise', stats: ['+45 Backend Power', '+35 API Design'] },
     wrist2:    { name: 'Blazor',       icon: '\u25CE', type: 'Weapon' as const, description: 'Full-stack .NET UI framework', stats: ['+35 UI Development', '+30 Component Design'] },
     hands:     { name: 'Debugging',    icon: '\u2736', type: 'Tool' as const, description: 'Tracking down & fixing issues', stats: ['+45 Bug Detection', '+35 Root Cause Analysis'] },
     finger2:   { name: 'React',        icon: '\u25C7', type: 'Tool' as const, description: 'Frontend framework', stats: ['+40 UI Development', '+30 Component Design'] },
     boots:     { name: 'Bash',         icon: '\u25B3', type: 'Tool' as const, description: 'Shell scripting & CLI tools', stats: ['+35 Automation', '+30 Scripting'] },
     // Weapons row
-    primary:   { name: 'Unity',        icon: UnityIcon, type: 'Weapon' as const, description: 'Game engine - currently leveling', stats: ['+35 Game Dev', '+25 Scene Design'] },
+    primary:   { name: 'Unity Engine', icon: UnityIcon, type: 'Weapon' as const, description: 'Built: NPC hand-in system (this site!), 2D co-op boss fighter, UI Toolkit dialogs. Learning: Netcode multiplayer', stats: ['+45 Game Development', '+40 UI Toolkit', '+35 Scene Design', '+30 Game Logic', '+25 Netcode (Learning)'] },
     secondary: { name: 'MariaDB',      icon: '\u25C6', type: 'Artifact' as const, description: 'Database expertise', stats: ['+45 Query Optimization', '+35 Data Modeling'] },
-    range:     { name: 'REST API',     icon: '\u279B', type: 'Tool' as const, description: 'API design & implementation', stats: ['+40 Endpoint Design', '+30 Integration'] },
+    range:     { name: 'REST API',     icon: '\u279B', type: 'Tool' as const, description: 'Full-stack client-server architecture - Built HolistiQ from scratch (PostgreSQL + React + .NET), enterprise IAM systems', stats: ['+50 Client-Server Architecture', '+45 Multi-User Systems', '+40 Enterprise Integration', '+35 API Design'] },
   };
 
   // Inventory items (smaller tools/skills) - 8 slots like the screenshot
@@ -221,58 +224,78 @@ export default function CharacterSheet() {
 
   // Bag categories with contents
   const bags = [
-    { icon: '\u2692', name: 'Backend', contents: ['C#', '.NET', 'ASP.NET', 'Entity FW', 'SQL', 'PostgreSQL', 'REST API', 'LINQ', 'SQL Server', 'JSON', 'XML', 'Middleware'] },
-    { icon: '\u270E', name: 'Frontend', contents: ['React', 'Angular', 'TypeScript', 'Blazor', 'HTML5', 'CSS3', 'JavaScript', 'Tailwind', 'SASS', 'Responsive Design', 'Accessibility'] },
-    { icon: '\u2699', name: 'DevOps', contents: ['Docker', 'Git', 'CI/CD', 'Linux', 'Bash', 'npm', 'VS Code', 'Azure', 'GitHub Actions', 'Networking', 'SSH'] },
-    { icon: '\u265F', name: 'GameDev', contents: ['Unity', 'C#', 'Scene Design', 'Game Logic', 'Debugging', '3D Math', 'Physics', 'Shaders'] },
-    { icon: '\u26A1', name: 'IT & Ops', contents: ['Windows Server', 'Active Directory', 'Troubleshooting', 'Hardware', 'Virtualization', 'DNS', 'TCP/IP', 'Firewalls'] },
+    { icon: '\u25A3', name: 'Backend', contents: ['C#', '.NET', 'ASP.NET', 'Entity Framework', 'SQL', 'PostgreSQL', 'REST API', 'LINQ', 'Sailpoint IIQ'] },
+    { icon: '\u25A3', name: 'Frontend', contents: ['React', 'Angular', 'TypeScript', 'Blazor', 'NextJS', 'Razor Pages', 'HTML5', 'CSS3', 'JavaScript', 'WinForms'] },
+    { icon: '\u25A3', name: 'DevOps/Infra', contents: ['Azure DevOps', 'Docker', 'Git', 'CI/CD', 'Linux', 'Bash', 'Grafana', 'Server Admin', 'Database Servers', 'Storage Management'] },
+    { icon: '\u25A3', name: 'GameDev', contents: ['Unity', 'C#', 'UI Toolkit', 'Scene Design', 'Game Logic', 'Combat Systems', 'Local Multiplayer', 'Netcode (Learning)'] },
   ];
 
   const buffs = [
-    { name: 'Employed', icon: '\u2605', effect: '+Professional Experience' },
-    { name: 'Learning Unity', icon: '\u25C6', effect: '+Game Dev Skills' },
-    { name: 'Seeking M&M', icon: '\u2606', effect: '+Motivation +100' },
-    { name: 'Open Source', icon: '\u25CE', effect: '+Community Contribution' },
+    { name: 'Currently Employed', icon: '\u2605', effect: '+IT Architect at ID North, +Professional Experience' },
+    { name: 'IAM/IGA Specialist', icon: '\u25C8', effect: '+Sailpoint IIQ Mastery, +Enterprise Identity Management' },
+    { name: 'Grafana Hero', icon: '\u25A3', effect: 'Saved production from storage crisis! +Monitoring +40' },
+    { name: 'Unity Apprentice', icon: '\u25C6', effect: 'Learning Netcode, built 2D co-op game & NPC system' },
+    { name: 'M&M Devotee', icon: '\u2606', effect: '+Motivation +100, Genuinely loves what you\'re building' },
+    { name: 'EQ Culture Enjoyer', icon: '\u265F', effect: 'Knows "Train to Zone!" Never KSes camps. Respects the grind.' },
+    { name: 'Honest About Skills', icon: '\u25CE', effect: 'Won\'t claim Netcode mastery (yet), but learning fast!' },
   ];
 
   const abilities = [
     { name: 'Problem Solving', icon: '\u25C8', description: 'Break down complex challenges' },
     { name: 'Code Review', icon: '\u25C6', description: 'Evaluate and improve code quality' },
-    { name: 'Debugging', icon: '\u2736', description: 'Track down and fix issues' },
+    { name: 'Debugging', icon: '\u2736', description: 'Track down and fix issues (saved prod from storage leak!)' },
     { name: 'Refactoring', icon: '\u25CE', description: 'Improve code structure' },
     { name: 'Documentation', icon: '\u25C7', description: 'Write clear technical docs' },
     { name: 'Collaboration', icon: '\u2605', description: 'Work effectively with others' },
     { name: 'Git Commit', icon: '\u25C8', description: 'Version control operations' },
     { name: 'API Design', icon: '\u279B', description: 'Design RESTful interfaces' },
-    { name: 'DB Query', icon: '\u25A3', description: 'Optimize data operations' },
+    { name: 'DB Query', icon: '\u25A3', description: 'Optimize data operations (PostgreSQL expert)' },
     { name: 'Deploy', icon: '\u2694', description: 'Ship to production' },
+    { name: 'Infrastructure Architecture', icon: '\u2302', description: 'Design & maintain enterprise server infrastructure' },
+    { name: 'Grafana Monitoring', icon: '\u25A3', description: 'Set up alerting & dashboards to prevent disasters' },
+    { name: 'IAM/IGA Systems', icon: '\u25C8', description: 'Sailpoint IIQ installation, configuration, integration' },
+    { name: 'Unity UI Toolkit', icon: '\u25CE', description: 'Built NPC dialogs, hand-in systems, game interfaces' },
+    { name: 'Game Combat Design', icon: '\u2694', description: 'Projectile combat, enemy AI, hazard systems (2D co-op)' },
+    { name: 'Rapid Prototyping', icon: '\u26A1', description: 'Build functional demos quickly (bar-hopping app, games)' },
+    { name: 'Lead Development', icon: '\u2655', description: 'Led enterprise IAM project at government org' },
   ];
 
   const quests = {
     mainQuest: {
       title: 'Join the Monsters & Memories Guild',
-      description: 'Prove your worth as a Unity Programmer and join the legendary team building a classic MMORPG',
+      description: 'Prove your worth to lovingrobot (Shawn) and the legendary M&M team. Hand in your credentials, demonstrate your skills, and convince them that a Swedish IT architect who builds enterprise IAM systems by day and Unity games by night is exactly what they need. (No train-pulling or camp-stealing allowed.)',
       objectives: [
-        { text: 'Master C# programming', completed: true },
-        { text: 'Learn client-server architecture', completed: true },
-        { text: 'Develop Unity skills', completed: false, progress: 65 },
-        { text: 'Build impressive portfolio', completed: true },
-        { text: 'Create unique application', completed: true },
-        { text: 'Convince Shawn & Ali of your potential', completed: false },
+        { text: 'Master C# programming (.NET, enterprise-level)', completed: true },
+        { text: 'Build client-server applications (HolistiQ, IAM systems)', completed: true },
+        { text: 'Lead enterprise infrastructure projects', completed: true },
+        { text: 'Develop Unity game projects (2D co-op, NPC systems, UI)', completed: true },
+        { text: 'Master Unity UI Toolkit', completed: true },
+        { text: 'Learn Unity Netcode for multiplayer', completed: false, progress: 15 },
+        { text: 'Build impressive M&M-themed portfolio', completed: true },
+        { text: 'Prove dedication to lovingrobot & the M&M guild', completed: false },
       ],
-      reward: 'Career advancement, passion project involvement',
+      reward: 'Epic quest: Career advancement, work on dream MMORPG, learn from masters, raid bosses (in code)',
     },
     completedQuests: [
-      { title: 'Software Development Program (Sweden)', xp: 5000, reward: 'C# Mastery +50' },
+      { title: '.NET Software Developer Training', xp: 5000, reward: 'C# Mastery +50' },
       { title: 'Full-Stack Internship at LearningWell', xp: 3000, reward: 'Professional Experience +40' },
+      { title: 'Build HolistiQ Application from Scratch', xp: 3500, reward: 'Full-Stack Architecture +50, PostgreSQL +35, Google Maps API +25' },
+      { title: 'Lead Developer - Enterprise IAM System (Sailpoint IIQ)', xp: 4000, reward: 'Identity Management +50, Enterprise Architecture +45' },
+      { title: 'Build Server Infrastructure Monitoring System', xp: 2500, reward: 'Grafana Mastery +40, DevOps +35, Saved Production from Storage Crisis!' },
+      { title: 'Solo Developer - IT Asset Management Tool', xp: 2000, reward: 'Network Topology +35, Database Design +30' },
+      { title: 'Build 2D Co-op Boss Fight Game', xp: 1800, reward: 'Game Development +40, Local Multiplayer +35, Combat Systems +30' },
+      { title: 'Create Bar-Hopping Event Demo App', xp: 800, reward: 'Rapid Prototyping +25, Event-Driven Design +20' },
       { title: 'Build PetPal Application', xp: 1500, reward: 'Full-Stack Skills +30' },
       { title: 'Master Blazor Framework', xp: 1200, reward: 'UI Development +25' },
       { title: 'Docker & CI/CD Implementation', xp: 1000, reward: 'DevOps Knowledge +20' },
     ],
     sideQuests: [
-      { title: 'Contribute to game dev community', progress: 30 },
-      { title: 'Build Unity multiplayer prototype', progress: 45 },
-      { title: 'Study classic MMORPG design', progress: 70 },
+      { title: 'Master Unity Netcode for Multiplayer (Udemy Course)', progress: 15 },
+      { title: 'Build Unity Multiplayer Prototype with Netcode', progress: 10 },
+      { title: 'Study M&M Design Philosophy & Classic MMORPGs', progress: 80 },
+      { title: 'Contribute to Game Dev Community', progress: 35 },
+      { title: 'Install Enterprise IAM for Major Corporation (March)', progress: 70 },
+      { title: 'Advanced Unity UI Toolkit Mastery', progress: 65 },
     ],
   };
 
@@ -534,7 +557,7 @@ export default function CharacterSheet() {
                     <div className="section-label">Bags</div>
                     <div style={{
                       display: 'grid',
-                      gridTemplateColumns: 'repeat(5, 36px)',
+                      gridTemplateColumns: 'repeat(4, 36px)',
                       gap: '2px',
                       justifyContent: 'center',
                     }}>
