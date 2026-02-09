@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
 import BuffIcon from '../components/BuffIcon';
@@ -12,6 +12,15 @@ const UnityIcon = (
     <path d="m12.9288 4.2939 3.7997 2.1929c.1366.077.1415.2905 0 .3675l-4.515 2.6076a.4192.4192 0 0 1-.4246 0L7.274 6.8543c-.139-.0745-.1415-.293 0-.3675l3.7972-2.193V0L1.3758 5.5977V16.793l3.7177-2.1456v-4.3858c-.0025-.1565.1813-.2682.318-.1838l4.5148 2.6076a.4252.4252 0 0 1 .2136.3676v5.2127c.0025.1565-.1813.2682-.3179.1838l-3.7996-2.1929-3.7178 2.1457L12 24l9.6954-5.5977-3.7178-2.1457-3.7996 2.1929c-.1341.082-.3229-.0248-.3179-.1838V13.053c0-.1565.087-.2956.2136-.3676l4.5149-2.6076c.134-.082.3228.0224.3179.1838v4.3858l3.7177 2.1456V5.5977L12.9288 0Z" />
   </svg>
 );
+
+const PLAYER_CHATTER = [
+  { name: 'Thundrik', msg: 'Does anyone know where the fighter trainer is?' },
+  { name: 'Lyranis', msg: 'Looking for the inquisitor trainer, can anyone point me the right way?' },
+  { name: 'Grimbold', msg: 'Where do I find the fighter trainer around here?' },
+  { name: 'Selphina', msg: 'Has anyone seen the inquisitor trainer? Been searching for ages.' },
+  { name: 'Arxius', msg: 'Anyone know where the fighter trainer is? Just rolled into town.' },
+  { name: 'Veylith', msg: "Where's the inquisitor trainer at?" },
+];
 
 const TABS = [
   { id: 'inventory', label: 'Inventory' },
@@ -96,6 +105,38 @@ export default function CharacterSheet() {
       `Shawn says, "${npcMessage || "I'll review this with great interest. Your dedication is impressive."}"`,
       `You have gained ${experience || 100} experience!`,
     ]);
+  }, []);
+
+  // Ambient player chatter — random players asking about trainers
+  useEffect(() => {
+    const usedIndices = new Set<number>();
+    const timers: ReturnType<typeof setTimeout>[] = [];
+
+    const scheduleNext = (delay: number) => {
+      const timer = setTimeout(() => {
+        const available = PLAYER_CHATTER
+          .map((c, i) => ({ ...c, i }))
+          .filter(c => !usedIndices.has(c.i));
+        if (available.length === 0) return;
+
+        const pick = available[Math.floor(Math.random() * available.length)];
+        usedIndices.add(pick.i);
+
+        setInteractionLog(prev => [
+          ...prev,
+          `${pick.name} says out of character, "${pick.msg}"`,
+        ]);
+
+        // Schedule next message 45–120 seconds later
+        scheduleNext(45000 + Math.random() * 75000);
+      }, delay);
+      timers.push(timer);
+    };
+
+    // First message appears 20–60 seconds in (well within 5 minutes)
+    scheduleNext(20000 + Math.random() * 40000);
+
+    return () => timers.forEach(t => clearTimeout(t));
   }, []);
 
   if (showIntro) {
@@ -931,7 +972,11 @@ export default function CharacterSheet() {
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.1 }}
-                    className="interactions-message"
+                    className={
+                      msg.includes('says out of character')
+                        ? 'interactions-message interactions-player-chat'
+                        : 'interactions-message'
+                    }
                   >
                     {msg}
                   </motion.div>
