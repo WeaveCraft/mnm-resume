@@ -285,7 +285,7 @@ export default function CharacterSheet() {
       { title: 'Solo Developer - IT Asset Management Tool', xp: 2000, reward: 'Network Topology +35, Database Design +30' },
       { title: 'Build 2D Co-op Boss Fight Game', xp: 1800, reward: 'Game Development +40, Local Multiplayer +35, Combat Systems +30' },
       { title: 'Create Bar-Hopping Event Demo App', xp: 800, reward: 'Rapid Prototyping +25, Event-Driven Design +20' },
-      { title: 'Build PetPal Application', xp: 1500, reward: 'Full-Stack Skills +30' },
+      { title: 'Build PetPal - Pet-Owner Matching App', xp: 1500, reward: 'Full-Stack Skills +30, Social Platform Design +20' },
       { title: 'Master Blazor Framework', xp: 1200, reward: 'UI Development +25' },
       { title: 'Docker & CI/CD Implementation', xp: 1000, reward: 'DevOps Knowledge +20' },
     ],
