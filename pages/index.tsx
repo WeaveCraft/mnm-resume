@@ -623,9 +623,9 @@ export default function CharacterSheet() {
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.3rem' }}>
                       <span style={{ fontSize: '0.75rem', color: '#D4AF37', fontFamily: 'Cinzel, Georgia, serif' }}>{faction.name}</span>
-                      <span style={{ fontSize: '0.6rem', color: faction.color, fontFamily: 'Courier New, monospace', fontWeight: 'bold' }}>{faction.standing}</span>
+                      <span style={{ fontSize: '0.72rem', color: faction.color, fontFamily: 'Courier New, monospace', fontWeight: 'bold' }}>{faction.standing}</span>
                     </div>
-                    <div style={{ fontSize: '0.6rem', color: '#9494A0', fontStyle: 'italic', marginBottom: '0.4rem', fontFamily: 'Courier New, monospace', textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}>
+                    <div style={{ fontSize: '0.72rem', color: '#B8B8C4', fontStyle: 'italic', marginBottom: '0.4rem', fontFamily: 'Courier New, monospace' }}>
                       {faction.description}
                     </div>
                     <div className="faction-bar-track">
@@ -708,8 +708,8 @@ export default function CharacterSheet() {
                         <span style={{ fontSize: '0.75rem', flexShrink: 0, color: i === selectedFaith ? faith.color : '#50505A' }}>{f.symbol}</span>
                         <span style={{
                           fontFamily: 'Courier New, monospace',
-                          fontSize: '0.65rem',
-                          color: i === selectedFaith ? '#D4AF37' : '#B8B8C0',
+                          fontSize: '0.72rem',
+                          color: i === selectedFaith ? '#D4AF37' : '#C8C8D0',
                         }}>
                           {f.name}
                         </span>
@@ -731,7 +731,7 @@ export default function CharacterSheet() {
                       <div style={{ textAlign: 'center', marginBottom: '0.75rem' }}>
                         <div style={{ fontSize: '2.5rem', marginBottom: '0.35rem', color: faith.color }}>{faith.symbol}</div>
                         <h3 style={{ fontSize: '1rem', marginBottom: '0.2rem', letterSpacing: '0.15em', fontFamily: 'Cinzel, Georgia, serif', color: '#D4AF37' }}>{faith.name.toUpperCase()}</h3>
-                        <div style={{ fontSize: '0.6rem', color: faith.color, fontFamily: 'Courier New, monospace', letterSpacing: '0.1em' }}>{faith.domain}</div>
+                        <div style={{ fontSize: '0.7rem', color: faith.color, fontFamily: 'Courier New, monospace', letterSpacing: '0.1em' }}>{faith.domain}</div>
                       </div>
 
                       <div style={{
@@ -740,7 +740,7 @@ export default function CharacterSheet() {
                         border: '1px solid #32323A',
                         marginBottom: '0.6rem',
                       }}>
-                        <p style={{ fontSize: '0.64rem', color: '#CDCDD4', lineHeight: '1.8', fontFamily: 'Courier New, monospace', textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}>
+                        <p style={{ fontSize: '0.75rem', color: '#D8D8E0', lineHeight: '1.8', fontFamily: 'Courier New, monospace' }}>
                           {faith.description}
                         </p>
                       </div>
@@ -752,8 +752,8 @@ export default function CharacterSheet() {
                         border: '1px solid #32323A',
                         marginBottom: '0.6rem',
                       }}>
-                        <div style={{ fontSize: '0.5rem', color: '#9494A0', fontFamily: 'Courier New, monospace', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.25rem' }}>Blessing</div>
-                        <p style={{ fontSize: '0.64rem', color: faith.color, fontFamily: 'Courier New, monospace', textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}>
+                        <div style={{ fontSize: '0.6rem', color: '#ACACB8', fontFamily: 'Courier New, monospace', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.25rem' }}>Blessing</div>
+                        <p style={{ fontSize: '0.75rem', color: faith.color, fontFamily: 'Courier New, monospace' }}>
                           {faith.blessing}
                         </p>
                       </div>
@@ -763,7 +763,7 @@ export default function CharacterSheet() {
                         padding: '0.6rem 0.75rem',
                         borderTop: '1px solid #32323A',
                       }}>
-                        <p style={{ fontSize: '0.6rem', color: '#9E9EAA', fontFamily: 'Courier New, monospace', fontStyle: 'italic', lineHeight: '1.7', textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}>
+                        <p style={{ fontSize: '0.72rem', color: '#B8B8C4', fontFamily: 'Courier New, monospace', fontStyle: 'italic', lineHeight: '1.7' }}>
                           &quot;{faith.philosophy}&quot;
                         </p>
                       </div>
@@ -771,8 +771,8 @@ export default function CharacterSheet() {
                       {/* Devotion bar */}
                       <div style={{ marginTop: '0.5rem' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.3rem' }}>
-                          <span style={{ fontSize: '0.5rem', color: '#7A7A84', fontFamily: 'Courier New, monospace', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Devotion</span>
-                          <span style={{ fontSize: '0.6rem', color: '#D4AF37', fontFamily: 'Cinzel, Georgia, serif' }}>{faith.devotion}</span>
+                          <span style={{ fontSize: '0.6rem', color: '#9494A0', fontFamily: 'Courier New, monospace', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Devotion</span>
+                          <span style={{ fontSize: '0.7rem', color: '#D4AF37', fontFamily: 'Cinzel, Georgia, serif' }}>{faith.devotion}</span>
                         </div>
                         <div className="faction-bar-track">
                           <motion.div
@@ -801,7 +801,7 @@ export default function CharacterSheet() {
                   <h4 style={{ color: '#D4AF37', fontFamily: 'Cinzel, Georgia, serif', fontSize: '0.85rem', margin: '0 0 0.4rem 0' }}>
                     {quests.mainQuest.title}
                   </h4>
-                  <p style={{ color: '#CDCDD4', fontSize: '0.65rem', fontStyle: 'italic', fontFamily: 'Courier New, monospace', marginBottom: '0.6rem', textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}>
+                  <p style={{ color: '#D8D8E0', fontSize: '0.78rem', fontStyle: 'italic', fontFamily: 'Courier New, monospace', marginBottom: '0.6rem' }}>
                     {quests.mainQuest.description}
                   </p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
@@ -812,8 +812,8 @@ export default function CharacterSheet() {
                         </span>
                         <div style={{ flex: 1 }}>
                           <span style={{
-                            color: obj.completed ? '#7A7A84' : '#B8B8C0',
-                            fontSize: '0.65rem',
+                            color: obj.completed ? '#8A8A94' : '#D0D0D8',
+                            fontSize: '0.75rem',
                             fontFamily: 'Courier New, monospace',
                             textDecoration: obj.completed ? 'line-through' : 'none',
                           }}>
@@ -829,7 +829,7 @@ export default function CharacterSheet() {
                     ))}
                   </div>
                   <div style={{ marginTop: '0.6rem', paddingTop: '0.6rem', borderTop: '1px solid #32323A' }}>
-                    <p style={{ color: '#9494A0', fontSize: '0.6rem', fontFamily: 'Courier New, monospace', textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}>
+                    <p style={{ color: '#B0B0BC', fontSize: '0.72rem', fontFamily: 'Courier New, monospace' }}>
                       Reward: {quests.mainQuest.reward}
                     </p>
                   </div>
@@ -841,12 +841,12 @@ export default function CharacterSheet() {
                     <div key={i} className="quest-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                         <span style={{ color: '#5A8A4A', fontSize: '0.7rem' }}>{'\u2713'}</span>
-                        <span style={{ color: '#B8B8C0', fontSize: '0.65rem', fontFamily: 'Courier New, monospace' }}>{quest.title}</span>
+                        <span style={{ color: '#D0D0D8', fontSize: '0.75rem', fontFamily: 'Courier New, monospace' }}>{quest.title}</span>
                       </div>
                       <div style={{ textAlign: 'right' }}>
-                        <span style={{ color: '#D4AF37', fontSize: '0.6rem', fontFamily: 'Courier New, monospace' }}>+{quest.xp} XP</span>
+                        <span style={{ color: '#D4AF37', fontSize: '0.7rem', fontFamily: 'Courier New, monospace' }}>+{quest.xp} XP</span>
                         <br />
-                        <span style={{ color: '#9494A0', fontSize: '0.55rem', fontFamily: 'Courier New, monospace' }}>{quest.reward}</span>
+                        <span style={{ color: '#B0B0BC', fontSize: '0.65rem', fontFamily: 'Courier New, monospace' }}>{quest.reward}</span>
                       </div>
                     </div>
                   ))}
@@ -856,8 +856,8 @@ export default function CharacterSheet() {
                 {quests.sideQuests.map((quest, i) => (
                   <div key={i} className="quest-item">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.2rem' }}>
-                      <span style={{ color: '#B8B8C0', fontSize: '0.65rem', fontFamily: 'Courier New, monospace' }}>{quest.title}</span>
-                      <span style={{ color: '#D4AF37', fontSize: '0.6rem', fontFamily: 'Courier New, monospace' }}>{quest.progress}%</span>
+                      <span style={{ color: '#D0D0D8', fontSize: '0.75rem', fontFamily: 'Courier New, monospace' }}>{quest.title}</span>
+                      <span style={{ color: '#D4AF37', fontSize: '0.7rem', fontFamily: 'Courier New, monospace' }}>{quest.progress}%</span>
                     </div>
                     <div className="quest-progress-track">
                       <div className="quest-progress-fill" style={{ width: `${quest.progress}%` }} />
@@ -877,17 +877,17 @@ export default function CharacterSheet() {
                   <h3 className="animate-glow" style={{ fontSize: '1.1rem', marginBottom: '0.75rem', letterSpacing: '0.1em' }}>
                     Monsters &amp; Memories
                   </h3>
-                  <p style={{ fontSize: '0.7rem', color: '#CDCDD4', lineHeight: '1.8', fontFamily: 'Courier New, monospace', textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}>
+                  <p style={{ fontSize: '0.8rem', color: '#D8D8E0', lineHeight: '1.8', fontFamily: 'Courier New, monospace' }}>
                     I&apos;m a passionate gamer and developer who grew up on
                     classic MMORPGs. Building this character sheet wasn&apos;t
                     just a resume exercise &mdash; it&apos;s a love letter to the
                     genre I want to help build.
                   </p>
                   <div style={{ marginTop: '1rem', padding: '0.75rem', border: '1px solid #32323A', background: 'rgba(0,0,0,0.2)' }}>
-                    <p style={{ fontSize: '0.65rem', color: '#D4AF37', fontFamily: 'Cinzel, Georgia, serif', marginBottom: '0.3rem' }}>
+                    <p style={{ fontSize: '0.75rem', color: '#D4AF37', fontFamily: 'Cinzel, Georgia, serif', marginBottom: '0.3rem' }}>
                       Why M&amp;M?
                     </p>
-                    <p style={{ fontSize: '0.6rem', color: '#CDCDD4', lineHeight: '1.7', fontFamily: 'Courier New, monospace', textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}>
+                    <p style={{ fontSize: '0.72rem', color: '#D8D8E0', lineHeight: '1.8', fontFamily: 'Courier New, monospace' }}>
                       Because the best code comes from people who
                       genuinely love what they&apos;re building. I bring
                       strong C#/.NET fundamentals, a growing Unity
@@ -908,10 +908,10 @@ export default function CharacterSheet() {
                     'Quick Learner',
                   ].map((tag) => (
                     <span key={tag} style={{
-                      padding: '0.3rem 0.6rem',
+                      padding: '0.35rem 0.65rem',
                       border: '1px solid #32323A',
-                      fontSize: '0.6rem',
-                      color: '#B8B8C0',
+                      fontSize: '0.7rem',
+                      color: '#D0D0D8',
                       fontFamily: 'Courier New, monospace',
                       background: 'rgba(0,0,0,0.2)',
                     }}>
