@@ -122,71 +122,71 @@ export default function CharacterSheet() {
   // Bottom: Primary, Secondary, Range, Ammo
   const equipment = {
     // Top row
-    ear1:      { name: 'Agile',        icon: '\uD83D\uDC42', type: 'Artifact' as const, description: 'Sprint methodology mastery', stats: ['+35 Team Velocity', '+30 Adaptability'] },
-    neck:      { name: 'CI/CD',        icon: '\uD83D\uDD17', type: 'Tool' as const, description: 'Continuous integration pipeline', stats: ['+40 Automation', '+30 Deployment'] },
-    head:      { name: 'Architecture', icon: '\uD83E\uDDE0', type: 'Armor' as const, description: 'System design & architecture thinking', stats: ['+45 Design Patterns', '+35 Scalability'] },
-    face:      { name: 'Git',          icon: '\u26D1\uFE0F', type: 'Tool' as const, description: 'Version control mastery', stats: ['+50 Version Control', '+40 Branching'] },
-    ear2:      { name: 'Docker',       icon: '\uD83D\uDCE6', type: 'Tool' as const, description: 'Containerization specialist', stats: ['+45 Environment Consistency', '+35 Deployment'] },
+    ear1:      { name: 'Agile',        icon: '\u25C8', type: 'Artifact' as const, description: 'Sprint methodology mastery', stats: ['+35 Team Velocity', '+30 Adaptability'] },
+    neck:      { name: 'CI/CD',        icon: '\u2662', type: 'Tool' as const, description: 'Continuous integration pipeline', stats: ['+40 Automation', '+30 Deployment'] },
+    head:      { name: 'Architecture', icon: '\u2656', type: 'Armor' as const, description: 'System design & architecture thinking', stats: ['+45 Design Patterns', '+35 Scalability'] },
+    face:      { name: 'Git',          icon: '\u2318', type: 'Tool' as const, description: 'Version control mastery', stats: ['+50 Version Control', '+40 Branching'] },
+    ear2:      { name: 'Docker',       icon: '\u25C8', type: 'Tool' as const, description: 'Containerization specialist', stats: ['+45 Environment Consistency', '+35 Deployment'] },
     // Left side
-    chest:     { name: 'C#',           icon: '\uD83D\uDEE1\uFE0F', type: 'Armor' as const, description: 'Primary programming language', stats: ['+50 Code Clarity', '+40 Type Safety', '+30 Performance'] },
-    arms:      { name: 'Entity FW',    icon: '\uD83D\uDCCA', type: 'Weapon' as const, description: 'ORM & data access layer', stats: ['+40 Data Modeling', '+35 Query Building'] },
-    wrist1:    { name: 'TypeScript',   icon: '\uD83D\uDCA0', type: 'Weapon' as const, description: 'Typed JavaScript mastery', stats: ['+40 Type Safety', '+35 Frontend Power'] },
-    belt:      { name: 'SOLID',        icon: '\uD83C\uDF1F', type: 'Artifact' as const, description: 'Design principles mastery', stats: ['+40 Code Quality', '+35 Maintainability'] },
-    finger1:   { name: 'VS Code',      icon: '\uD83D\uDCBB', type: 'Tool' as const, description: 'Primary IDE', stats: ['+40 Productivity', '+30 Extension Mastery'] },
-    legs:      { name: 'Linux',        icon: '\uD83D\uDC27', type: 'Armor' as const, description: 'Server & OS proficiency', stats: ['+35 DevOps', '+30 Shell Scripting'] },
+    chest:     { name: 'C#',           icon: '\u2616', type: 'Armor' as const, description: 'Primary programming language', stats: ['+50 Code Clarity', '+40 Type Safety', '+30 Performance'] },
+    arms:      { name: 'Entity FW',    icon: '\u2720', type: 'Weapon' as const, description: 'ORM & data access layer', stats: ['+40 Data Modeling', '+35 Query Building'] },
+    wrist1:    { name: 'TypeScript',   icon: '\u25CE', type: 'Weapon' as const, description: 'Typed JavaScript mastery', stats: ['+40 Type Safety', '+35 Frontend Power'] },
+    belt:      { name: 'SOLID',        icon: '\u2726', type: 'Artifact' as const, description: 'Design principles mastery', stats: ['+40 Code Quality', '+35 Maintainability'] },
+    finger1:   { name: 'VS Code',      icon: '\u25C7', type: 'Tool' as const, description: 'Primary IDE', stats: ['+40 Productivity', '+30 Extension Mastery'] },
+    legs:      { name: 'Linux',        icon: '\u25BD', type: 'Armor' as const, description: 'Server & OS proficiency', stats: ['+35 DevOps', '+30 Shell Scripting'] },
     // Right side
-    cape:      { name: 'Portfolio',    icon: '\uD83C\uDF93', type: 'Artifact' as const, description: 'Project portfolio & open source', stats: ['+40 Credibility', '+35 Showcase'] },
-    shoulders: { name: '.NET',         icon: '\uD83D\uDD27', type: 'Weapon' as const, description: 'Framework expertise', stats: ['+45 Backend Power', '+35 API Design'] },
-    wrist2:    { name: 'Blazor',       icon: '\uD83D\uDD25', type: 'Weapon' as const, description: 'Full-stack .NET UI framework', stats: ['+35 UI Development', '+30 Component Design'] },
-    hands:     { name: 'Debugging',    icon: '\uD83D\uDC1B', type: 'Tool' as const, description: 'Tracking down & fixing issues', stats: ['+45 Bug Detection', '+35 Root Cause Analysis'] },
-    finger2:   { name: 'React',        icon: '\u269B\uFE0F', type: 'Tool' as const, description: 'Frontend framework', stats: ['+40 UI Development', '+30 Component Design'] },
-    boots:     { name: 'Bash',         icon: '\uD83D\uDDA5\uFE0F', type: 'Tool' as const, description: 'Shell scripting & CLI tools', stats: ['+35 Automation', '+30 Scripting'] },
+    cape:      { name: 'Portfolio',    icon: '\u2742', type: 'Artifact' as const, description: 'Project portfolio & open source', stats: ['+40 Credibility', '+35 Showcase'] },
+    shoulders: { name: '.NET',         icon: '\u2694', type: 'Weapon' as const, description: 'Framework expertise', stats: ['+45 Backend Power', '+35 API Design'] },
+    wrist2:    { name: 'Blazor',       icon: '\u25CE', type: 'Weapon' as const, description: 'Full-stack .NET UI framework', stats: ['+35 UI Development', '+30 Component Design'] },
+    hands:     { name: 'Debugging',    icon: '\u2736', type: 'Tool' as const, description: 'Tracking down & fixing issues', stats: ['+45 Bug Detection', '+35 Root Cause Analysis'] },
+    finger2:   { name: 'React',        icon: '\u25C7', type: 'Tool' as const, description: 'Frontend framework', stats: ['+40 UI Development', '+30 Component Design'] },
+    boots:     { name: 'Bash',         icon: '\u25B3', type: 'Tool' as const, description: 'Shell scripting & CLI tools', stats: ['+35 Automation', '+30 Scripting'] },
     // Weapons row
-    primary:   { name: 'Unity',        icon: '\uD83C\uDFAE', type: 'Weapon' as const, description: 'Game engine - currently leveling', stats: ['+35 Game Dev', '+25 Scene Design'] },
-    secondary: { name: 'PostgreSQL',   icon: '\uD83D\uDCBE', type: 'Artifact' as const, description: 'Database expertise', stats: ['+45 Query Optimization', '+35 Data Modeling'] },
-    range:     { name: 'REST API',     icon: '\uD83D\uDD0C', type: 'Tool' as const, description: 'API design & implementation', stats: ['+40 Endpoint Design', '+30 Integration'] },
+    primary:   { name: 'Unity',        icon: '\u2694', type: 'Weapon' as const, description: 'Game engine - currently leveling', stats: ['+35 Game Dev', '+25 Scene Design'] },
+    secondary: { name: 'PostgreSQL',   icon: '\u25C6', type: 'Artifact' as const, description: 'Database expertise', stats: ['+45 Query Optimization', '+35 Data Modeling'] },
+    range:     { name: 'REST API',     icon: '\u279B', type: 'Tool' as const, description: 'API design & implementation', stats: ['+40 Endpoint Design', '+30 Integration'] },
   };
 
   // Inventory items (smaller tools/skills) - 8 slots like the screenshot
   const inventoryItems = [
-    { icon: '\uD83C\uDF10', name: 'HTML5', count: undefined },
-    { icon: '\uD83C\uDFA8', name: 'CSS3', count: undefined },
-    { icon: '\u26A1', name: 'JavaScript', count: 1 },
-    { icon: '\uD83D\uDDC4\uFE0F', name: 'SQL', count: 1 },
-    { icon: '\uD83C\uDFAF', name: 'Angular', count: undefined },
-    { icon: '\uD83D\uDCE6', name: 'npm', count: 12 },
-    { icon: '\uD83D\uDD0D', name: 'xUnit', count: 1 },
-    { icon: '\uD83D\uDCC4', name: 'JSON', count: undefined },
-    { icon: '\uD83D\uDEE0\uFE0F', name: 'LINQ', count: undefined },
-    { icon: '\u2699\uFE0F', name: 'ASP.NET', count: undefined },
+    { icon: '\u25CE', name: 'HTML5', count: undefined },
+    { icon: '\u25C6', name: 'CSS3', count: undefined },
+    { icon: '\u2726', name: 'JavaScript', count: 1 },
+    { icon: '\u25A3', name: 'SQL', count: 1 },
+    { icon: '\u25C8', name: 'Angular', count: undefined },
+    { icon: '\u25A1', name: 'npm', count: 12 },
+    { icon: '\u2736', name: 'xUnit', count: 1 },
+    { icon: '\u25C7', name: 'JSON', count: undefined },
+    { icon: '\u25CE', name: 'LINQ', count: undefined },
+    { icon: '\u2699', name: 'ASP.NET', count: undefined },
   ];
 
   // Bag categories
   const bags = [
-    { icon: '\uD83C\uDF92', name: 'Backend' },
-    { icon: '\uD83D\uDCBC', name: 'Frontend' },
-    { icon: '\u2699\uFE0F', name: 'DevOps' },
-    { icon: '\uD83C\uDFAE', name: 'GameDev' },
+    { icon: '\u25A3', name: 'Backend' },
+    { icon: '\u25A3', name: 'Frontend' },
+    { icon: '\u25A3', name: 'DevOps' },
+    { icon: '\u25A3', name: 'GameDev' },
   ];
 
   const buffs = [
-    { name: 'Employed', icon: '\uD83D\uDCBC', effect: '+Professional Experience' },
-    { name: 'Learning Unity', icon: '\uD83C\uDFAE', effect: '+Game Dev Skills' },
-    { name: 'Seeking M&M', icon: '\u2B50', effect: '+Motivation +100' },
-    { name: 'Open Source', icon: '\uD83C\uDF10', effect: '+Community Contribution' },
+    { name: 'Employed', icon: '\u2605', effect: '+Professional Experience' },
+    { name: 'Learning Unity', icon: '\u25C6', effect: '+Game Dev Skills' },
+    { name: 'Seeking M&M', icon: '\u2606', effect: '+Motivation +100' },
+    { name: 'Open Source', icon: '\u25CE', effect: '+Community Contribution' },
   ];
 
   const abilities = [
-    { name: 'Problem Solving', icon: '\uD83E\uDDE9', description: 'Break down complex challenges' },
-    { name: 'Code Review', icon: '\uD83D\uDD0D', description: 'Evaluate and improve code quality' },
-    { name: 'Debugging', icon: '\uD83D\uDC1B', description: 'Track down and fix issues' },
-    { name: 'Refactoring', icon: '\u267B\uFE0F', description: 'Improve code structure' },
-    { name: 'Documentation', icon: '\uD83D\uDCDD', description: 'Write clear technical docs' },
-    { name: 'Collaboration', icon: '\uD83E\uDD1D', description: 'Work effectively with others' },
-    { name: 'Git Commit', icon: '\uD83D\uDCBE', description: 'Version control operations' },
-    { name: 'API Design', icon: '\uD83D\uDD0C', description: 'Design RESTful interfaces' },
-    { name: 'DB Query', icon: '\uD83D\uDDC4\uFE0F', description: 'Optimize data operations' },
-    { name: 'Deploy', icon: '\uD83D\uDE80', description: 'Ship to production' },
+    { name: 'Problem Solving', icon: '\u25C8', description: 'Break down complex challenges' },
+    { name: 'Code Review', icon: '\u25C6', description: 'Evaluate and improve code quality' },
+    { name: 'Debugging', icon: '\u2736', description: 'Track down and fix issues' },
+    { name: 'Refactoring', icon: '\u25CE', description: 'Improve code structure' },
+    { name: 'Documentation', icon: '\u25C7', description: 'Write clear technical docs' },
+    { name: 'Collaboration', icon: '\u2605', description: 'Work effectively with others' },
+    { name: 'Git Commit', icon: '\u25C8', description: 'Version control operations' },
+    { name: 'API Design', icon: '\u279B', description: 'Design RESTful interfaces' },
+    { name: 'DB Query', icon: '\u25A3', description: 'Optimize data operations' },
+    { name: 'Deploy', icon: '\u2694', description: 'Ship to production' },
   ];
 
   const quests = {
@@ -309,7 +309,7 @@ export default function CharacterSheet() {
                         {/* Class Icon Area */}
                         <div className="dark-panel-shallow" style={{ padding: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '80px', background: 'linear-gradient(180deg, #1C1A16 0%, #16140E 100%)' }}>
                           <div style={{ textAlign: 'center' }}>
-                            <div style={{ fontSize: '2.5rem', lineHeight: 1 }}>{'\uD83D\uDDE1\uFE0F'}</div>
+                            <div style={{ fontSize: '2.5rem', lineHeight: 1 }}>{'\u2694'}</div>
                           </div>
                         </div>
 
@@ -625,7 +625,7 @@ export default function CharacterSheet() {
                   {/* Selected faith detail */}
                   <div className="dark-panel-shallow" style={{ padding: '1rem' }}>
                     <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
-                      <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>{'\uD83D\uDC31'}</div>
+                      <div style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>{'\u2606'}</div>
                       <h3 style={{ fontSize: '1rem', marginBottom: '0.5rem', letterSpacing: '0.15em' }}>AGNOSTIC</h3>
                     </div>
                     <div style={{
