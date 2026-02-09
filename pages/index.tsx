@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
 import BuffIcon from '../components/BuffIcon';
 import AbilitySlot from '../components/AbilitySlot';
 import IntroSplash from '../components/IntroSplash';
+import HandInDialog from '../components/HandInDialog';
 import DungeonScene from '@/components/DungeonScene';
 
 const TABS = [
@@ -17,6 +18,65 @@ const TABS = [
 export default function CharacterSheet() {
   const [showIntro, setShowIntro] = useState(true);
   const [activeTab, setActiveTab] = useState('inventory');
+
+  // Job application hand-in animation state
+  const [isDraggingNote, setIsDraggingNote] = useState(false);
+  const [showHandInDialog, setShowHandInDialog] = useState(false);
+  const [noteHandedIn, setNoteHandedIn] = useState(false);
+  const [interactionLog, setInteractionLog] = useState<string[]>([]);
+  const noteRef = useRef<HTMLDivElement>(null);
+  const portraitRef = useRef<HTMLDivElement>(null);
+  const [noteAnimPos, setNoteAnimPos] = useState<{ x: number; y: number } | null>(null);
+
+  const handleNoteClick = useCallback(() => {
+    if (noteHandedIn || isDraggingNote) return;
+
+    // Get positions for animation
+    const noteEl = noteRef.current;
+    const portraitEl = portraitRef.current;
+    if (!noteEl || !portraitEl) {
+      setShowHandInDialog(true);
+      return;
+    }
+
+    const noteRect = noteEl.getBoundingClientRect();
+    const portraitRect = portraitEl.getBoundingClientRect();
+
+    // Start position (note location)
+    setNoteAnimPos({
+      x: noteRect.left + noteRect.width / 2,
+      y: noteRect.top + noteRect.height / 2,
+    });
+    setIsDraggingNote(true);
+
+    setInteractionLog(prev => [...prev, 'You pick up the Formal Note...']);
+
+    // Animate note flying to portrait, then open dialog
+    setTimeout(() => {
+      setNoteAnimPos({
+        x: portraitRect.left + portraitRect.width / 2,
+        y: portraitRect.top + portraitRect.height / 2,
+      });
+    }, 50);
+
+    setTimeout(() => {
+      setIsDraggingNote(false);
+      setNoteAnimPos(null);
+      setShowHandInDialog(true);
+      setInteractionLog(prev => [...prev, 'You approach Shawn and offer the note...']);
+    }, 700);
+  }, [noteHandedIn, isDraggingNote]);
+
+  const handleHandInComplete = useCallback(() => {
+    setShowHandInDialog(false);
+    setNoteHandedIn(true);
+    setInteractionLog(prev => [
+      ...prev,
+      'You have given Formal Note: Unity Job Application to Shawn.',
+      'Shawn says, "I\'ll review this with great interest. Your dedication is impressive."',
+      'You have gained experience!',
+    ]);
+  }, []);
 
   if (showIntro) {
     return <IntroSplash onComplete={() => setShowIntro(false)} />;
@@ -306,7 +366,7 @@ export default function CharacterSheet() {
                       </div>
 
                       {/* PORTRAIT */}
-                      <div className="portrait-archway" style={{ width: '260px', height: '320px', flexShrink: 0 }}>
+                      <div ref={portraitRef} className="portrait-archway" style={{ width: '260px', height: '320px', flexShrink: 0 }}>
                         <img
                           src="/images/viktor-portrait.png"
                           alt="Viktor Hurtig"
@@ -374,6 +434,19 @@ export default function CharacterSheet() {
                           )}
                         </div>
                       ))}
+                    </div>
+                  </div>
+
+                  {/* Formal Note - Special Quest Item */}
+                  <div
+                    ref={noteRef}
+                    className={`formal-note-slot ${noteHandedIn ? 'formal-note-handed' : 'formal-note-glow'}`}
+                    onClick={handleNoteClick}
+                    title={noteHandedIn ? 'Already handed in' : 'Click to hand in to Shawn'}
+                  >
+                    <div className="formal-note-icon">&#128220;</div>
+                    <div className="formal-note-label">
+                      {noteHandedIn ? 'Handed In' : 'Formal Note'}
                     </div>
                   </div>
 
@@ -632,31 +705,75 @@ export default function CharacterSheet() {
             )}
           </div>
 
-          {/* FOOTER - Currency bar like the game */}
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            padding: '0.4rem 1rem',
-            fontFamily: 'Courier New, monospace',
-            fontSize: '0.6rem',
-            color: '#8B7E71',
-            borderTop: '1px solid #3A3530',
-          }}>
-            <span>Currency</span>
-            <div style={{ display: 'flex', gap: '1.5rem' }}>
-              <span>0</span>
-              <span>19</span>
-              <span>236</span>
-              <span>792</span>
+          {/* INTERACTIONS BAR */}
+          <div className="interactions-bar">
+            <div className="interactions-header">
+              <span>Interactions</span>
+              <div className="interactions-info">
+                <span>MP 7 / 139</span>
+              </div>
             </div>
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <span>Weight</span>
-              <span style={{ color: '#E8D5B7' }}>69 / 129</span>
+            <div className="interactions-log">
+              {interactionLog.length === 0 ? (
+                <div className="interactions-hint">
+                  Click the Formal Note in your inventory to hand it to Shawn...
+                </div>
+              ) : (
+                interactionLog.map((msg, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    className="interactions-message"
+                  >
+                    {msg}
+                  </motion.div>
+                ))
+              )}
             </div>
           </div>
         </motion.div>
       </div>
+
+      {/* Flying Note Animation */}
+      <AnimatePresence>
+        {isDraggingNote && noteAnimPos && (
+          <motion.div
+            className="flying-note"
+            initial={{
+              position: 'fixed',
+              left: noteRef.current?.getBoundingClientRect().left ?? 0,
+              top: noteRef.current?.getBoundingClientRect().top ?? 0,
+              zIndex: 300,
+              opacity: 1,
+              scale: 1,
+            }}
+            animate={{
+              left: noteAnimPos.x - 20,
+              top: noteAnimPos.y - 20,
+              scale: 0.8,
+            }}
+            exit={{ opacity: 0, scale: 0.5 }}
+            transition={{ duration: 0.6, ease: 'easeInOut' }}
+          >
+            <span style={{ fontSize: '2rem' }}>&#128220;</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Hand In Dialog */}
+      <AnimatePresence>
+        {showHandInDialog && (
+          <HandInDialog
+            npcName="Shawn"
+            itemName="Formal Note: Unity Job Application"
+            itemIcon="&#128220;"
+            onHandIn={handleHandInComplete}
+            onClose={() => setShowHandInDialog(false)}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 }
