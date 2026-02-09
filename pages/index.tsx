@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import BuffIcon from '../components/BuffIcon';
 import AbilitySlot from '../components/AbilitySlot';
 import IntroSplash from '../components/IntroSplash';
-import HandInDialog from '../components/HandInDialog';
+import UnityOverlay from '../components/UnityPlayer';
 import DungeonScene from '@/components/DungeonScene';
 
 const TABS = [
@@ -72,14 +72,14 @@ export default function CharacterSheet() {
     }, 700);
   }, [noteHandedIn, isDraggingNote]);
 
-  const handleHandInComplete = useCallback(() => {
+  const handleHandInComplete = useCallback((experience?: number, npcMessage?: string) => {
     setShowHandInDialog(false);
     setNoteHandedIn(true);
     setInteractionLog(prev => [
       ...prev,
       'You have given Formal Note: Unity Job Application to Shawn.',
-      'Shawn says, "I\'ll review this with great interest. Your dedication is impressive."',
-      'You have gained experience!',
+      `Shawn says, "${npcMessage || "I'll review this with great interest. Your dedication is impressive."}"`,
+      `You have gained ${experience || 100} experience!`,
     ]);
   }, []);
 
@@ -972,14 +972,12 @@ export default function CharacterSheet() {
         )}
       </AnimatePresence>
 
-      {/* Hand In Dialog */}
+      {/* Unity Hand-In Overlay */}
       <AnimatePresence>
         {showHandInDialog && (
-          <HandInDialog
-            npcName="Shawn"
+          <UnityOverlay
             itemName="Formal Note: Unity Job Application"
-            itemIcon="&#128220;"
-            onHandIn={handleHandInComplete}
+            onComplete={handleHandInComplete}
             onClose={() => setShowHandInDialog(false)}
           />
         )}
