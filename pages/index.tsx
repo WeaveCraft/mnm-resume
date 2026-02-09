@@ -20,6 +20,7 @@ export default function CharacterSheet() {
   const [showIntro, setShowIntro] = useState(true);
   const [activeTab, setActiveTab] = useState('inventory');
   const [personaOpen, setPersonaOpen] = useState(true);
+  const [personaAnimDone, setPersonaAnimDone] = useState(true);
   const [openBag, setOpenBag] = useState<string | null>(null);
   const [selectedFaith, setSelectedFaith] = useState(0);
 
@@ -263,7 +264,7 @@ export default function CharacterSheet() {
                   {/* Toggle Arrow Button */}
                   <button
                     className="persona-toggle"
-                    onClick={() => setPersonaOpen(!personaOpen)}
+                    onClick={() => { setPersonaAnimDone(false); setPersonaOpen(!personaOpen); }}
                     title={personaOpen ? 'Collapse Persona' : 'Expand Persona'}
                   >
                     <span style={{ fontSize: '0.8rem' }}>{personaOpen ? '\u25C0' : '\u25B6'}</span>
@@ -278,7 +279,8 @@ export default function CharacterSheet() {
                         animate={{ width: 200, opacity: 1 }}
                         exit={{ width: 0, opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', overflow: 'hidden', flexShrink: 0 }}
+                        onAnimationComplete={() => setPersonaAnimDone(true)}
+                        style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', overflow: personaAnimDone ? 'visible' : 'hidden', flexShrink: 0 }}
                       >
                         {/* PERSONA */}
                         <div className="dark-panel-shallow" style={{ padding: '0.5rem' }}>
@@ -1079,11 +1081,22 @@ function ResistanceRowInteractive({ res }: { res: { abbr: string; value: number;
 /* ═══════════════════════════════════════ */
 function InvSlotInteractive({ item }: { item: { icon: string; name: string; count?: number } }) {
   const [showTooltip, setShowTooltip] = useState(false);
+  const [flipBelow, setFlipBelow] = useState(false);
+  const slotRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseEnter = () => {
+    if (slotRef.current) {
+      const rect = slotRef.current.getBoundingClientRect();
+      setFlipBelow(rect.top < 120);
+    }
+    setShowTooltip(true);
+  };
 
   return (
     <div
+      ref={slotRef}
       className="inv-slot"
-      onMouseEnter={() => setShowTooltip(true)}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={() => setShowTooltip(false)}
     >
       <span>{item.icon}</span>
@@ -1093,10 +1106,10 @@ function InvSlotInteractive({ item }: { item: { icon: string; name: string; coun
       <AnimatePresence>
         {showTooltip && (
           <motion.div
-            initial={{ opacity: 0, y: 5 }}
+            initial={{ opacity: 0, y: flipBelow ? -5 : 5 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 5 }}
-            className="game-tooltip inv-tooltip"
+            exit={{ opacity: 0, y: flipBelow ? -5 : 5 }}
+            className={`game-tooltip inv-tooltip ${flipBelow ? 'inv-tooltip-below' : ''}`}
           >
             <h4>{item.icon} {item.name}</h4>
             <p className="tooltip-type">Skill</p>
@@ -1115,22 +1128,33 @@ function InvSlotInteractive({ item }: { item: { icon: string; name: string; coun
 /* ═══════════════════════════════════════ */
 function BagSlotInteractive({ bag, isOpen, onToggle }: { bag: { icon: string; name: string; contents: string[] }; isOpen: boolean; onToggle: () => void }) {
   const [showTooltip, setShowTooltip] = useState(false);
+  const [flipBelow, setFlipBelow] = useState(false);
+  const slotRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseEnter = () => {
+    if (slotRef.current) {
+      const rect = slotRef.current.getBoundingClientRect();
+      setFlipBelow(rect.top < 120);
+    }
+    setShowTooltip(true);
+  };
 
   return (
     <div
+      ref={slotRef}
       className={`inv-slot bag-slot ${isOpen ? 'bag-slot-open' : ''}`}
       onClick={onToggle}
-      onMouseEnter={() => setShowTooltip(true)}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={() => setShowTooltip(false)}
     >
       <span>{bag.icon}</span>
       <AnimatePresence>
         {showTooltip && !isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 5 }}
+            initial={{ opacity: 0, y: flipBelow ? -5 : 5 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 5 }}
-            className="game-tooltip inv-tooltip"
+            exit={{ opacity: 0, y: flipBelow ? -5 : 5 }}
+            className={`game-tooltip inv-tooltip ${flipBelow ? 'inv-tooltip-below' : ''}`}
           >
             <h4>{bag.name}</h4>
             <p className="tooltip-type">Bag &middot; {bag.contents.length} items</p>
@@ -1161,11 +1185,22 @@ function EquipSlotMini({
   stats?: string[];
 }) {
   const [showTooltip, setShowTooltip] = useState(false);
+  const [flipBelow, setFlipBelow] = useState(false);
+  const slotRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseEnter = () => {
+    if (slotRef.current) {
+      const rect = slotRef.current.getBoundingClientRect();
+      setFlipBelow(rect.top < 160);
+    }
+    setShowTooltip(true);
+  };
 
   return (
     <div
+      ref={slotRef}
       className="relative flex flex-col items-center"
-      onMouseEnter={() => setShowTooltip(true)}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={() => setShowTooltip(false)}
     >
       <span className="equip-slot-label">{slot}</span>
@@ -1177,10 +1212,10 @@ function EquipSlotMini({
       <AnimatePresence>
         {showTooltip && (
           <motion.div
-            initial={{ opacity: 0, y: 5 }}
+            initial={{ opacity: 0, y: flipBelow ? -5 : 5 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 5 }}
-            className="game-tooltip left-1/2 bottom-full mb-2 w-48 z-50"
+            exit={{ opacity: 0, y: flipBelow ? -5 : 5 }}
+            className={`game-tooltip left-1/2 w-48 z-50 ${flipBelow ? 'top-full mt-2' : 'bottom-full mb-2'}`}
             style={{ transform: 'translateX(-50%)' }}
           >
             <h4>{icon} {name}</h4>
