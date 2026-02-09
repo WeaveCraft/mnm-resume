@@ -957,16 +957,28 @@ export default function CharacterSheet() {
                   </div>
                   <div style={{ marginBottom: '1rem' }}>
                     <div style={{ fontSize: '0.7rem', color: '#7A7A84', marginBottom: '0.2rem' }}>Location</div>
-                    <div style={{ fontSize: '0.8rem', color: '#B8B8C0' }}>San Francisco, California</div>
+                    <div style={{ fontSize: '0.8rem', color: '#B8B8C0' }}>Södermanland, Sweden</div>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '1.5rem' }}>
                     <a
-                      href="https://github.com/WeaveCraft"
+                      href="mailto:viktor.hurtig@outlook.com"
+                      className="stone-button stone-button-primary"
+                    >
+                      Email - viktor.hurtig@outlook.com
+                    </a>
+                    <a
+                      href="tel:+14156245632"
+                      className="stone-button stone-button-primary"
+                    >
+                      Phone - (1) 415-624-5632
+                    </a>
+                    <a
+                      href="https://discord.com/users/268044753096933386"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="stone-button stone-button-primary"
                     >
-                      GitHub - WeaveCraft
+                      Discord - kunen133
                     </a>
                   </div>
                 </div>
